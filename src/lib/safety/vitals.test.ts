@@ -59,7 +59,9 @@ describe('pregnancy', () => {
 
   it('reads gestation from weeks or LMP', () => {
     expect(parseDemographics('31F, 34 weeks pregnant').gestationWeeks).toBe(34);
-    expect(parseDemographics('29F, LMP 7 weeks ago, positive pregnancy test').gestationWeeks).toBe(7);
+    expect(parseDemographics('29F, LMP 7 weeks ago, positive pregnancy test').gestationWeeks).toBe(
+      7,
+    );
   });
 });
 

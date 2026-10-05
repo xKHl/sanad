@@ -6,7 +6,19 @@ export function makeSpan(text: string, start: number, end: number): Span {
 
 export type Segment = { start: number; end: number; text: string };
 
-const ABBREVIATIONS = new Set(['dr', 'mr', 'mrs', 'ms', 'vs', 'eg', 'e.g', 'ie', 'i.e', 'approx', 'etc']);
+const ABBREVIATIONS = new Set([
+  'dr',
+  'mr',
+  'mrs',
+  'ms',
+  'vs',
+  'eg',
+  'e.g',
+  'ie',
+  'i.e',
+  'approx',
+  'etc',
+]);
 
 /**
  * Split text into sentences on . ; ! ? and newlines.
@@ -72,13 +84,15 @@ export function findAll(text: string, re: RegExp): Span[] {
 /** Drop spans that overlap an earlier, longer span. */
 export function dedupeOverlapping<T extends { span: Span }>(items: T[]): T[] {
   const sorted = [...items].sort(
-    (a, b) => a.span.start - b.span.start || b.span.end - b.span.start - (a.span.end - a.span.start),
+    (a, b) =>
+      a.span.start - b.span.start || b.span.end - b.span.start - (a.span.end - a.span.start),
   );
   const kept: T[] = [];
   for (const item of sorted) {
     const last = kept[kept.length - 1];
     if (last && item.span.start < last.span.end) {
-      if (item.span.end - item.span.start > last.span.end - last.span.start) kept[kept.length - 1] = item;
+      if (item.span.end - item.span.start > last.span.end - last.span.start)
+        kept[kept.length - 1] = item;
       continue;
     }
     kept.push(item);

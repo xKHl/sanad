@@ -11,16 +11,25 @@ import type { MergedMissingItem, MergedRedFlag, SafetyStatus } from './types';
  * downgrade a rule flag.
  */
 
-export const LIMITS = { missingInformation: 8, nextSteps: 10, additionalRedFlags: 4, stringLength: 300 } as const;
+export const LIMITS = {
+  missingInformation: 8,
+  nextSteps: 10,
+  additionalRedFlags: 4,
+  stringLength: 300,
+} as const;
 
-const clip = (s: string) => (s.length > LIMITS.stringLength ? `${s.slice(0, LIMITS.stringLength - 1)}…` : s);
+const clip = (s: string) =>
+  s.length > LIMITS.stringLength ? `${s.slice(0, LIMITS.stringLength - 1)}…` : s;
 
 const URGENCY_ORDER: Record<NextStep['urgency'], number> = { immediate: 0, today: 1, routine: 2 };
 
 /** Enforce list limits and string lengths after parsing (SPEC §7.7). */
 export function postProcess(ai: AiAnalysis): AiAnalysis {
   const s = ai.caseSummary;
-  const fact = (f: { text: string; evidence: string }) => ({ text: clip(f.text), evidence: clip(f.evidence) });
+  const fact = (f: { text: string; evidence: string }) => ({
+    text: clip(f.text),
+    evidence: clip(f.evidence),
+  });
   const summary = {
     ...s,
     oneLiner: clip(s.oneLiner),
@@ -33,7 +42,10 @@ export function postProcess(ai: AiAnalysis): AiAnalysis {
     .sort((a, b) => URGENCY_ORDER[a.step.urgency] - URGENCY_ORDER[b.step.urgency] || a.i - b.i)
     .map((x) => x.step);
   return {
-    inputQuality: { ...ai.inputQuality, note: ai.inputQuality.note ? clip(ai.inputQuality.note) : null },
+    inputQuality: {
+      ...ai.inputQuality,
+      note: ai.inputQuality.note ? clip(ai.inputQuality.note) : null,
+    },
     caseSummary: summary,
     missingInformation: ai.missingInformation.slice(0, LIMITS.missingInformation).map((m) => ({
       ...m,
@@ -75,7 +87,9 @@ export function mergeRedFlags(
       return { quote, span, verified: span !== null };
     });
     if (!evidence.some((e) => e.verified)) {
-      warnings.push(`AI red flag "${f.title}" dropped: no evidence quote was found in the scenario.`);
+      warnings.push(
+        `AI red flag "${f.title}" dropped: no evidence quote was found in the scenario.`,
+      );
       continue;
     }
     const title = ` ${normalize(f.title)} `;
@@ -95,7 +109,8 @@ export function mergeRedFlags(
       evidence,
     });
   }
-  const rank = (f: MergedRedFlag) => (f.severity === 'critical' ? 0 : 2) + (f.source === 'rule' ? 0 : 1);
+  const rank = (f: MergedRedFlag) =>
+    (f.severity === 'critical' ? 0 : 2) + (f.source === 'rule' ? 0 : 1);
   flags.sort((a, b) => rank(a) - rank(b));
   return { flags, warnings };
 }
@@ -112,7 +127,8 @@ const FAMILIES: Array<{ rule: string; words: RegExp }> = [
   { rule: 'RI-PREGNANCY', words: /pregnan|\blmp\b|menstrual|period/ },
   {
     rule: 'RI-VITALS',
-    words: /vital|observations|blood pressure|heart rate|pulse|saturation|spo2|temperature|respiratory rate/,
+    words:
+      /vital|observations|blood pressure|heart rate|pulse|saturation|spo2|temperature|respiratory rate/,
   },
   { rule: 'RI-GLUCOSE', words: /glucose|blood sugar/ },
   { rule: 'RI-AGE-SEX', words: /\bage\b|\bsex\b|gender/ },
@@ -120,7 +136,10 @@ const FAMILIES: Array<{ rule: string; words: RegExp }> = [
 
 const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 } as const;
 
-export function mergeMissingInfo(required: RequiredInfoItem[], ai: AiAnalysis | null): MergedMissingItem[] {
+export function mergeMissingInfo(
+  required: RequiredInfoItem[],
+  ai: AiAnalysis | null,
+): MergedMissingItem[] {
   const ruleIds = new Set(required.map((r) => r.id));
   const items: MergedMissingItem[] = required.map((r) => ({
     source: 'rule',

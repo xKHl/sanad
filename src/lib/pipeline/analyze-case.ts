@@ -68,7 +68,8 @@ export async function analyzeCase(
     } else {
       aiError = {
         code: 'demo_unavailable',
-        message: 'No recorded AI output exists for this case. Recordings cover the sample cases only.',
+        message:
+          'No recorded AI output exists for this case. Recordings cover the sample cases only.',
       };
     }
   } else {
@@ -82,7 +83,10 @@ export async function analyzeCase(
   if (ai) ai = postProcess(ai);
   const grounding = ai ? groundAnalysis(ai, analyzedText) : null;
   const unverified = grounding ? grounding.total - grounding.verified : 0;
-  if (unverified > 0) warnings.push(`${unverified} AI quote(s) were not found verbatim in the scenario and are marked.`);
+  if (unverified > 0)
+    warnings.push(
+      `${unverified} AI quote(s) were not found verbatim in the scenario and are marked.`,
+    );
 
   const { flags, warnings: mergeWarnings } = mergeRedFlags(analyzedText, safety.ruleFlags, ai);
   warnings.push(...mergeWarnings);

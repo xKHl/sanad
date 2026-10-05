@@ -48,7 +48,13 @@ export function makeRecording(
   model: string,
   promptVersion: string,
 ): Recording {
-  return { ...(caseId ? { caseId } : {}), ai, model, promptVersion, recordedAt: new Date().toISOString() };
+  return {
+    ...(caseId ? { caseId } : {}),
+    ai,
+    model,
+    promptVersion,
+    recordedAt: new Date().toISOString(),
+  };
 }
 
 /** Test hook: replace the loaded recordings. */

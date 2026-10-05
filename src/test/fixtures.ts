@@ -10,7 +10,10 @@ export const C01_AI: AiAnalysis = {
     age: '58',
     sex: 'male',
     pregnancyStatus: 'not_applicable',
-    chiefComplaint: { text: 'Central chest pressure for 2 hours', evidence: 'central chest pressure for 2 hours' },
+    chiefComplaint: {
+      text: 'Central chest pressure for 2 hours',
+      evidence: 'central chest pressure for 2 hours',
+    },
     historyOfPresentIllness: [
       { text: 'Radiates to the left arm', evidence: 'radiating to left arm' },
       { text: 'Began while climbing stairs', evidence: 'started while climbing stairs' },
@@ -60,14 +63,16 @@ export const C01_AI: AiAnalysis = {
     },
     {
       action: 'Obtain a 12-lead ECG now',
-      rationale: 'Exertional chest pressure with radiation and sweating: evaluate for acute coronary syndrome.',
+      rationale:
+        'Exertional chest pressure with radiation and sweating: evaluate for acute coronary syndrome.',
       category: 'investigation',
       urgency: 'immediate',
       addressesRedFlag: 'RF-ACS',
     },
     {
       action: 'Arrange emergency transfer per local chest-pain protocol',
-      rationale: 'High-risk features; outpatient management is not appropriate until ACS is excluded.',
+      rationale:
+        'High-risk features; outpatient management is not appropriate until ACS is excluded.',
       category: 'escalation',
       urgency: 'immediate',
       addressesRedFlag: 'RF-ACS',

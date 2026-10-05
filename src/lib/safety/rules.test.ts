@@ -3,7 +3,8 @@ import { RULES } from './rules';
 import { runSafetyChecks } from './index';
 
 const fired = (text: string) => runSafetyChecks(text).ruleFlags.map((f) => f.ruleId);
-const flag = (text: string, id: string) => runSafetyChecks(text).ruleFlags.find((f) => f.ruleId === id);
+const flag = (text: string, id: string) =>
+  runSafetyChecks(text).ruleFlags.find((f) => f.ruleId === id);
 
 /**
  * Per rule: at least one positive, one negated and one near-miss case (SPEC §5.9).
@@ -16,7 +17,10 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
     nearMiss: ['70M. RR 22, SpO2 95% RA, BP 125/80, HR 112, T 37.5.'],
   },
   'RF-NEWS2-MEDIUM': {
-    positive: ['40M. RR 22, SpO2 95% RA, BP 125/80, HR 112, T 37.0.', '40M. RR 18, SpO2 97% RA, BP 125/80, HR 135, T 37.0.'],
+    positive: [
+      '40M. RR 22, SpO2 95% RA, BP 125/80, HR 112, T 37.0.',
+      '40M. RR 18, SpO2 97% RA, BP 125/80, HR 135, T 37.0.',
+    ],
     negated: ['40M, no fever. RR 18, SpO2 97% RA, BP 125/80, HR 80, T 37.0.'],
     nearMiss: ['40M. RR 22, SpO2 96% RA, BP 125/80, HR 105, T 37.0.'],
   },
@@ -38,7 +42,10 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
       '62M, chest pain and short of breath.',
       '35M, chest pain, history of MI.',
     ],
-    negated: ['58M, denies chest pain, sweaty after running.', '58M, chest pain, no radiation, no sweating, not exertional.'],
+    negated: [
+      '58M, denies chest pain, sweaty after running.',
+      '58M, chest pain, no radiation, no sweating, not exertional.',
+    ],
     nearMiss: ['30M, chest pain and short of breath.', '58M, sweaty and nauseated, no chest pain.'],
   },
   'RF-PE': {
@@ -52,7 +59,11 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
     nearMiss: ['36F, short of breath, no leg swelling, no recent surgery.'],
   },
   'RF-HTN-EMERGENCY': {
-    positive: ['60M, BP 190/110, headache.', '55F, BP 175/125, chest pain.', '70M, BP 200/100, confused.'],
+    positive: [
+      '60M, BP 190/110, headache.',
+      '55F, BP 175/125, chest pain.',
+      '70M, BP 200/100, confused.',
+    ],
     negated: ['60M, BP 190/110, no headache, chest pain or visual changes.'],
     nearMiss: ['60M, BP 175/110, headache.'],
   },
@@ -73,12 +84,20 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
     nearMiss: ['71F, generalised weakness and tiredness.'],
   },
   'RF-THUNDERCLAP': {
-    positive: ['45M, worst headache of my life.', '40F, sudden severe headache.', '38M, headache came on suddenly while lifting.'],
+    positive: [
+      '45M, worst headache of my life.',
+      '40F, sudden severe headache.',
+      '38M, headache came on suddenly while lifting.',
+    ],
     negated: ['45M, headache, not sudden, no thunderclap features.'],
     nearMiss: ['45M, headache for 3 days, sudden nausea later.'],
   },
   'RF-MENINGITIS': {
-    positive: ['20M, fever 39 °C, neck stiffness.', '18F, febrile with photophobia.', '6M, non-blanching rash.'],
+    positive: [
+      '20M, fever 39 °C, neck stiffness.',
+      '18F, febrile with photophobia.',
+      '6M, non-blanching rash.',
+    ],
     negated: ['20M, fever 39 °C, no neck stiffness or photophobia, no rash.'],
     nearMiss: ['20M, no fever, neck stiffness after gym.'],
   },
@@ -96,17 +115,28 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
     nearMiss: ['50M, confused after a fall.', '80M, confused with right facial droop.'],
   },
   'RF-ANAPHYLAXIS': {
-    positive: ['33F after eating peanuts, lip swelling.', '25M, hives and wheezing.', '40F, bee sting, throat feels tight.'],
+    positive: [
+      '33F after eating peanuts, lip swelling.',
+      '25M, hives and wheezing.',
+      '40F, bee sting, throat feels tight.',
+    ],
     negated: ['33F after eating peanuts, no lip swelling, no wheeze, no breathlessness.'],
     nearMiss: ['33F, hives after eating, otherwise well.'],
   },
   'RF-PREGNANCY-PAIN-BLEEDING': {
-    positive: ['29F, positive pregnancy test, vaginal bleeding.', '30F, 8 weeks pregnant, lower abdominal pain.'],
+    positive: [
+      '29F, positive pregnancy test, vaginal bleeding.',
+      '30F, 8 weeks pregnant, lower abdominal pain.',
+    ],
     negated: ['29F, positive pregnancy test, no bleeding, no abdominal pain.'],
     nearMiss: ['29F, negative pregnancy test, lower abdominal pain.'],
   },
   'RF-DKA': {
-    positive: ['19M type 1 diabetes, ketones 3.5 mmol/L.', '25F, glucose 20 mmol/L, vomiting.', '30M, BG 300 mg/dL, abdominal pain.'],
+    positive: [
+      '19M type 1 diabetes, ketones 3.5 mmol/L.',
+      '25F, glucose 20 mmol/L, vomiting.',
+      '30M, BG 300 mg/dL, abdominal pain.',
+    ],
     negated: ['19M type 1 diabetes, glucose 20 mmol/L, no vomiting, no abdominal pain.'],
     nearMiss: ['19M, ketones 1.0, glucose 12 mmol/L.'],
   },
@@ -121,7 +151,11 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
     nearMiss: ['4-month-old boy, fever 38.4 °C.', '7-week-old boy, T 37.8.'],
   },
   'RF-SUICIDE-RISK': {
-    positive: ['27M says he has been thinking about ending his life.', '30F with suicidal ideation.', '22M wants to die.'],
+    positive: [
+      '27M says he has been thinking about ending his life.',
+      '30F with suicidal ideation.',
+      '22M wants to die.',
+    ],
     negated: ['27M low mood, denies suicidal ideation.'],
     nearMiss: ['27M low mood and poor sleep.'],
   },
@@ -131,7 +165,9 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
       '50M, low back pain, difficulty passing urine.',
       '45F, numbness around the buttocks.',
     ],
-    negated: ['38M, back pain, no saddle numbness, no bladder or bowel incontinence, no difficulty passing urine.'],
+    negated: [
+      '38M, back pain, no saddle numbness, no bladder or bowel incontinence, no difficulty passing urine.',
+    ],
     nearMiss: ['38M, back pain after lifting, tingling in one leg.'],
   },
   'RF-CANCER-FEATURES': {
@@ -165,9 +201,17 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
     nearMiss: ['60M, testicular pain for weeks.'],
   },
   'RF-PREECLAMPSIA': {
-    positive: ['31F, 34 weeks pregnant, BP 150/95, headache.', '28F, 30 weeks pregnant, BP 165/112.'],
-    negated: ['31F, 34 weeks pregnant, BP 150/95, no headache, no visual disturbance, no swelling of the face.'],
-    nearMiss: ['31F, 12 weeks pregnant, BP 150/95, headache.', '31F, 34 weeks pregnant, BP 135/85, headache.'],
+    positive: [
+      '31F, 34 weeks pregnant, BP 150/95, headache.',
+      '28F, 30 weeks pregnant, BP 165/112.',
+    ],
+    negated: [
+      '31F, 34 weeks pregnant, BP 150/95, no headache, no visual disturbance, no swelling of the face.',
+    ],
+    nearMiss: [
+      '31F, 12 weeks pregnant, BP 150/95, headache.',
+      '31F, 34 weeks pregnant, BP 135/85, headache.',
+    ],
   },
   'RF-REDUCED-FETAL-MOVEMENTS': {
     positive: ['30F, 32 weeks pregnant, reduced fetal movements since yesterday.'],
@@ -180,7 +224,11 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
     nearMiss: ['50M, glucose 20 mmol/L, otherwise well.'],
   },
   'RF-PAEDS-RED-FEATURES': {
-    positive: ['2-year-old boy, grunting and chest indrawing.', '1-year-old girl, mottled skin.', '3-year-old girl, RR 65.'],
+    positive: [
+      '2-year-old boy, grunting and chest indrawing.',
+      '1-year-old girl, mottled skin.',
+      '3-year-old girl, RR 65.',
+    ],
     negated: ['2-year-old boy, no grunting, no cyanosis.'],
     nearMiss: ['20M, grunting with exertion.', '3-year-old girl, RR 40.'],
   },
@@ -220,26 +268,40 @@ describe('rule output', () => {
     const f = flag(text, 'RF-ACS');
     expect(f?.reasoning).toBe('Chest pain + Radiation to arm/jaw/neck + Sweating');
     for (const e of f?.evidence ?? []) expect(text.slice(e.start, e.end)).toBe(e.text);
-    expect(f?.evidence.map((e) => e.text)).toEqual(['central chest pressure', 'radiating to left arm', 'sweaty']);
+    expect(f?.evidence.map((e) => e.text)).toEqual([
+      'central chest pressure',
+      'radiating to left arm',
+      'sweaty',
+    ]);
   });
 
   it('sorts critical flags before urgent ones', () => {
-    const flags = runSafetyChecks('62M, BP 186/112, difficulty swallowing, slurred speech.').ruleFlags;
+    const flags = runSafetyChecks(
+      '62M, BP 186/112, difficulty swallowing, slurred speech.',
+    ).ruleFlags;
     const severities = flags.map((f) => f.severity);
-    expect(severities).toEqual([...severities].sort((a, b) => (a === b ? 0 : a === 'critical' ? -1 : 1)));
+    expect(severities).toEqual(
+      [...severities].sort((a, b) => (a === b ? 0 : a === 'critical' ? -1 : 1)),
+    );
   });
 
   it('meningitis is urgent for a rash without fever and critical with fever', () => {
     expect(flag('30F, petechial rash on legs.', 'RF-MENINGITIS')?.severity).toBe('urgent');
-    expect(flag('30F, petechial rash on legs, T 38.5.', 'RF-MENINGITIS')?.severity).toBe('critical');
+    expect(flag('30F, petechial rash on legs, T 38.5.', 'RF-MENINGITIS')?.severity).toBe(
+      'critical',
+    );
   });
 
   it('DKA is urgent with moderate ketones and no symptoms', () => {
-    expect(flag('25M type 1 diabetes, ketones 2.0 mmol/L, feels well.', 'RF-DKA')?.severity).toBe('urgent');
+    expect(flag('25M type 1 diabetes, ketones 2.0 mmol/L, feels well.', 'RF-DKA')?.severity).toBe(
+      'urgent',
+    );
   });
 
   it('family history does not trigger rules', () => {
-    expect(fired('40M, family history of MI, chest pain after meals, no sweating, no radiation.')).not.toContain('RF-ACS');
+    expect(
+      fired('40M, family history of MI, chest pain after meals, no sweating, no radiation.'),
+    ).not.toContain('RF-ACS');
   });
 
   it('severe hypertension rules are skipped in pregnancy', () => {

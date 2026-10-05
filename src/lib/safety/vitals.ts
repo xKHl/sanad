@@ -40,19 +40,32 @@ export function parseVitals(text: string): Vitals {
   const hits: Hit[] = [];
   const warnings: string[] = [];
 
-  const add = (key: VitalKey, value: number, raw: string, unit: string, span: Span, convertedFrom?: string) => {
+  const add = (
+    key: VitalKey,
+    value: number,
+    raw: string,
+    unit: string,
+    span: Span,
+    convertedFrom?: string,
+  ) => {
     const [lo, hi] = PLAUSIBLE[key];
     if (!Number.isFinite(value) || value < lo || value > hi) {
       warnings.push(`Ignored implausible ${key} value "${raw}"`);
       return;
     }
-    hits.push({ key, reading: { value, raw, unit, span, ...(convertedFrom ? { convertedFrom } : {}) } });
+    hits.push({
+      key,
+      reading: { value, raw, unit, span, ...(convertedFrom ? { convertedFrom } : {}) },
+    });
   };
 
   // Blood pressure: needs a BP label or the mmHg unit, so dates like 12/05 never parse.
   const bpRes = [
-    new RegExp(String.raw`\b(?:BP|B\/P|blood pressure)${LABEL_SEP}(\d{2,3})\s*\/\s*(\d{2,3})`, 'gid'),
-    /(?<![\d/])(\d{2,3})\s*\/\s*(\d{2,3})\s*mm\s?hg/gid,
+    new RegExp(
+      String.raw`\b(?:BP|B\/P|blood pressure)${LABEL_SEP}(\d{2,3})\s*\/\s*(\d{2,3})`,
+      'gid',
+    ),
+    /(?<![\d/])(\d{2,3})\s*\/\s*(\d{2,3})\s*mm\s?hg/dgi,
   ];
   const bpSeen = new Set<number>();
   for (const re of bpRes) {
@@ -75,7 +88,7 @@ export function parseVitals(text: string): Vitals {
   const hrSeen = new Set<number>();
   for (const re of [
     new RegExp(String.raw`\b(?:HR|heart rate|pulse(?: rate)?)${LABEL_SEP}(\d{2,3})`, 'gid'),
-    /\b(\d{2,3})\s*(?:bpm|beats\s*(?:per|\/)\s*min(?:ute)?)\b/gid,
+    /\b(\d{2,3})\s*(?:bpm|beats\s*(?:per|\/)\s*min(?:ute)?)\b/dgi,
   ]) {
     for (const m of text.matchAll(re)) {
       const g = groupSpan(text, m, 1);
@@ -87,7 +100,10 @@ export function parseVitals(text: string): Vitals {
 
   // Respiratory rate
   for (const m of text.matchAll(
-    new RegExp(String.raw`\b(?:RR|resp(?:iratory)?\.?\s*rate|respirations?|resps)${LABEL_SEP}(\d{1,2})(?!\d)`, 'gid'),
+    new RegExp(
+      String.raw`\b(?:RR|resp(?:iratory)?\.?\s*rate|respirations?|resps)${LABEL_SEP}(\d{1,2})(?!\d)`,
+      'gid',
+    ),
   )) {
     add('rr', Number(m[1]), m[0], '/min', wholeSpan(text, m));
   }
@@ -104,7 +120,8 @@ export function parseVitals(text: string): Vitals {
 
   // Oxygen status (last mention wins)
   const oxygenHits: Array<{ status: 'air' | 'oxygen'; span: Span }> = [];
-  for (const m of text.matchAll(/(?<![A-Za-z])RA(?![A-Za-z])/g)) oxygenHits.push({ status: 'air', span: wholeSpan(text, m) });
+  for (const m of text.matchAll(/(?<![A-Za-z])RA(?![A-Za-z])/g))
+    oxygenHits.push({ status: 'air', span: wholeSpan(text, m) });
   for (const m of text.matchAll(/\b(?:on\s+)?room\s+air\b|\bon\s+air\b/gi))
     oxygenHits.push({ status: 'air', span: wholeSpan(text, m) });
   for (const m of text.matchAll(
@@ -118,10 +135,10 @@ export function parseVitals(text: string): Vitals {
   const tempSeen = new Set<number>();
   const tempRes: RegExp[] = [
     // Bare "T" must be uppercase and separated from the number (never T2DM or T12).
-    /(?<![A-Za-z])T(?:\s*[:=]\s*|\s+)(\d{2,3}(?:\.\d+)?)\s*(°\s*[CF]|deg(?:rees)?\s*[CF]|[CF](?![A-Za-z]))?/gd,
-    /\b(?:temp(?:erature)?|fever(?:\s+of)?|febrile(?:\s+to)?|pyrexi(?:a|al)(?:\s+(?:of|to))?)\s*(?:of|:|=|was|is|at|to)?\s*(\d{2,3}(?:\.\d+)?)\s*(°\s*[CF]|deg(?:rees)?\s*[CF]|[CF](?![A-Za-z]))?/gid,
-    /(?<![\d.])(\d{2,3}(?:\.\d+)?)\s*(°\s*[CF]|deg(?:rees)?\s*[CF])/gid,
-    /(?<![\d.])(\d{2,3}\.\d+)\s*([CF])(?![A-Za-z])/gd,
+    /(?<![A-Za-z])T(?:\s*[:=]\s*|\s+)(\d{2,3}(?:\.\d+)?)\s*(°\s*[CF]|deg(?:rees)?\s*[CF]|[CF](?![A-Za-z]))?/dg,
+    /\b(?:temp(?:erature)?|fever(?:\s+of)?|febrile(?:\s+to)?|pyrexi(?:a|al)(?:\s+(?:of|to))?)\s*(?:of|:|=|was|is|at|to)?\s*(\d{2,3}(?:\.\d+)?)\s*(°\s*[CF]|deg(?:rees)?\s*[CF]|[CF](?![A-Za-z]))?/dgi,
+    /(?<![\d.])(\d{2,3}(?:\.\d+)?)\s*(°\s*[CF]|deg(?:rees)?\s*[CF])/dgi,
+    /(?<![\d.])(\d{2,3}\.\d+)\s*([CF])(?![A-Za-z])/dg,
   ];
   for (const re of tempRes) {
     for (const m of text.matchAll(re)) {
@@ -132,7 +149,7 @@ export function parseVitals(text: string): Vitals {
       const unitRaw = (m[2] ?? '').toUpperCase();
       const isF = unitRaw.endsWith('F') || (!unitRaw && raw >= 86 && raw <= 113);
       if (isF) {
-        const c = Math.round(((raw - 32) * 5) / 9 * 10) / 10;
+        const c = Math.round((((raw - 32) * 5) / 9) * 10) / 10;
         add('tempC', c, m[0], '°C', wholeSpan(text, m), `${raw} °F`);
       } else {
         add('tempC', Math.round(raw * 10) / 10, m[0], '°C', wholeSpan(text, m));
@@ -156,17 +173,23 @@ export function parseVitals(text: string): Vitals {
       mmol = v <= 35;
       warnings.push(`Glucose unit assumed (${mmol ? 'mmol/L' : 'mg/dL'}) for "${m[0].trim()}"`);
     }
-    if (mmol) add('glucoseMgdl', Math.round(v * 18), m[0], 'mg/dL', wholeSpan(text, m), `${v} mmol/L`);
+    if (mmol)
+      add('glucoseMgdl', Math.round(v * 18), m[0], 'mg/dL', wholeSpan(text, m), `${v} mmol/L`);
     else add('glucoseMgdl', v, m[0], 'mg/dL', wholeSpan(text, m));
   }
 
   // Ketones
   for (const m of text.matchAll(
-    new RegExp(String.raw`\b(?:blood\s+|capillary\s+|serum\s+)?ketones?${LABEL_SEP}(\d{1,2}(?:\.\d+)?)(?!\s*\+)\s*(?:mmol\s*\/?\s*l)?`, 'gid'),
+    new RegExp(
+      String.raw`\b(?:blood\s+|capillary\s+|serum\s+)?ketones?${LABEL_SEP}(\d{1,2}(?:\.\d+)?)(?!\s*\+)\s*(?:mmol\s*\/?\s*l)?`,
+      'gid',
+    ),
   )) {
     add('ketonesMmol', Number(m[1]), m[0], 'mmol/L', wholeSpan(text, m));
   }
-  for (const m of text.matchAll(/\b(?:urine\s+|blood\s+)?ketones?\s*(?:of|:|=|was|is)?\s*(\d\s*\+|\+{2,3}|large|positive|moderate)/gi)) {
+  for (const m of text.matchAll(
+    /\b(?:urine\s+|blood\s+)?ketones?\s*(?:of|:|=|was|is)?\s*(\d\s*\+|\+{2,3}|large|positive|moderate)/gi,
+  )) {
     add('ketonesMmol', 3.0, m[0], 'mmol/L', wholeSpan(text, m), m[1]);
   }
 
@@ -219,18 +242,35 @@ export function parseDemographics(text: string): Demographics {
     if (u.startsWith('d')) return [n / 365.25, `${n} day${n === 1 ? '' : 's'}`];
     return [n, `${n}`];
   };
-  for (const m of text.matchAll(/\b(\d{1,3})[\s-]*(years?|yrs?|months?|mos?|weeks?|wks?|days?)[\s-]*old\b/gi)) {
+  for (const m of text.matchAll(
+    /\b(\d{1,3})[\s-]*(years?|yrs?|months?|mos?|weeks?|wks?|days?)[\s-]*old\b/gi,
+  )) {
     const [years, display] = unitYears(Number(m[1]), m[2] ?? 'y');
     ages.push({ years, display, span: wholeSpan(text, m), start: m.index ?? 0 });
   }
   for (const m of text.matchAll(/\b(\d{1,3})\s*(?:yo|y\/o|y\.o\.?)(?![A-Za-z])/gi)) {
-    ages.push({ years: Number(m[1]), display: m[1] ?? '', span: wholeSpan(text, m), start: m.index ?? 0 });
+    ages.push({
+      years: Number(m[1]),
+      display: m[1] ?? '',
+      span: wholeSpan(text, m),
+      start: m.index ?? 0,
+    });
   }
   for (const m of text.matchAll(/\baged?\s+(\d{1,3})\b/gi)) {
-    ages.push({ years: Number(m[1]), display: m[1] ?? '', span: wholeSpan(text, m), start: m.index ?? 0 });
+    ages.push({
+      years: Number(m[1]),
+      display: m[1] ?? '',
+      span: wholeSpan(text, m),
+      start: m.index ?? 0,
+    });
   }
   for (const m of text.matchAll(/^\s*(\d{1,3})\s*(?:yrs?|years?)\b/gi)) {
-    ages.push({ years: Number(m[1]), display: m[1] ?? '', span: wholeSpan(text, m), start: m.index ?? 0 });
+    ages.push({
+      years: Number(m[1]),
+      display: m[1] ?? '',
+      span: wholeSpan(text, m),
+      start: m.index ?? 0,
+    });
   }
   // 58M / 71F / 58 M (case-sensitive marker)
   const sexMarkers: Array<{ sex: 'male' | 'female'; span: Span }> = [];
@@ -294,7 +334,11 @@ export function parseDemographics(text: string): Demographics {
       }
     } else if (notPregnant) {
       demo.pregnancy = 'not_pregnant';
-      demo.pregnancySpan = makeSpan(text, notPregnant.index, notPregnant.index + notPregnant[0].length);
+      demo.pregnancySpan = makeSpan(
+        text,
+        notPregnant.index,
+        notPregnant.index + notPregnant[0].length,
+      );
     }
   }
   if (demo.sex === 'male') demo.pregnancy = 'not_pregnant';

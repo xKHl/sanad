@@ -1,10 +1,18 @@
-import { APICallError, NoObjectGeneratedError, NoOutputGeneratedError, RetryError, generateText, Output } from 'ai';
+import {
+  APICallError,
+  NoObjectGeneratedError,
+  NoOutputGeneratedError,
+  RetryError,
+  generateText,
+  Output,
+} from 'ai';
 import type { SafetyFindings } from '@/lib/safety/types';
 import type { ResolvedModel } from './model';
 import { buildUserMessage, SYSTEM_PROMPT } from './prompt';
 import { AiAnalysisSchema, type AiAnalysis } from './schema';
 
-export type AiErrorCode = 'timeout' | 'schema' | 'provider' | 'not_configured' | 'demo_unavailable' | 'rate_limited';
+export type AiErrorCode =
+  'timeout' | 'schema' | 'provider' | 'not_configured' | 'demo_unavailable' | 'rate_limited';
 
 export type AiError = { code: AiErrorCode; message: string };
 
@@ -23,7 +31,8 @@ const MAX_OUTPUT_TOKENS = 6_000;
 
 function describeValidationError(error: unknown): string {
   const cause = (error as { cause?: unknown }).cause;
-  const msg = cause instanceof Error ? cause.message : error instanceof Error ? error.message : String(error);
+  const msg =
+    cause instanceof Error ? cause.message : error instanceof Error ? error.message : String(error);
   return msg.slice(0, 600);
 }
 
@@ -31,16 +40,30 @@ function describeValidationError(error: unknown): string {
 export function classifyError(error: unknown): AiError {
   const inner = RetryError.isInstance(error) ? (error.lastError ?? error) : error;
   const name = (inner as { name?: string })?.name ?? '';
-  if (name === 'AbortError' || name === 'TimeoutError' || /timed? ?out|aborted/i.test(String((inner as Error)?.message))) {
+  if (
+    name === 'AbortError' ||
+    name === 'TimeoutError' ||
+    /timed? ?out|aborted/i.test(String((inner as Error)?.message))
+  ) {
     return { code: 'timeout', message: 'The AI model did not respond in time.' };
   }
   if (APICallError.isInstance(inner)) {
     const status = inner.statusCode ?? 0;
-    if (status === 429) return { code: 'rate_limited', message: 'The AI provider rate limit was reached. Try again in a minute.' };
+    if (status === 429)
+      return {
+        code: 'rate_limited',
+        message: 'The AI provider rate limit was reached. Try again in a minute.',
+      };
     if (status === 401 || status === 403) {
-      return { code: 'provider', message: 'The AI provider rejected the credentials. Check the API key.' };
+      return {
+        code: 'provider',
+        message: 'The AI provider rejected the credentials. Check the API key.',
+      };
     }
-    return { code: 'provider', message: `The AI provider returned an error${status ? ` (HTTP ${status})` : ''}.` };
+    return {
+      code: 'provider',
+      message: `The AI provider returned an error${status ? ` (HTTP ${status})` : ''}.`,
+    };
   }
   if (NoObjectGeneratedError.isInstance(inner) || NoOutputGeneratedError.isInstance(inner)) {
     return { code: 'schema', message: 'The AI output did not match the required structure.' };
@@ -67,7 +90,10 @@ export async function runAiAnalysis(
       ok: false,
       attempts: 0,
       latencyMs: 0,
-      error: { code: 'not_configured', message: resolved.configError ?? 'No AI model is configured.' },
+      error: {
+        code: 'not_configured',
+        message: resolved.configError ?? 'No AI model is configured.',
+      },
     };
   }
   const userMessage = buildUserMessage(analyzedText, findings);
@@ -102,7 +128,8 @@ export async function runAiAnalysis(
       };
     } catch (error) {
       lastError = error;
-      const isSchema = NoObjectGeneratedError.isInstance(error) || NoOutputGeneratedError.isInstance(error);
+      const isSchema =
+        NoObjectGeneratedError.isInstance(error) || NoOutputGeneratedError.isInstance(error);
       if (!isSchema || attempts >= 2) break;
       prompt = `${userMessage}
 

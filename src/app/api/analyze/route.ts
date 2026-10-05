@@ -15,26 +15,40 @@ export async function POST(request: Request) {
   const limit = limiter.check(clientKey(request.headers));
   if (!limit.ok) {
     return Response.json(
-      { error: 'rate_limited', message: `Too many requests. Try again in ${limit.retryAfterSeconds} seconds.`, requestId },
+      {
+        error: 'rate_limited',
+        message: `Too many requests. Try again in ${limit.retryAfterSeconds} seconds.`,
+        requestId,
+      },
       { status: 429, headers: { 'Retry-After': String(limit.retryAfterSeconds) } },
     );
   }
 
   const raw = await request.text();
   if (raw.length > MAX_BODY_BYTES) {
-    return Response.json({ error: 'too_large', message: 'Request body is too large.', requestId }, { status: 413 });
+    return Response.json(
+      { error: 'too_large', message: 'Request body is too large.', requestId },
+      { status: 413 },
+    );
   }
   let body: unknown;
   try {
     body = JSON.parse(raw);
   } catch {
-    return Response.json({ error: 'invalid_json', message: 'Body must be JSON.', requestId }, { status: 400 });
+    return Response.json(
+      { error: 'invalid_json', message: 'Body must be JSON.', requestId },
+      { status: 400 },
+    );
   }
   const parsed = AnalyzeRequestSchema.safeParse(body);
   if (!parsed.success) {
     const tooLong = parsed.error.issues.some((i) => i.code === 'too_big');
     return Response.json(
-      { error: tooLong ? 'too_long' : 'invalid_input', message: parsed.error.issues[0]?.message ?? 'Invalid input.', requestId },
+      {
+        error: tooLong ? 'too_long' : 'invalid_input',
+        message: parsed.error.issues[0]?.message ?? 'Invalid input.',
+        requestId,
+      },
       { status: tooLong ? 413 : 400 },
     );
   }
@@ -44,7 +58,16 @@ export async function POST(request: Request) {
     logAnalysis(result, '/api/analyze');
     return Response.json(result, { headers: { 'Cache-Control': 'no-store' } });
   } catch (error) {
-    console.error(JSON.stringify({ event: 'analysis_error', requestId, name: (error as Error)?.name ?? 'Error' }));
-    return Response.json({ error: 'internal', message: 'Unexpected error.', requestId }, { status: 500 });
+    console.error(
+      JSON.stringify({
+        event: 'analysis_error',
+        requestId,
+        name: (error as Error)?.name ?? 'Error',
+      }),
+    );
+    return Response.json(
+      { error: 'internal', message: 'Unexpected error.', requestId },
+      { status: 500 },
+    );
   }
 }

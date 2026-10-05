@@ -44,9 +44,11 @@ const PSEUDO = [
 const TERMINATOR =
   /(?<![A-Za-z])(?:but|however|although|though|except|apart from|aside from|yet|whereas|still|presents? with|complains? of|c\/o|reports?)(?![A-Za-z])/i;
 
-const POSITIVE_VERB = /(?<![A-Za-z])(?:has|have|had|reports?|presents?|complains?|now|developed|noted)(?![A-Za-z])/i;
+const POSITIVE_VERB =
+  /(?<![A-Za-z])(?:has|have|had|reports?|presents?|complains?|now|developed|noted)(?![A-Za-z])/i;
 
-const VITAL_LEAD = /(?<![A-Za-z])(?:HR|BP|RR|SpO2|SaO2|sats?|temp|GCS|pulse|T)\s*[:=]?\s*\d|\d{2,3}\s*\/\s*\d{2,3}/i;
+const VITAL_LEAD =
+  /(?<![A-Za-z])(?:HR|BP|RR|SpO2|SaO2|sats?|temp|GCS|pulse|T)\s*[:=]?\s*\d|\d{2,3}\s*\/\s*\d{2,3}/i;
 
 const CONJ = /(?<![A-Za-z])(?:or|nor|and)(?![A-Za-z])/i;
 
@@ -100,7 +102,8 @@ export function buildNegationContext(text: string): NegationContext {
   const pseudo: Scope[] = [];
   for (const re of PSEUDO) {
     re.lastIndex = 0;
-    for (const m of text.matchAll(re)) pseudo.push({ start: m.index ?? 0, end: (m.index ?? 0) + m[0].length });
+    for (const m of text.matchAll(re))
+      pseudo.push({ start: m.index ?? 0, end: (m.index ?? 0) + m[0].length });
   }
   const scopes: Scope[] = [];
   for (const re of PRE_CUES) {
@@ -129,7 +132,12 @@ const FAMILY_SCOPE_BREAK =
 const RELATIVE =
   /(?<!(?:by|per|from|to|according to)\s+)(?<![A-Za-z])(?:mother|father|mum|mom|dad|brother|sister|son|daughter|sibling|parent|grandmother|grandfather|grandparent|uncle|aunt|cousin)(?:'s)?\s+(?:\S+\s+){0,2}?(?:had|has|died|diagnosed|with)(?![A-Za-z])/i;
 
-export function experiencerOf(text: string, ctx: NegationContext, start: number, end: number): Experiencer {
+export function experiencerOf(
+  text: string,
+  ctx: NegationContext,
+  start: number,
+  end: number,
+): Experiencer {
   const sentence = ctx.sentences.find((s) => start >= s.start && start < s.end);
   if (!sentence) return 'patient';
   // A family-history header earlier in the sentence covers the list that follows it

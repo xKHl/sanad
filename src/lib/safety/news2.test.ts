@@ -4,28 +4,70 @@ import { computeNews2, pulsePoints, rrPoints, sbpPoints, spo2Points, tempPoints 
 import { parseDemographics, parseVitals } from './vitals';
 
 function news2(text: string) {
-  return computeNews2(parseDemographics(text), parseVitals(text), new ConceptIndex(matchConcepts(text)));
+  return computeNews2(
+    parseDemographics(text),
+    parseVitals(text),
+    new ConceptIndex(matchConcepts(text)),
+  );
 }
 
 describe('NEWS2 parameter bands (RCP 2017, scale 1)', () => {
   it.each([
-    [8, 3], [9, 1], [11, 1], [12, 0], [20, 0], [21, 2], [24, 2], [25, 3],
+    [8, 3],
+    [9, 1],
+    [11, 1],
+    [12, 0],
+    [20, 0],
+    [21, 2],
+    [24, 2],
+    [25, 3],
   ])('respiration rate %d -> %d', (v, p) => expect(rrPoints(v)).toBe(p));
 
   it.each([
-    [91, 3], [92, 2], [93, 2], [94, 1], [95, 1], [96, 0], [100, 0],
+    [91, 3],
+    [92, 2],
+    [93, 2],
+    [94, 1],
+    [95, 1],
+    [96, 0],
+    [100, 0],
   ])('SpO2 %d -> %d', (v, p) => expect(spo2Points(v)).toBe(p));
 
   it.each([
-    [90, 3], [91, 2], [100, 2], [101, 1], [110, 1], [111, 0], [219, 0], [220, 3],
+    [90, 3],
+    [91, 2],
+    [100, 2],
+    [101, 1],
+    [110, 1],
+    [111, 0],
+    [219, 0],
+    [220, 3],
   ])('systolic BP %d -> %d', (v, p) => expect(sbpPoints(v)).toBe(p));
 
   it.each([
-    [40, 3], [41, 1], [50, 1], [51, 0], [90, 0], [91, 1], [110, 1], [111, 2], [130, 2], [131, 3],
+    [40, 3],
+    [41, 1],
+    [50, 1],
+    [51, 0],
+    [90, 0],
+    [91, 1],
+    [110, 1],
+    [111, 2],
+    [130, 2],
+    [131, 3],
   ])('pulse %d -> %d', (v, p) => expect(pulsePoints(v)).toBe(p));
 
   it.each([
-    [35.0, 3], [35.1, 1], [36.0, 1], [36.1, 0], [38.0, 0], [38.1, 1], [39.0, 1], [39.1, 2], [38.04, 0], [38.06, 1],
+    [35.0, 3],
+    [35.1, 1],
+    [36.0, 1],
+    [36.1, 0],
+    [38.0, 0],
+    [38.1, 1],
+    [39.0, 1],
+    [39.1, 2],
+    [38.04, 0],
+    [38.06, 1],
   ])('temperature %d -> %d', (v, p) => expect(tempPoints(v)).toBe(p));
 });
 
@@ -100,7 +142,9 @@ describe('NEWS2 aggregate', () => {
   });
 
   it('notes unknown age, unknown pregnancy and COPD', () => {
-    expect(news2('Woman with cough. HR 80, RR 18, T 37.').notes.join(' ')).toMatch(/Assumes not pregnant/);
+    expect(news2('Woman with cough. HR 80, RR 18, T 37.').notes.join(' ')).toMatch(
+      /Assumes not pregnant/,
+    );
     expect(news2('Cough. HR 80, RR 18, T 37.').notes.join(' ')).toMatch(/Age not stated/);
     expect(news2('70M with COPD. HR 80, RR 18, SpO2 89%.').notes.join(' ')).toMatch(/scale 2/);
   });

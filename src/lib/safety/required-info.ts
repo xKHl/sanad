@@ -4,19 +4,83 @@ import type { Demographics, RequiredInfoItem, RuleFlag, Vitals } from './types';
 
 /** Deterministic baseline for the missing-information section (SPEC §5.7). */
 
-const ALLERGY_STATEMENT = /\ballerg(?:y|ies|ic)\b|(?<![A-Za-z])(?:NKDA|NKA)(?![A-Za-z])|\bno known (?:drug )?allergies\b/i;
+const ALLERGY_STATEMENT =
+  /\ballerg(?:y|ies|ic)\b|(?<![A-Za-z])(?:NKDA|NKA)(?![A-Za-z])|\bno known (?:drug )?allergies\b/i;
 
 const DRUGS = [
-  'metformin', 'insulin', 'amlodipine', 'lisinopril', 'ramipril', 'perindopril', 'losartan', 'valsartan', 'bisoprolol',
-  'atenolol', 'metoprolol', 'propranolol', 'atorvastatin', 'simvastatin', 'rosuvastatin', 'aspirin', 'clopidogrel',
-  'warfarin', 'apixaban', 'rivaroxaban', 'dabigatran', 'edoxaban', 'heparin', 'enoxaparin', 'ibuprofen', 'naproxen',
-  'diclofenac', 'paracetamol', 'acetaminophen', 'codeine', 'tramadol', 'morphine', 'omeprazole', 'pantoprazole',
-  'esomeprazole', 'lansoprazole', 'levothyroxine', 'prednisolone', 'prednisone', 'hydrocortisone', 'salbutamol',
-  'albuterol', 'inhaler', 'furosemide', 'spironolactone', 'hydrochlorothiazide', 'indapamide', 'sertraline',
-  'fluoxetine', 'citalopram', 'escitalopram', 'amitriptyline', 'gliclazide', 'sitagliptin', 'empagliflozin',
-  'dapagliflozin', 'semaglutide', 'liraglutide', 'amoxicillin', 'co-amoxiclav', 'ciprofloxacin', 'doxycycline',
-  'nitrofurantoin', 'trimethoprim', 'contraceptive', 'the pill', 'antibiotics?', 'chemotherapy', 'adrenaline',
-  'epinephrine', 'auto-injector', 'anticoagulation', 'anticoagulant',
+  'metformin',
+  'insulin',
+  'amlodipine',
+  'lisinopril',
+  'ramipril',
+  'perindopril',
+  'losartan',
+  'valsartan',
+  'bisoprolol',
+  'atenolol',
+  'metoprolol',
+  'propranolol',
+  'atorvastatin',
+  'simvastatin',
+  'rosuvastatin',
+  'aspirin',
+  'clopidogrel',
+  'warfarin',
+  'apixaban',
+  'rivaroxaban',
+  'dabigatran',
+  'edoxaban',
+  'heparin',
+  'enoxaparin',
+  'ibuprofen',
+  'naproxen',
+  'diclofenac',
+  'paracetamol',
+  'acetaminophen',
+  'codeine',
+  'tramadol',
+  'morphine',
+  'omeprazole',
+  'pantoprazole',
+  'esomeprazole',
+  'lansoprazole',
+  'levothyroxine',
+  'prednisolone',
+  'prednisone',
+  'hydrocortisone',
+  'salbutamol',
+  'albuterol',
+  'inhaler',
+  'furosemide',
+  'spironolactone',
+  'hydrochlorothiazide',
+  'indapamide',
+  'sertraline',
+  'fluoxetine',
+  'citalopram',
+  'escitalopram',
+  'amitriptyline',
+  'gliclazide',
+  'sitagliptin',
+  'empagliflozin',
+  'dapagliflozin',
+  'semaglutide',
+  'liraglutide',
+  'amoxicillin',
+  'co-amoxiclav',
+  'ciprofloxacin',
+  'doxycycline',
+  'nitrofurantoin',
+  'trimethoprim',
+  'contraceptive',
+  'the pill',
+  'antibiotics?',
+  'chemotherapy',
+  'adrenaline',
+  'epinephrine',
+  'auto-injector',
+  'anticoagulation',
+  'anticoagulant',
 ];
 const MEDICATION_STATEMENT = new RegExp(
   String.raw`\b(?:meds|medications?|medicines?|drug history|DHx|takes|taking|no regular (?:meds|medications?|medicines?)|nil regular)\b|\b(?:${DRUGS.join('|')})\b`,
@@ -34,7 +98,10 @@ export function requiredInfo(
   const anyFlag = flags.length > 0;
   const fever = (vitals.tempC?.value ?? 0) >= 38 || concepts.has('fever_word');
 
-  const missingDemo = [demo.ageYears === null ? 'age' : null, demo.sex === 'unknown' ? 'sex' : null].filter(Boolean);
+  const missingDemo = [
+    demo.ageYears === null ? 'age' : null,
+    demo.sex === 'unknown' ? 'sex' : null,
+  ].filter(Boolean);
   if (missingDemo.length > 0) {
     items.push({
       id: 'RI-AGE-SEX',
@@ -59,7 +126,8 @@ export function requiredInfo(
     items.push({
       id: 'RI-MEDICATIONS',
       item: 'Current medications',
-      whyItMatters: 'Medications can cause symptoms, change interpretation and interact with treatment.',
+      whyItMatters:
+        'Medications can cause symptoms, change interpretation and interact with treatment.',
       priority: 'medium',
       category: 'medications_allergies',
     });
@@ -84,8 +152,9 @@ export function requiredInfo(
     if (missing.length > 0) {
       items.push({
         id: 'RI-VITALS',
-        item: `Full set of observations — missing: ${missing.join(', ')}`,
-        whyItMatters: 'Complete observations are needed to judge severity and calculate an early-warning score.',
+        item: `Full set of observations (missing: ${missing.join(', ')})`,
+        whyItMatters:
+          'Complete observations are needed to judge severity and calculate an early-warning score.',
         priority: 'high',
         category: 'vital_signs',
       });
@@ -99,7 +168,10 @@ export function requiredInfo(
     age >= 12 &&
     age <= 50 &&
     demo.pregnancy === 'unknown' &&
-    (concepts.has('abdominal_pain') || concepts.has('vaginal_bleeding') || concepts.has('syncope') || anyFlag)
+    (concepts.has('abdominal_pain') ||
+      concepts.has('vaginal_bleeding') ||
+      concepts.has('syncope') ||
+      anyFlag)
   ) {
     items.push({
       id: 'RI-PREGNANCY',
@@ -124,7 +196,8 @@ export function requiredInfo(
     items.push({
       id: 'RI-GLUCOSE',
       item: 'Capillary blood glucose',
-      whyItMatters: 'Hypo- or hyperglycaemia can mimic or worsen neurological and acute presentations.',
+      whyItMatters:
+        'Hypo- or hyperglycaemia can mimic or worsen neurological and acute presentations.',
       priority: 'high',
       category: 'investigations',
     });

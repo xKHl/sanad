@@ -17,11 +17,16 @@ export function formatNote(r: AnalysisResult, reviewed: ReadonlySet<number> = ne
   const lines: string[] = [];
   lines.push('SANAD decision-support summary (prototype; requires clinician review)');
   lines.push(`Generated: ${stamp(r.createdAt)}`);
-  lines.push(`Model: ${r.model ?? 'none (rule checks only)'} | Prompt v${r.promptVersion} | Rules v${r.rulesVersion}`);
+  lines.push(
+    `Model: ${r.model ?? 'none (rule checks only)'} | Prompt v${r.promptVersion} | Rules v${r.rulesVersion}`,
+  );
   lines.push('');
 
   lines.push('RED FLAGS');
-  if (r.merged.redFlags.length === 0) lines.push('None detected by rule checks or AI. Absence of flags does not exclude serious illness.');
+  if (r.merged.redFlags.length === 0)
+    lines.push(
+      'None detected by rule checks or AI. Absence of flags does not exclude serious illness.',
+    );
   for (const f of r.merged.redFlags) {
     const source = f.source === 'rule' ? `rule ${f.id}` : 'AI suggestion, verify';
     lines.push(`[${SEVERITY[f.severity]}] ${f.title} (${source}): ${f.recommendedAction}`);
@@ -30,9 +35,13 @@ export function formatNote(r: AnalysisResult, reviewed: ReadonlySet<number> = ne
 
   const n = r.safety.news2;
   if (n.status === 'complete' || n.status === 'partial') {
-    lines.push(`NEWS2: ${n.status === 'partial' ? 'at least ' : ''}${n.total} (${n.band}), ${n.status}`);
+    lines.push(
+      `NEWS2: ${n.status === 'partial' ? 'at least ' : ''}${n.total} (${n.band}), ${n.status}`,
+    );
   } else {
-    lines.push(`NEWS2: ${n.status === 'insufficient' ? 'not calculated' : 'not applicable'}. ${n.reason ?? ''}`.trim());
+    lines.push(
+      `NEWS2: ${n.status === 'insufficient' ? 'not calculated' : 'not applicable'}. ${n.reason ?? ''}`.trim(),
+    );
   }
   lines.push('');
 
@@ -41,17 +50,21 @@ export function formatNote(r: AnalysisResult, reviewed: ReadonlySet<number> = ne
     const s = ai.caseSummary;
     lines.push('CASE SUMMARY');
     lines.push(s.oneLiner);
-    if (s.chiefComplaint) lines.push(`- ${SECTION_LABELS.chiefComplaint}: ${s.chiefComplaint.text}`);
+    if (s.chiefComplaint)
+      lines.push(`- ${SECTION_LABELS.chiefComplaint}: ${s.chiefComplaint.text}`);
     for (const section of SUMMARY_LIST_SECTIONS) {
       const facts = s[section];
-      lines.push(`- ${SECTION_LABELS[section]}: ${facts.length ? facts.map((f) => f.text).join('; ') : 'Not stated'}`);
+      lines.push(
+        `- ${SECTION_LABELS[section]}: ${facts.length ? facts.map((f) => f.text).join('; ') : 'Not stated'}`,
+      );
     }
     lines.push('');
   }
 
   lines.push('MISSING INFORMATION');
   if (r.merged.missingInformation.length === 0) lines.push('None listed.');
-  for (const m of r.merged.missingInformation) lines.push(`- [${PRIORITY[m.priority]}] ${m.question}: ${m.whyItMatters}`);
+  for (const m of r.merged.missingInformation)
+    lines.push(`- [${PRIORITY[m.priority]}] ${m.question}: ${m.whyItMatters}`);
   lines.push('');
 
   if (ai && ai.nextSteps.length > 0) {

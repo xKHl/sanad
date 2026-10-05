@@ -55,7 +55,14 @@ describe('prompt', () => {
     expect(msg).toContain(`<scenario>\n${C01_TEXT}\n</scenario>`);
     expect(msg).toContain('"id": "RF-ACS"');
     const compact = compactFindings(findings);
-    expect(compact.vitals).toMatchObject({ hr: 108, bp: '162/94', rr: 20, spo2: 95, tempC: 36.8, oxygen: 'air' });
+    expect(compact.vitals).toMatchObject({
+      hr: 108,
+      bp: '162/94',
+      rr: 20,
+      spo2: 95,
+      tempC: 36.8,
+      oxygen: 'air',
+    });
     expect(compact.news2).toMatchObject({ status: 'complete', total: 2, band: 'low' });
   });
 });
@@ -129,8 +136,14 @@ describe('runAiAnalysis', () => {
   });
 
   it('reports not_configured without a model', async () => {
-    const run = await runAiAnalysis(C01_TEXT, findings, { ...resolvedWith(null), configError: 'KEY is not set.' });
-    expect(run).toMatchObject({ ok: false, error: { code: 'not_configured', message: 'KEY is not set.' } });
+    const run = await runAiAnalysis(C01_TEXT, findings, {
+      ...resolvedWith(null),
+      configError: 'KEY is not set.',
+    });
+    expect(run).toMatchObject({
+      ok: false,
+      error: { code: 'not_configured', message: 'KEY is not set.' },
+    });
   });
 
   it('classifies unknown errors without leaking details', () => {
@@ -149,7 +162,12 @@ describe('resolveModel', () => {
 
   it('uses the free Gemini tier when a Google key is set', () => {
     const r = resolveModel({ GOOGLE_GENERATIVE_AI_API_KEY: 'k' });
-    expect([r.mode, r.provider, r.modelId, r.temperature]).toEqual(['cloud', 'google', 'gemini-3.8-flash', undefined]);
+    expect([r.mode, r.provider, r.modelId, r.temperature]).toEqual([
+      'cloud',
+      'google',
+      'gemini-3.8-flash',
+      undefined,
+    ]);
     expect(r.providerOptions).toEqual({ google: { thinkingConfig: { thinkingLevel: 'low' } } });
   });
 
@@ -159,8 +177,16 @@ describe('resolveModel', () => {
   });
 
   it('honours LLM_PROVIDER and LLM_MODEL', () => {
-    const r = resolveModel({ LLM_PROVIDER: 'anthropic', ANTHROPIC_API_KEY: 'k', LLM_MODEL: 'claude-haiku-4-5-20251001' });
-    expect([r.provider, r.modelId, r.temperature]).toEqual(['anthropic', 'claude-haiku-4-5-20251001', 0]);
+    const r = resolveModel({
+      LLM_PROVIDER: 'anthropic',
+      ANTHROPIC_API_KEY: 'k',
+      LLM_MODEL: 'claude-haiku-4-5-20251001',
+    });
+    expect([r.provider, r.modelId, r.temperature]).toEqual([
+      'anthropic',
+      'claude-haiku-4-5-20251001',
+      0,
+    ]);
   });
 
   it('requires a model id for OpenAI', () => {
@@ -181,6 +207,8 @@ describe('resolveModel', () => {
   });
 
   it('forceDemo wins over configured keys', () => {
-    expect(resolveModel({ GOOGLE_GENERATIVE_AI_API_KEY: 'k' }, { forceDemo: true }).mode).toBe('demo');
+    expect(resolveModel({ GOOGLE_GENERATIVE_AI_API_KEY: 'k' }, { forceDemo: true }).mode).toBe(
+      'demo',
+    );
   });
 });

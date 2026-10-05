@@ -81,34 +81,88 @@ describe('negation: SPEC §5.4 must-pass examples', () => {
 
 describe('negation: additional cases', () => {
   it.each<[string, Expect[]]>([
-    ['Denies SOB or palpitations.', [{ concept: 'dyspnea', negated: true }, { concept: 'palpitations', negated: true }]],
-    ['no neck stiffness or photophobia', [{ concept: 'neck_stiffness', negated: true }, { concept: 'photophobia', negated: true }]],
+    [
+      'Denies SOB or palpitations.',
+      [
+        { concept: 'dyspnea', negated: true },
+        { concept: 'palpitations', negated: true },
+      ],
+    ],
+    [
+      'no neck stiffness or photophobia',
+      [
+        { concept: 'neck_stiffness', negated: true },
+        { concept: 'photophobia', negated: true },
+      ],
+    ],
     ['negative for fever', [{ concept: 'fever_word', negated: true }]],
     ['free of chest pain since yesterday', [{ concept: 'chest_pain', negated: true }]],
     ['no evidence of peritonism', [{ concept: 'peritonism', negated: true }]],
     ['never had a seizure; chest pain today', [{ concept: 'chest_pain', negated: false }]],
-    ['no fever. Now has chest pain.', [{ concept: 'fever_word', negated: true }, { concept: 'chest_pain', negated: false }]],
-    ['no wheeze however breathless on exertion', [{ concept: 'wheeze', negated: true }, { concept: 'dyspnea', negated: false }]],
+    [
+      'no fever. Now has chest pain.',
+      [
+        { concept: 'fever_word', negated: true },
+        { concept: 'chest_pain', negated: false },
+      ],
+    ],
+    [
+      'no wheeze however breathless on exertion',
+      [
+        { concept: 'wheeze', negated: true },
+        { concept: 'dyspnea', negated: false },
+      ],
+    ],
     ['no rash, reports headache', [{ concept: 'headache', negated: false }]],
-    ['denies chest pain, complains of nausea', [{ concept: 'chest_pain', negated: true }, { concept: 'nausea_vomiting', negated: false }]],
+    [
+      'denies chest pain, complains of nausea',
+      [
+        { concept: 'chest_pain', negated: true },
+        { concept: 'nausea_vomiting', negated: false },
+      ],
+    ],
     ['no fever and has a cough', [{ concept: 'fever_word', negated: true }]],
     ['afebrile, HR 80', []],
     ['Vomiting: none', [{ concept: 'nausea_vomiting', negated: true }]],
     ['neck stiffness absent', [{ concept: 'neck_stiffness', negated: true }]],
     ['cannot be ruled out: chest pain', [{ concept: 'chest_pain', negated: false }]],
-    ['not only headache but also confusion', [{ concept: 'headache', negated: false }, { concept: 'confusion', negated: false }]],
+    [
+      'not only headache but also confusion',
+      [
+        { concept: 'headache', negated: false },
+        { concept: 'confusion', negated: false },
+      ],
+    ],
     ['no improvement in breathlessness', [{ concept: 'dyspnea', negated: false }]],
     ['mother has diabetes', [{ concept: 'diabetes', family: true }]],
-    ['FHx: diabetes, IHD', [{ concept: 'diabetes', family: true }, { concept: 'known_cad', family: true }]],
+    [
+      'FHx: diabetes, IHD',
+      [
+        { concept: 'diabetes', family: true },
+        { concept: 'known_cad', family: true },
+      ],
+    ],
     ['brought by daughter with slurred speech', [{ concept: 'speech_disturbance', family: false }]],
     ['daughter reports he is confused', [{ concept: 'confusion', family: false, negated: false }]],
-    ['sister diagnosed with breast cancer, patient has a lump', [{ concept: 'lump', family: false }]],
-    ['without wheeze, stridor or hives', [
-      { concept: 'wheeze', negated: true },
-      { concept: 'stridor', negated: true },
-      { concept: 'urticaria', negated: true },
-    ]],
-    ['no vomiting, abdominal pain since morning', [{ concept: 'nausea_vomiting', negated: true }, { concept: 'abdominal_pain', negated: false }]],
+    [
+      'sister diagnosed with breast cancer, patient has a lump',
+      [{ concept: 'lump', family: false }],
+    ],
+    [
+      'without wheeze, stridor or hives',
+      [
+        { concept: 'wheeze', negated: true },
+        { concept: 'stridor', negated: true },
+        { concept: 'urticaria', negated: true },
+      ],
+    ],
+    [
+      'no vomiting, abdominal pain since morning',
+      [
+        { concept: 'nausea_vomiting', negated: true },
+        { concept: 'abdominal_pain', negated: false },
+      ],
+    ],
     ['purple spots that do not fade', [{ concept: 'nonblanching_rash', negated: false }]],
     ['not on anticoagulation, slurred speech', [{ concept: 'speech_disturbance', negated: false }]],
   ])('%s', (text, expectations) => check(text, expectations));
@@ -119,6 +173,7 @@ describe('negation: additional cases', () => {
 
   it('keeps spans aligned with the source text', () => {
     const text = '45M, sudden-onset severe headache';
-    for (const m of matchConcepts(text)) expect(text.slice(m.span.start, m.span.end)).toBe(m.span.text);
+    for (const m of matchConcepts(text))
+      expect(text.slice(m.span.start, m.span.end)).toBe(m.span.text);
   });
 });

@@ -6,7 +6,9 @@ describe('golden set: 16 development cases (SPEC Appendix A)', () => {
   it.each(DEV_CASES.map((c) => [c.id, c.title, c] as const))('%s %s', (_id, _title, c) => {
     const f = runSafetyChecks(c.scenario);
     expect(f.ruleFlags.map((r) => r.ruleId).sort()).toEqual([...c.expectedFlags].sort());
-    expect({ status: f.news2.status, band: f.news2.band, total: f.news2.total }).toEqual(c.expectedNews2);
+    expect({ status: f.news2.status, band: f.news2.band, total: f.news2.total }).toEqual(
+      c.expectedNews2,
+    );
   });
 
   it('every rule flag carries evidence that points into the text', () => {
@@ -27,7 +29,9 @@ describe('runSafetyChecks', () => {
   });
 
   it('runs in under 50 ms for 3,000 characters', () => {
-    const text = DEV_CASES.map((c) => c.scenario).join(' ').slice(0, 3000);
+    const text = DEV_CASES.map((c) => c.scenario)
+      .join(' ')
+      .slice(0, 3000);
     runSafetyChecks(text); // warm-up
     const t0 = performance.now();
     runSafetyChecks(text);
@@ -35,7 +39,9 @@ describe('runSafetyChecks', () => {
   });
 
   it('warns that the rule layer reads English only when the text is mostly Arabic', () => {
-    expect(runSafetyChecks('مريض عمره ٥٨ سنة يعاني من ألم في الصدر منذ ساعتين').languageWarning).toMatch(/English/);
+    expect(
+      runSafetyChecks('مريض عمره ٥٨ سنة يعاني من ألم في الصدر منذ ساعتين').languageWarning,
+    ).toMatch(/English/);
     expect(runSafetyChecks('58M, chest pain').languageWarning).toBeNull();
   });
 

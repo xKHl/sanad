@@ -55,7 +55,9 @@ describe('identifier guard: must not trigger', () => {
 
 describe('redaction', () => {
   it('replaces spans with typed tokens and keeps clinical text', () => {
-    const { text, findings } = redactIdentifiers('Name: Ahmed Saleh, 58M, call 0551234567. BP 150/90.');
+    const { text, findings } = redactIdentifiers(
+      'Name: Ahmed Saleh, 58M, call 0551234567. BP 150/90.',
+    );
     expect(text).toBe('Name: [NAME], 58M, call [PHONE]. BP 150/90.');
     expect(countByType(findings)).toEqual([
       { type: 'name', count: 1 },

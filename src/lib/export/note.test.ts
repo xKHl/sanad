@@ -17,10 +17,20 @@ const cloud: ResolvedModel = {
 
 describe('formatNote', () => {
   it('contains every section and the review state', async () => {
-    const r = await analyzeCase(C01_TEXT, {}, {
-      resolve: () => cloud,
-      runAi: async () => ({ ok: true, analysis: C01_AI, attempts: 1, latencyMs: 1, usage: { inputTokens: 1, outputTokens: 1 } }),
-    });
+    const r = await analyzeCase(
+      C01_TEXT,
+      {},
+      {
+        resolve: () => cloud,
+        runAi: async () => ({
+          ok: true,
+          analysis: C01_AI,
+          attempts: 1,
+          latencyMs: 1,
+          usage: { inputTokens: 1, outputTokens: 1 },
+        }),
+      },
+    );
     const note = formatNote(r, new Set([0]));
     expect(note).toContain('[CRITICAL] Possible acute coronary syndrome (rule RF-ACS)');
     expect(note).toContain('NEWS2: 2 (low), complete');
@@ -33,10 +43,19 @@ describe('formatNote', () => {
   });
 
   it('works without AI output', async () => {
-    const r = await analyzeCase('62M routine follow-up. BP 186/112, HR 76.', {}, {
-      resolve: () => cloud,
-      runAi: async () => ({ ok: false, error: { code: 'timeout', message: 'slow' }, attempts: 1, latencyMs: 1 }),
-    });
+    const r = await analyzeCase(
+      '62M routine follow-up. BP 186/112, HR 76.',
+      {},
+      {
+        resolve: () => cloud,
+        runAi: async () => ({
+          ok: false,
+          error: { code: 'timeout', message: 'slow' },
+          attempts: 1,
+          latencyMs: 1,
+        }),
+      },
+    );
     const note = formatNote(r);
     expect(note).toContain('[URGENT] Severe hypertension (rule RF-HTN-SEVERE)');
     expect(note).toContain('NEWS2: not calculated');

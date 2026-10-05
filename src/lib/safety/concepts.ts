@@ -66,7 +66,8 @@ export class ConceptIndex {
 
   /** True when `span` shares a sentence with any of `others`. */
   sameSentenceSpans(text: string, span: Span, others: Span[]): boolean {
-    const sentenceOf = (pos: number) => (text.slice(0, pos).match(/[.;!?\n](?=\s|$)/g) ?? []).length;
+    const sentenceOf = (pos: number) =>
+      (text.slice(0, pos).match(/[.;!?\n](?=\s|$)/g) ?? []).length;
     const target = sentenceOf(span.start);
     return others.some((o) => sentenceOf(o.start) === target);
   }

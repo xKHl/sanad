@@ -64,7 +64,12 @@ export function compactFindings(f: SafetyFindings) {
       n.status === 'complete' || n.status === 'partial'
         ? { status: n.status, total: n.total, band: n.band, missing: n.missing }
         : { status: n.status, reason: n.reason },
-    redFlags: f.ruleFlags.map((r) => ({ id: r.ruleId, title: r.title, severity: r.severity, reasoning: r.reasoning })),
+    redFlags: f.ruleFlags.map((r) => ({
+      id: r.ruleId,
+      title: r.title,
+      severity: r.severity,
+      reasoning: r.reasoning,
+    })),
     requiredInformation: f.requiredInfo.map((i) => ({ id: i.id, item: i.item })),
   };
 }

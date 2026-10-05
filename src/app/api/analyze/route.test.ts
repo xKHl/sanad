@@ -2,7 +2,16 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 
 async function loadRoute(env: Record<string, string> = {}) {
   vi.resetModules();
-  for (const k of ['GOOGLE_GENERATIVE_AI_API_KEY', 'GROQ_API_KEY', 'ANTHROPIC_API_KEY', 'OPENAI_API_KEY', 'AI_GATEWAY_API_KEY', 'SANAD_MODE', 'LLM_PROVIDER', 'LLM_MODEL']) {
+  for (const k of [
+    'GOOGLE_GENERATIVE_AI_API_KEY',
+    'GROQ_API_KEY',
+    'ANTHROPIC_API_KEY',
+    'OPENAI_API_KEY',
+    'AI_GATEWAY_API_KEY',
+    'SANAD_MODE',
+    'LLM_PROVIDER',
+    'LLM_MODEL',
+  ]) {
     vi.stubEnv(k, '');
   }
   vi.stubEnv('RATE_LIMIT_PER_MINUTE', '3');
@@ -13,7 +22,10 @@ async function loadRoute(env: Record<string, string> = {}) {
 const post = (body: unknown, raw?: string) =>
   new Request('http://localhost/api/analyze', {
     method: 'POST',
-    headers: { 'content-type': 'application/json', 'x-forwarded-for': `10.0.0.${Math.floor(Math.random() * 250)}` },
+    headers: {
+      'content-type': 'application/json',
+      'x-forwarded-for': `10.0.0.${Math.floor(Math.random() * 250)}`,
+    },
     body: raw ?? JSON.stringify(body),
   });
 
@@ -22,7 +34,9 @@ afterEach(() => vi.unstubAllEnvs());
 describe('POST /api/analyze', () => {
   it('runs the rule layer in demo mode without any key', async () => {
     const { POST } = await loadRoute();
-    const res = await POST(post({ scenario: '58M, central chest pain radiating to left arm, sweaty. BP 150/90.' }));
+    const res = await POST(
+      post({ scenario: '58M, central chest pain radiating to left arm, sweaty. BP 150/90.' }),
+    );
     expect(res.status).toBe(200);
     const body = await res.json();
     expect(body.mode).toBe('demo');
@@ -69,7 +83,11 @@ describe('GET /api/status', () => {
     vi.stubEnv('GOOGLE_GENERATIVE_AI_API_KEY', 'super-secret-key');
     const { GET } = await import('../status/route');
     const body = await GET().json();
-    expect(body).toMatchObject({ mode: 'cloud', model: 'gemini-3.8-flash (Google)', rulesCount: 30 });
+    expect(body).toMatchObject({
+      mode: 'cloud',
+      model: 'gemini-3.8-flash (Google)',
+      rulesCount: 30,
+    });
     expect(JSON.stringify(body)).not.toContain('super-secret-key');
   });
 });

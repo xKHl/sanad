@@ -12,7 +12,10 @@ export function createRateLimiter(limitPerMinute: number, windowMs = 60_000) {
       if (recent.length >= limitPerMinute) {
         const oldest = recent[0] ?? now;
         hits.set(key, recent);
-        return { ok: false, retryAfterSeconds: Math.max(1, Math.ceil((oldest + windowMs - now) / 1000)) };
+        return {
+          ok: false,
+          retryAfterSeconds: Math.max(1, Math.ceil((oldest + windowMs - now) / 1000)),
+        };
       }
       recent.push(now);
       hits.set(key, recent);

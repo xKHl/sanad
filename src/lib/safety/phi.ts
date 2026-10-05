@@ -38,21 +38,30 @@ const DETECTORS: Detector[] = [
   { type: 'national_id', re: /(?<![\d./+-])[12]\d{9}(?![\d])/g },
   {
     type: 'mrn',
-    re: /(?:\bMRN|\bmedical record(?:\s+(?:number|no\.?))?|\bfile\s+(?:no\.?|number)|\bpatient\s+ID|\bhospital\s+(?:number|no\.?))\s*[:#]?\s*(?=[A-Z0-9-]*\d)([A-Z0-9-]{4,})/gid,
+    re: /(?:\bMRN|\bmedical record(?:\s+(?:number|no\.?))?|\bfile\s+(?:no\.?|number)|\bpatient\s+ID|\bhospital\s+(?:number|no\.?))\s*[:#]?\s*(?=[A-Z0-9-]*\d)([A-Z0-9-]{4,})/dgi,
     group: 1,
   },
   { type: 'date', re: /\b\d{1,2}[/.-]\d{1,2}[/.-](?:19|20)\d{2}\b/g },
   { type: 'date', re: /\b(?:19|20)\d{2}-\d{1,2}-\d{1,2}\b/g },
-  { type: 'date', re: new RegExp(`\\b\\d{1,2}(?:st|nd|rd|th)?\\s+${MONTHS}\\.?,?\\s+(?:19|20)\\d{2}\\b`, 'gi') },
-  { type: 'date', re: new RegExp(`\\b${MONTHS}\\.?\\s+\\d{1,2}(?:st|nd|rd|th)?,?\\s+(?:19|20)\\d{2}\\b`, 'gi') },
   {
     type: 'date',
-    re: /\b(?:DOB|D\.O\.B\.?|date of birth)\s*[:\-]?\s*(\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}|\d{4}-\d{1,2}-\d{1,2}|\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]{3,9}\.?,?\s+\d{2,4}|[A-Za-z]{3,9}\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{2,4})/gid,
+    re: new RegExp(`\\b\\d{1,2}(?:st|nd|rd|th)?\\s+${MONTHS}\\.?,?\\s+(?:19|20)\\d{2}\\b`, 'gi'),
+  },
+  {
+    type: 'date',
+    re: new RegExp(`\\b${MONTHS}\\.?\\s+\\d{1,2}(?:st|nd|rd|th)?,?\\s+(?:19|20)\\d{2}\\b`, 'gi'),
+  },
+  {
+    type: 'date',
+    re: /\b(?:DOB|D\.O\.B\.?|date of birth)\s*[:\-]?\s*(\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}|\d{4}-\d{1,2}-\d{1,2}|\d{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]{3,9}\.?,?\s+\d{2,4}|[A-Za-z]{3,9}\.?\s+\d{1,2}(?:st|nd|rd|th)?,?\s+\d{2,4})/dgi,
     group: 1,
   },
   {
     type: 'name',
-    re: new RegExp(`\\b(?:[Nn]ame|NAME|[Pp]atient|PATIENT|[Pp]t|PT)\\s*[:\\-]\\s*(${CAP}(?:\\s+${CAP}){0,3})`, 'gd'),
+    re: new RegExp(
+      `\\b(?:[Nn]ame|NAME|[Pp]atient|PATIENT|[Pp]t|PT)\\s*[:\\-]\\s*(${CAP}(?:\\s+${CAP}){0,3})`,
+      'gd',
+    ),
     group: 1,
   },
   {
@@ -60,16 +69,31 @@ const DETECTORS: Detector[] = [
     re: new RegExp(`\\b(?:Mr|Mrs|Ms|Miss|Dr|Sheikh)\\.?\\s+(${CAP}(?:\\s+(?:Al-)?${CAP})?)`, 'gd'),
     group: 1,
   },
-  { type: 'name', re: new RegExp(`\\b${CAP}\\s+(?:bin|bint|ibn|Bin|Bint|Ibn)\\s+${CAP}(?:\\s+(?:Al-)?${CAP})?`, 'g') },
-  { type: 'name', re: new RegExp(`\\b${CAP}\\s+Al-${CAP}\\b(?!\\s+(?:District|Dist\\.?|Street|St\\.?|Road|Rd\\.?|Hospital|Clinic))`, 'g') },
+  {
+    type: 'name',
+    re: new RegExp(
+      `\\b${CAP}\\s+(?:bin|bint|ibn|Bin|Bint|Ibn)\\s+${CAP}(?:\\s+(?:Al-)?${CAP})?`,
+      'g',
+    ),
+  },
+  {
+    type: 'name',
+    re: new RegExp(
+      `\\b${CAP}\\s+Al-${CAP}\\b(?!\\s+(?:District|Dist\\.?|Street|St\\.?|Road|Rd\\.?|Hospital|Clinic))`,
+      'g',
+    ),
+  },
   {
     type: 'address',
-    re: /\b(?:[Aa]ddress|[Ll]ives at|[Ll]iving at|[Rr]esiding at|[Rr]esides at)\s*[:\-]?\s*((?:\d|[A-Z])[^,;\n.]{3,59})/gd,
+    re: /\b(?:[Aa]ddress|[Ll]ives at|[Ll]iving at|[Rr]esiding at|[Rr]esides at)\s*[:\-]?\s*((?:\d|[A-Z])[^,;\n.]{3,59})/dg,
     group: 1,
   },
   {
     type: 'address',
-    re: new RegExp(`\\b\\d{1,5}\\s+(?:${CAP}\\s+){1,3}(?:Street|St\\.?|Road|Rd\\.?|Avenue|Ave\\.?)(?![A-Za-z])`, 'g'),
+    re: new RegExp(
+      `\\b\\d{1,5}\\s+(?:${CAP}\\s+){1,3}(?:Street|St\\.?|Road|Rd\\.?|Avenue|Ave\\.?)(?![A-Za-z])`,
+      'g',
+    ),
   },
   { type: 'address', re: new RegExp(`\\bAl-${CAP}\\s+(?:District|Dist\\.?)(?![A-Za-z])`, 'g') },
 ];
@@ -89,7 +113,11 @@ export function detectIdentifiers(text: string): PhiFinding[] {
       // Trim trailing spaces/punctuation from captured values.
       while (end > start && /[\s.,;:]/.test(text[end - 1] ?? '')) end--;
       if (end <= start) continue;
-      found.push({ type: d.type, span: makeSpan(text, start, end), replacement: REPLACEMENT[d.type] });
+      found.push({
+        type: d.type,
+        span: makeSpan(text, start, end),
+        replacement: REPLACEMENT[d.type],
+      });
     }
   }
   // Resolve overlaps: keep the longest span.

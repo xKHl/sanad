@@ -13,7 +13,10 @@ import { createGateway, type LanguageModel } from 'ai';
 export type Mode = 'cloud' | 'local' | 'demo';
 export type ProviderId = 'google' | 'groq' | 'anthropic' | 'openai' | 'gateway' | 'ollama';
 
-export type ProviderOptions = Record<string, Record<string, string | number | boolean | Record<string, string | number | boolean>>>;
+export type ProviderOptions = Record<
+  string,
+  Record<string, string | number | boolean | Record<string, string | number | boolean>>
+>;
 
 export type ResolvedModel = {
   mode: Mode;
@@ -63,14 +66,23 @@ function cloudProvider(env: Env): Exclude<ProviderId, 'ollama'> {
   const p = (env.LLM_PROVIDER ?? '').trim().toLowerCase();
   if (isProvider(p)) return p;
   // No explicit provider: pick the first one with a key, preferring the free tiers.
-  const order: Array<Exclude<ProviderId, 'ollama'>> = ['google', 'groq', 'anthropic', 'openai', 'gateway'];
+  const order: Array<Exclude<ProviderId, 'ollama'>> = [
+    'google',
+    'groq',
+    'anthropic',
+    'openai',
+    'gateway',
+  ];
   return order.find((id) => (env[KEY_VARS[id]] ?? '').trim() !== '') ?? 'google';
 }
 
 /** True when the gateway can authenticate without a key (deployments on Vercel use OIDC). */
 const hasOidc = (env: Env) => (env.VERCEL_OIDC_TOKEN ?? '').trim() !== '';
 
-export function resolveModel(env: Env = process.env, options: { forceDemo?: boolean } = {}): ResolvedModel {
+export function resolveModel(
+  env: Env = process.env,
+  options: { forceDemo?: boolean } = {},
+): ResolvedModel {
   const demo = (configError: string | null = null): ResolvedModel => ({
     mode: 'demo',
     provider: null,
@@ -133,7 +145,9 @@ export function resolveModel(env: Env = process.env, options: { forceDemo?: bool
       model = createGroq({ apiKey: key })(modelId);
       if (modelId.includes('gpt-oss')) {
         temperature = undefined;
-        providerOptions = { groq: { reasoningEffort: 'low', structuredOutputs: true, strictJsonSchema: false } };
+        providerOptions = {
+          groq: { reasoningEffort: 'low', structuredOutputs: true, strictJsonSchema: false },
+        };
       } else {
         providerOptions = { groq: { structuredOutputs: true, strictJsonSchema: false } };
       }
