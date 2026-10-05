@@ -1,26 +1,131 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+/*
+ * Sanad design tokens.
+ * Cool chart-paper background, navy "ink" text and a ballpoint-blue "pen" for actions and
+ * evidence. Severity colours follow clinical alert conventions; the NEWS2 fills follow the
+ * red/orange/yellow bands of the RCP observation chart.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f3f5f8;
+  --sheet: #ffffff;
+  --ink: #15233f;
+  --ink-2: #44506a;
+  --ink-3: #5f6a80;
+  --rule: #d6dce5;
+  --rule-strong: #b7c0cd;
+
+  --pen: #2340a8;
+  --pen-strong: #1a3187;
+  --pen-wash: #e2e9ff;
+
+  --critical: #b42318;
+  --critical-wash: #fdecea;
+  --critical-line: #f2b8b2;
+  --urgent: #9a4a00;
+  --urgent-wash: #fff1e1;
+  --urgent-line: #f3c995;
+  --ok: #146c43;
+  --ok-wash: #e7f4ec;
+
+  --news-3: #f28b82;
+  --news-2: #f8b26a;
+  --news-1: #fbe38a;
+  --news-0: #ffffff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-sheet: var(--sheet);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-pen: var(--pen);
+  --color-pen-strong: var(--pen-strong);
+  --color-pen-wash: var(--pen-wash);
+  --color-critical: var(--critical);
+  --color-critical-wash: var(--critical-wash);
+  --color-critical-line: var(--critical-line);
+  --color-urgent: var(--urgent);
+  --color-urgent-wash: var(--urgent-wash);
+  --color-urgent-line: var(--urgent-line);
+  --color-ok: var(--ok);
+  --color-ok-wash: var(--ok-wash);
+  --color-news-3: var(--news-3);
+  --color-news-2: var(--news-2);
+  --color-news-1: var(--news-1);
+  --color-news-0: var(--news-0);
+  --font-sans: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --font-arabic: 'IBM Plex Sans Arabic', 'Atkinson Hyperlegible Next', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15.5px;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--pen);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+::selection {
+  background: var(--pen-wash);
+}
+
+mark {
+  color: inherit;
+  background: transparent;
+}
+
+/* Evidence marks inside the annotated case text. */
+.evidence-critical {
+  text-decoration: underline;
+  text-decoration-color: var(--critical);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.evidence-urgent {
+  text-decoration: underline;
+  text-decoration-color: var(--urgent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.evidence-active {
+  background: var(--pen-wash);
+  box-shadow: 0 0 0 2px var(--pen-wash);
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .evidence-active {
+    transition: background-color 180ms ease;
+  }
+}
+
+@media print {
+  body {
+    background: #fff;
+    font-size: 11pt;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-full {
+    grid-column: 1 / -1 !important;
+  }
+  details {
+    display: none;
+  }
 }

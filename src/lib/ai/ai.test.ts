@@ -15,7 +15,7 @@ function resolvedWith(model: ResolvedModel['model']): ResolvedModel {
     mode: 'cloud',
     provider: 'google',
     modelId: 'mock',
-    label: 'Mock · mock',
+    label: 'mock (Mock)',
     model,
     temperature: 0,
     providerOptions: undefined,

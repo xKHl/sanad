@@ -56,10 +56,10 @@ export function computeNews2(demo: Demographics, vitals: Vitals, concepts: Conce
   }
 
   const notes: string[] = [];
-  if (demo.ageYears === null) notes.push('Age not stated — NEWS2 assumes an adult.');
+  if (demo.ageYears === null) notes.push('Age not stated; NEWS2 assumes an adult.');
   if (demo.sex === 'female' && demo.pregnancy === 'unknown') notes.push('Assumes not pregnant.');
   if (concepts.has('copd')) {
-    notes.push('SpO2 scale 2 may apply (target 88–92%); scale 1 used — interpret SpO2 points with caution.');
+    notes.push('SpO2 scale 2 may apply (target 88–92%). Scale 1 is used here, so interpret SpO2 points with caution.');
   }
 
   const params: News2Parameter[] = [];
@@ -107,8 +107,8 @@ export function computeNews2(demo: Demographics, vitals: Vitals, concepts: Conce
   const scored = params.filter((p) => p.points !== null);
   const total = scored.reduce((sum, p) => sum + (p.points ?? 0), 0);
   const anySingle3 = scored.some((p) => p.points === 3);
-  if (params.some((p) => p.assumed && p.key === 'oxygen')) notes.push('Oxygen not stated — assumed room air.');
-  if (params.some((p) => p.assumed && p.key === 'consciousness')) notes.push('Consciousness not stated — assumed alert.');
+  if (params.some((p) => p.assumed && p.key === 'oxygen')) notes.push('Oxygen not stated; room air assumed.');
+  if (params.some((p) => p.assumed && p.key === 'consciousness')) notes.push('Consciousness not stated; alert assumed.');
 
   if (count < 3) {
     return {

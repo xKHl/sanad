@@ -12,7 +12,7 @@ const cloud: ResolvedModel = {
   mode: 'cloud',
   provider: 'google',
   modelId: 'mock',
-  label: 'Mock · mock',
+  label: 'mock (Mock)',
   model: null,
   temperature: 0,
   providerOptions: undefined,
@@ -144,10 +144,10 @@ describe('analyzeCase', () => {
   it('serves recordings in demo mode with the recording date', async () => {
     const r = await analyzeCase(C01_TEXT, { forceDemo: true }, {
       resolve: () => demo,
-      findRecording: () => ({ ai: C01_AI, model: 'Gemini · gemini-3.8-flash', promptVersion: PROMPT_VERSION, recordedAt: '2026-10-06T10:00:00Z' }),
+      findRecording: () => ({ ai: C01_AI, model: 'gemini-3.8-flash (Google)', promptVersion: PROMPT_VERSION, recordedAt: '2026-10-06T10:00:00Z' }),
     });
     expect(r.mode).toBe('demo');
-    expect(r.model).toBe('Gemini · gemini-3.8-flash (recorded 2026-10-06)');
+    expect(r.model).toBe('gemini-3.8-flash (Google), recorded 2026-10-06');
     expect(r.ai).not.toBeNull();
     expect(r.warnings.join(' ')).not.toMatch(/Re-record/);
   });
@@ -164,7 +164,7 @@ describe('analyzeCase', () => {
     const r = await analyzeCase(C01_TEXT, {}, { resolve: () => demo, findRecording: () => null });
     expect(r.aiError).toEqual({
       code: 'demo_unavailable',
-      message: 'Demo mode includes AI output for the sample cases only. Safety checks below are live.',
+      message: 'No recorded AI output exists for this case. Recordings cover the sample cases only.',
     });
     expect(r.merged.redFlags).toHaveLength(1);
   });

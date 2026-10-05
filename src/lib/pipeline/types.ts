@@ -34,7 +34,7 @@ export type AnalysisResult = {
   requestId: string;
   createdAt: string;
   mode: Mode;
-  /** Model label, e.g. "Gemini · gemini-3.8-flash", or "… (recorded 2026-10-07)" in demo mode. */
+  /** Model label, e.g. "gemini-3.8-flash (Google)", or "…, recorded 2026-10-07" in demo mode. */
   model: string | null;
   promptVersion: string;
   rulesVersion: string;

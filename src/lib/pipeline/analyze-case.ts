@@ -57,7 +57,7 @@ export async function analyzeCase(
     const recording = (deps.findRecording ?? findRecording)(analyzedText);
     if (recording) {
       ai = recording.ai;
-      modelLabel = `${recording.model} (recorded ${recording.recordedAt.slice(0, 10)})`;
+      modelLabel = `${recording.model}, recorded ${recording.recordedAt.slice(0, 10)}`;
       if (recording.promptVersion !== PROMPT_VERSION) {
         warnings.push(
           `This recording was made with prompt v${recording.promptVersion}; the current prompt is v${PROMPT_VERSION}. Re-record demo outputs.`,
@@ -68,7 +68,7 @@ export async function analyzeCase(
     } else {
       aiError = {
         code: 'demo_unavailable',
-        message: 'Demo mode includes AI output for the sample cases only. Safety checks below are live.',
+        message: 'No recorded AI output exists for this case. Recordings cover the sample cases only.',
       };
     }
   } else {

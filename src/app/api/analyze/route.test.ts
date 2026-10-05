@@ -69,7 +69,7 @@ describe('GET /api/status', () => {
     vi.stubEnv('GOOGLE_GENERATIVE_AI_API_KEY', 'super-secret-key');
     const { GET } = await import('../status/route');
     const body = await GET().json();
-    expect(body).toMatchObject({ mode: 'cloud', model: 'Gemini · gemini-3.8-flash', rulesCount: 30 });
+    expect(body).toMatchObject({ mode: 'cloud', model: 'gemini-3.8-flash (Google)', rulesCount: 30 });
     expect(JSON.stringify(body)).not.toContain('super-secret-key');
   });
 });

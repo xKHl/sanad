@@ -19,7 +19,7 @@ export type ResolvedModel = {
   mode: Mode;
   provider: ProviderId | null;
   modelId: string | null;
-  /** Human label, e.g. "Gemini · gemini-3.8-flash". */
+  /** Human label, e.g. "gemini-3.8-flash (Google)". */
   label: string;
   model: LanguageModel | null;
   /** Undefined = provider default (recommended for reasoning models such as Gemini 3 and gpt-oss). */
@@ -49,12 +49,12 @@ const KEY_VARS: Record<Exclude<ProviderId, 'ollama'>, string> = {
 };
 
 const LABELS: Record<ProviderId, string> = {
-  google: 'Gemini',
+  google: 'Google',
   groq: 'Groq',
   anthropic: 'Anthropic',
   openai: 'OpenAI',
   gateway: 'AI Gateway',
-  ollama: 'Ollama (local)',
+  ollama: 'Ollama, local',
 };
 
 const isProvider = (p: string): p is Exclude<ProviderId, 'ollama'> => p in KEY_VARS;
@@ -75,7 +75,7 @@ export function resolveModel(env: Env = process.env, options: { forceDemo?: bool
     mode: 'demo',
     provider: null,
     modelId: null,
-    label: 'Demo (recorded outputs)',
+    label: 'Recorded outputs',
     model: null,
     temperature: undefined,
     providerOptions: undefined,
@@ -99,7 +99,7 @@ export function resolveModel(env: Env = process.env, options: { forceDemo?: bool
       mode: 'local',
       provider: 'ollama',
       modelId,
-      label: `${LABELS.ollama} · ${modelId}`,
+      label: `${modelId} (${LABELS.ollama})`,
       model: ollama(modelId),
       temperature: 0,
       providerOptions: undefined,
@@ -152,7 +152,7 @@ export function resolveModel(env: Env = process.env, options: { forceDemo?: bool
     mode: 'cloud',
     provider,
     modelId,
-    label: `${LABELS[provider]} · ${modelId}`,
+    label: `${modelId} (${LABELS[provider]})`,
     model,
     temperature,
     providerOptions,
