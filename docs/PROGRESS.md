@@ -22,6 +22,8 @@
 - 2026-10-05: browser lab page added so recordings and the evaluation can be produced without a terminal; gated by `SANAD_LAB` and `SANAD_LAB_KEY`.
 - 2026-10-05: no shadcn/ui (registry not reachable from the build environment); small local components with Radix Tooltip instead. Fonts from `@fontsource` packages instead of `next/font/google` for offline builds.
 
+- 2026-10-05: RF-NEWS2-MEDIUM also fires for a single parameter scoring 3 when too few observations exist for a total (e.g. HR 150 alone). RULES_VERSION 1.1.0.
+
 ## Open questions for the organisers
 
 - Submission channel and format; exact time on Thursday.

@@ -163,14 +163,15 @@ export const RULES: RuleDef[] = [
     dedupeKeywords: ['news2', 'early warning'],
     evaluate(ctx) {
       const n = ctx.news2;
-      if (ctx.fired.has('RF-NEWS2-HIGH')) return null;
-      if (n.status !== 'complete' && n.status !== 'partial') return null;
+      if (ctx.fired.has('RF-NEWS2-HIGH') || n.status === 'not_applicable') return null;
       const total = n.total ?? 0;
-      if (total >= 5 && total <= 6) {
+      const scored = n.status === 'complete' || n.status === 'partial';
+      if (scored && total >= 5 && total <= 6) {
         return fire('urgent', [
           { label: `NEWS2 ${n.status === 'partial' ? '≥ ' : ''}${total}`, spans: news2Spans(ctx) },
         ]);
       }
+      // A single parameter scoring 3 warrants urgent review even when the total cannot be calculated.
       if (n.anySingle3) {
         const p = n.parameters.find((x) => x.points === 3);
         return fire('urgent', [

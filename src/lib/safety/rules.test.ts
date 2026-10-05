@@ -18,6 +18,7 @@ const CASES: Record<string, { positive: string[]; negated: string[]; nearMiss: s
   },
   'RF-NEWS2-MEDIUM': {
     positive: [
+      '60M, sudden palpitations, HR 150 irregular, BP 118/76.',
       '40M. RR 22, SpO2 95% RA, BP 125/80, HR 112, T 37.0.',
       '40M. RR 18, SpO2 97% RA, BP 125/80, HR 135, T 37.0.',
     ],

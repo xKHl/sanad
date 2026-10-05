@@ -1,6 +1,6 @@
 # Sanad: product and technical specification
 
-Version 1.1 (as built), 5 October 2026. Source of truth for behaviour; code and tests implement it. Any change to clinical logic (§5) updates this file, the tests and `RULES_VERSION` together.
+Version 1.1 (as built, rules v1.1.0), 5 October 2026. Source of truth for behaviour; code and tests implement it. Any change to clinical logic (§5) updates this file, the tests and `RULES_VERSION` together.
 
 ---
 
@@ -124,7 +124,7 @@ Definitions: adult = age ≥ 16 or unknown; fever = temperature ≥ 38 °C or a 
 | Rule | Severity | Fires when | Basis |
 |------|----------|------------|-------|
 | RF-NEWS2-HIGH | critical | NEWS2 total ≥ 7 (complete or partial) | RCP NEWS2 |
-| RF-NEWS2-MEDIUM | urgent | total 5–6, or any single 3, and HIGH did not fire | RCP NEWS2 |
+| RF-NEWS2-MEDIUM | urgent | total 5–6 (complete or partial), or any single parameter scoring 3 even when the total cannot be calculated; HIGH did not fire; not applicable under 16 or in pregnancy | RCP NEWS2 |
 | RF-HYPOXIA | critical | SpO2 < 92 (< 88 with COPD) | BTS oxygen guideline |
 | RF-HYPOTENSION | critical | adult and SBP < 90 | Emergency medicine |
 | RF-ACS | critical | chest pain + (radiation, sweating, exertional, known coronary disease, or age ≥ 40 with breathlessness or nausea) | NICE CG95 |

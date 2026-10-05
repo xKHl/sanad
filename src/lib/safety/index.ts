@@ -7,7 +7,7 @@ import type { SafetyFindings } from './types';
 import { parseDemographics, parseVitals } from './vitals';
 
 /** Bump the minor version on any change to clinical logic (SPEC §5.9). */
-export const RULES_VERSION = '1.0.0';
+export const RULES_VERSION = '1.1.0';
 
 export const RULES_COUNT = RULES.length;
 
