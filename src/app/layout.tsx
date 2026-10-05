@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import type { ReactNode } from 'react';
 import '@fontsource/atkinson-hyperlegible-next/400.css';
 import '@fontsource/atkinson-hyperlegible-next/600.css';
 import '@fontsource/atkinson-hyperlegible-next/700.css';
@@ -16,7 +17,7 @@ export const viewport: Viewport = {
   themeColor: '#15233f',
 };
 
-export default function RootLayout({ children }: LayoutProps<'/'>) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="min-h-dvh">{children}</body>
