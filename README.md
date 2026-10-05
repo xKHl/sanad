@@ -29,7 +29,7 @@ Sanad is a web prototype for a fictional outpatient clinic. A clinician writes a
 | R3 | Structured case summary | AI layer with a strict schema; grounding check on every quote | `ai.test.ts`, `pipeline.test.ts`, quote-verification rate in the evaluation |
 | R4 | Important missing information | Rule baseline (`required-info.ts`) + AI questions, deduplicated | `required-info.test.ts`, `pipeline.test.ts` |
 | R5 | Next-step checklist for clinician review | AI next steps by urgency, review ticks, copy as note | Coherence metric (rule flags answered by a step) |
-| R6 | Urgent red-flag warnings | 30 rules + NEWS2 (`src/lib/safety`), merged with grounded AI flags | 394 safety tests including a 16-case golden set |
+| R6 | Urgent red-flag warnings | 30 rules + NEWS2 (`src/lib/safety`), merged with grounded AI flags | 395 safety tests including a 16-case golden set |
 | R7 | Decision support, not autonomous diagnosis | Prompt rules, no differential-diagnosis list, no doses, disclaimers, clinician review | Prompt tests, interface copy, [`docs/SAFETY.md`](docs/SAFETY.md) |
 | R8 | Fictional or synthetic cases only | Synthetic case library, banner, identifier guard | Case schema validation |
 | R9 | LLM API, local model, rules, or hybrid | Hybrid: cloud (free Gemini or Groq tiers by default, also Anthropic, OpenAI, AI Gateway), local (Ollama) and recorded-output modes | `ai.test.ts` model-resolution tests |
@@ -107,7 +107,7 @@ npm run dev                  # http://localhost:3000
 Other commands:
 
 ```bash
-npm run check                 # typecheck + lint + 450 tests
+npm run check                 # typecheck + lint + 451 tests
 npm run build                 # production build
 npm run eval -- --rules-only  # rule-layer evaluation, writes docs/EVALUATION.md
 npm run eval -- --delay 4000  # full evaluation with the configured model (pause for free tiers)

@@ -4,7 +4,7 @@
 
 | Area | Status |
 |------|--------|
-| Deterministic safety layer (identifier guard, parser, negation, NEWS2, 30 rules, required info) | Done, 394 tests, 16/16 golden cases |
+| Deterministic safety layer (identifier guard, parser, negation, NEWS2, 30 rules, required info) | Done, 395 tests, 16/16 golden cases |
 | AI layer (schema, prompt, providers, retry, error mapping) | Done, tested with mock models |
 | Pipeline (redaction, grounding, merge, limits, demo recordings) | Done |
 | API (`/api/analyze`, `/api/status`, `/api/lab`) | Done, rate limiting, metadata-only logging |
