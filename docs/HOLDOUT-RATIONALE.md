@@ -1,0 +1,22 @@
+# Holdout rationale (NEWS2 scores: RR / SpO2 / O2 / SBP / pulse / consciousness / temp)
+
+- H01: ACS (radiation, sweating, exertional) + syncope with exertional chest pain; GCS 15 so no low-GCS. RR20=0, SpO2 96=0, air=0 (assumed), SBP152=0, HR102=1, alert=0, T36.9=0 -> 1 low complete.
+- H02: sepsis (fever + UTI source, NEWS2>=5), delirium (72 + new confusion, no deficit), NEWS2 high. RR24=2, SpO2 94=1, air=0, SBP96=2, HR118=2, new confusion=3, T39.2=2 -> 12 high complete. SBP not <90 so no hypotension.
+- H03: PE (SOB/pleuritic pain + unilateral leg swelling + oestrogen), hypoxia (90<92), NEWS2 high; ACS near-miss (age 34, no radiation/sweat/exertion). RR24=2, SpO2 90=3, air=0, SBP118=0, P112=2, alert=0, T37.4=0 -> 7 high complete.
+- H04: stroke (unilateral weakness, speech, droop) + HTN emergency (SBP 196 with neuro deficit); "sudden" attaches to weakness, no headache -> no thunderclap. RR18=0, SpO2 97=0, air=0, SBP196=0, HR88=0, alert=0, T36.9=0 -> 0 low complete.
+- H05: thunderclap ("sudden" headache, worst ever, peak <1 min); BP 164/96 below severe thresholds; "No fever". Measured 3/5 (SBP164=0, P84=0, T37.0=0) + air=0, alert=0 -> 0 low partial.
+- H06: meningitis (fever + neck stiffness + photophobia), sepsis (fever + NEWS2 6), NEWS2 medium. RR22=2, SpO2 97=0, air=0, SBP112=0, P116=2, alert=0, T39.4=2 -> 6 medium complete.
+- H07: DKA (ketones 4.2 with diabetes; glucose 420 with vomiting/abdo pain; critical), severe hyperglycaemia suppressed because DKA fired; "no guarding" negates peritonism. RR28=3, SpO2 98=0, air=0, SBP108=1, P120=2, alert=0, T37.2=0 -> 6 medium complete.
+- H08: GI bleed (melaena, unstable), hypotension (86<90), NEWS2 high; presyncope only, no syncope rule. RR22=2, SpO2 95=1, air=0, SBP86=3, HR124=2, alert=0, T36.4=0 -> 8 high complete.
+- H09: anaphylaxis (throat tightness/wheeze/lip swelling + allergen + urticaria); SBP 98 not <90, SpO2 93 not <92. RR26=3, SpO2 93=2, air=0, SBP98=2, P118=2, alert=0, T36.8=0 -> 9 high complete.
+- H10: testicular torsion (testicular pain + sudden onset + age 17 <25); age 17 is adult so NEWS2 applies. RR18=0, SpO2 99=0, air=0, SBP128=0, P96=1, alert=0, T37.1=0 -> 1 low complete.
+- H11: cauda equina (saddle numbness; retention with back pain and bilateral leg symptoms). RR16=0, SpO2 98=0, air=0, SBP138=0, HR82=0, alert=0, T36.7=0 -> 0 low complete.
+- H12: tricky negative: chest pain/SOB/headache/visual sx all denied, MI and stroke are family history -> no ACS/stroke/HTN-emergency; residual HTN-SEVERE (SBP 184 without symptoms). RR16=0, SpO2 98=0, air=0, SBP184=0, P78=0, alert=0, T36.6=0 -> 0 low complete.
+- H13: tricky negative: denies SI, self-harm and plans -> no suicide flag. Only BP and HR given (2/5) -> insufficient, band/total null.
+- H14: tricky negative: TIA in the past, fully resolved, deficits and confusion explicitly negated -> no stroke/delirium. RR16=0, SpO2 96=0, air=0, SBP138=0, P72=0, alert=0, T36.7=0 -> 0 low complete.
+- H15: tricky negative: headache gradual; "sudden" attached to nausea in a different sentence -> no thunderclap; fever/neck stiffness/photophobia/rash negated -> no meningitis. RR14=0, SpO2 99=0, air=0, SBP124=0, P82=0, alert=0, T37.1=0 -> 0 low complete.
+- H16: benign DM follow-up, glucose 126 mg/dL. RR14=0, SpO2 98=0, air=0, SBP126=0, HR74=0, alert=0, T36.6=0 -> 0 low complete.
+- H17: benign URTI, T 37.6 (<38, no fever word). RR16=0, SpO2 98=0, air=0, SBP118=0, P88=0, alert=0, T37.6=0 -> 0 low complete.
+- H18: benign levothyroxine refill. RR14=0, SpO2 99=0, air=0, SBP112=0, P68=0, alert=0, T36.5=0 -> 0 low complete.
+- H19: edge pregnancy: pre-eclampsia (34 wks, BP 162/112 >=160/110 -> critical, headache, visual disturbance, oedema); HTN rules excluded by pregnancy; no bleeding/abdo pain (negated) -> no pregnancy-pain-bleeding; FM normal -> no RFM. NEWS2 not applicable (pregnancy).
+- H20: edge child: infant fever (8 weeks <3 months, 38.6), paediatric red features (grunting, RR 64 >60); fontanelle flat (no bulging) so no meningitis; adult-only sepsis not applicable. NEWS2 not applicable (age <16).

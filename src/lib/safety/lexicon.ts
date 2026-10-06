@@ -17,6 +17,8 @@ export const LEXICON = {
     'retrosternal pain',
     'substernal pain',
     'chest (?:feels |is )?tight',
+    // "CP" is common clinic shorthand for chest pain (capitals only; rules v1.2.0).
+    { cs: '(?:central |crushing |retrosternal )?CP' },
   ],
   chest_pain_pleuritic: [
     'pleuritic(?: chest)?(?: pain)?',

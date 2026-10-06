@@ -177,3 +177,14 @@ describe('negation: additional cases', () => {
       expect(text.slice(m.span.start, m.span.end)).toBe(m.span.text);
   });
 });
+
+describe('chest pain shorthand (rules v1.2.0)', () => {
+  it('reads capital CP as chest pain and respects negation', () => {
+    check('58M c/o central CP radiating to jaw', [{ concept: 'chest_pain', negated: false }]);
+    check('no CP or SOB', [{ concept: 'chest_pain', negated: true }]);
+  });
+
+  it('does not read lowercase cp or CPR as chest pain', () => {
+    expect(statusOf('cp 2s, CPR trained', 'chest_pain')).toHaveLength(0);
+  });
+});

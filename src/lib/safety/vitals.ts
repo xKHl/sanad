@@ -16,6 +16,16 @@ const PLAUSIBLE: Record<VitalKey, [number, number]> = {
   crtSeconds: [0, 20],
 };
 
+/** True when the sentence around `index` also mentions BP, RR, SpO2/sats or a temperature. */
+function hasVitalContext(text: string, index: number): boolean {
+  const before = text.lastIndexOf('.', index - 1);
+  const start = before === -1 ? 0 : before + 1;
+  const afterDot = text.slice(index).search(/\.(?!\d)/);
+  const end = afterDot === -1 ? text.length : index + afterDot;
+  const sentence = text.slice(start, end);
+  return /\b(?:BP|RR|SpO2|sats?|T|temp(?:erature)?)\b/i.test(sentence.replace(/(?<![A-Za-z0-9])P\s*[:=]?\s*\d{2,3}/, ''));
+}
+
 const LABEL_SEP = String.raw`\s*(?:of|:|=|was|is|at)?\s*`;
 
 type Hit = { key: VitalKey; reading: VitalReading };
@@ -84,13 +94,16 @@ export function parseVitals(text: string): Vitals {
     }
   }
 
-  // Heart rate (P and PR are ambiguous and not used).
+  // Heart rate. PR is ambiguous and not used. A bare capital "P" (as in "P 112") counts as pulse
+  // only when another vital sign is written in the same sentence (rules v1.2.0).
   const hrSeen = new Set<number>();
-  for (const re of [
-    new RegExp(String.raw`\b(?:HR|heart rate|pulse(?: rate)?)${LABEL_SEP}(\d{2,3})`, 'gid'),
-    /\b(\d{2,3})\s*(?:bpm|beats\s*(?:per|\/)\s*min(?:ute)?)\b/dgi,
-  ]) {
+  for (const [re, needsContext] of [
+    [new RegExp(String.raw`\b(?:HR|heart rate|pulse(?: rate)?)${LABEL_SEP}(\d{2,3})`, 'gid'), false],
+    [/\b(\d{2,3})\s*(?:bpm|beats\s*(?:per|\/)\s*min(?:ute)?)\b/dgi, false],
+    [/(?<![A-Za-z0-9])P\s*[:=]?\s*(\d{2,3})(?![\d.%\/])/dg, true],
+  ] as const) {
     for (const m of text.matchAll(re)) {
+      if (needsContext && !hasVitalContext(text, m.index ?? 0)) continue;
       const g = groupSpan(text, m, 1);
       if (hrSeen.has(g.start)) continue;
       hrSeen.add(g.start);

@@ -107,6 +107,14 @@ describe('vital signs', () => {
     expect(parseVitals(text)[key]?.value).toBe(value);
   });
 
+  it('reads a capital P as pulse only beside other vital signs (rules v1.2.0)', () => {
+    expect(parseVitals('o/e sats 90% on air, P 112, RR 24, BP 118/76.').hr?.value).toBe(112);
+    expect(parseVitals('BP 164/96, P: 84, T 37.0').hr?.value).toBe(84);
+    expect(parseVitals('G2P1 at 34 weeks. BP 162/112.').hr).toBeUndefined();
+    expect(parseVitals('Seen with P 80 on the referral letter.').hr).toBeUndefined();
+    expect(parseVitals('BP 120/80. p 90').hr).toBeUndefined();
+  });
+
   it('keeps the span of each reading', () => {
     const text = '58M. BP 162/94, HR 108';
     const v = parseVitals(text);
