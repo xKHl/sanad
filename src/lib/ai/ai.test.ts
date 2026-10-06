@@ -154,7 +154,73 @@ describe('runAiAnalysis', () => {
   });
 });
 
+describe('model fallback', () => {
+  const overloaded = (status: number) =>
+    new MockLanguageModelV4({
+      doGenerate: async () => {
+        throw new APICallError({
+          message: 'This model is currently experiencing high demand.',
+          url: 'https://example.invalid',
+          requestBodyValues: {},
+          statusCode: status,
+          isRetryable: true,
+        });
+      },
+    });
+
+  it.each([503, 429, 404])('moves to the next model after HTTP %d', async (status) => {
+    const { model } = mockModel([JSON.stringify(C01_AI)]);
+    const primary = resolvedWith(overloaded(status));
+    const run = await runAiAnalysis(C01_TEXT, findings, {
+      ...primary,
+      fallbacks: [{ ...resolvedWith(model), label: 'backup (Mock)' }],
+    });
+    expect(run.ok).toBe(true);
+    if (run.ok) {
+      expect(run.modelLabel).toBe('backup (Mock)');
+      expect(run.attempts).toBe(2);
+    }
+  });
+
+  it('does not fall back on a credentials error', async () => {
+    const { model, calls } = mockModel([JSON.stringify(C01_AI)]);
+    const run = await runAiAnalysis(C01_TEXT, findings, {
+      ...resolvedWith(overloaded(401)),
+      fallbacks: [resolvedWith(model)],
+    });
+    expect(run.ok).toBe(false);
+    expect(calls()).toBe(0);
+  });
+
+  it('lists every model tried when all are unavailable', async () => {
+    const run = await runAiAnalysis(C01_TEXT, findings, {
+      ...resolvedWith(overloaded(503)),
+      fallbacks: [{ ...resolvedWith(overloaded(503)), label: 'backup (Mock)' }],
+    });
+    expect(run.ok).toBe(false);
+    if (!run.ok) {
+      expect(run.error.code).toBe('provider');
+      expect(run.error.detail).toContain('tried: mock (Mock), backup (Mock)');
+    }
+  });
+});
+
 describe('resolveModel', () => {
+  it('adds lighter Gemini models and other keyed providers as fallbacks', () => {
+    const r = resolveModel({ GOOGLE_GENERATIVE_AI_API_KEY: 'k', GROQ_API_KEY: 'g' });
+    expect(r.fallbacks?.map((f) => f.label)).toEqual([
+      'gemini-3.5-flash (Google)',
+      'gemini-2.5-flash (Google)',
+      'gemini-flash-latest (Google)',
+      'openai/gpt-oss-120b (Groq)',
+    ]);
+  });
+
+  it('takes the fallback list from LLM_FALLBACK_MODELS', () => {
+    const r = resolveModel({ GOOGLE_GENERATIVE_AI_API_KEY: 'k', LLM_FALLBACK_MODELS: 'a, b' });
+    expect(r.fallbacks?.map((f) => f.modelId)).toEqual(['a', 'b']);
+  });
+
   it('defaults to demo mode without keys', () => {
     const r = resolveModel({});
     expect([r.mode, r.model, r.configError]).toEqual(['demo', null, null]);

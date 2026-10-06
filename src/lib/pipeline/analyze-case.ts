@@ -76,7 +76,10 @@ export async function analyzeCase(
     const run = await (deps.runAi ?? runAiAnalysis)(analyzedText, safety, resolved);
     attempts = run.attempts;
     aiMs = run.latencyMs;
-    if (run.ok) ai = run.analysis;
+    if (run.ok) {
+      ai = run.analysis;
+      modelLabel = run.modelLabel;
+    }
     else aiError = run.error;
   }
 

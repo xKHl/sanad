@@ -42,6 +42,8 @@ export type AiRun =
       analysis: AiAnalysis;
       attempts: number;
       latencyMs: number;
+      /** Label of the model that answered (differs from the primary after a fallback). */
+      modelLabel: string;
       usage: { inputTokens: number | null; outputTokens: number | null };
     }
   | { ok: false; error: AiError; attempts: number; latencyMs: number };
@@ -76,6 +78,11 @@ export function classifyError(error: unknown): AiError {
         message: 'The AI provider rejected the credentials. Check the API key.',
       };
     }
+    if (status === 503)
+      return {
+        code: 'provider',
+        message: 'The AI model is busy right now (high demand). Try again in a moment.',
+      };
     return {
       code: 'provider',
       message: `The AI provider returned an error${status ? ` (HTTP ${status})` : ''}.`,
@@ -113,51 +120,84 @@ export async function runAiAnalysis(
     };
   }
   const userMessage = buildUserMessage(analyzedText, findings);
-  let prompt = userMessage;
+  const budgetMs = opts.timeoutMs ?? AI_TIMEOUT_MS;
+  const deadline = t0 + budgetMs;
+  const chain = [resolved, ...(resolved.fallbacks ?? [])];
   let attempts = 0;
   let lastError: unknown = null;
+  const tried: string[] = [];
 
-  while (attempts < 2) {
-    attempts++;
-    try {
-      const result = await generateText({
-        model: resolved.model,
-        instructions: SYSTEM_PROMPT,
-        prompt,
-        output: Output.object({ schema: AiAnalysisSchema }),
-        ...(resolved.temperature !== undefined ? { temperature: resolved.temperature } : {}),
-        maxOutputTokens: MAX_OUTPUT_TOKENS,
-        maxRetries: 1,
-        timeout: opts.timeoutMs ?? AI_TIMEOUT_MS,
-        ...(resolved.providerOptions ? { providerOptions: resolved.providerOptions } : {}),
-      });
-      const analysis = result.output;
-      return {
-        ok: true,
-        analysis,
-        attempts,
-        latencyMs: Date.now() - t0,
-        usage: {
-          inputTokens: result.usage?.inputTokens ?? null,
-          outputTokens: result.usage?.outputTokens ?? null,
-        },
-      };
-    } catch (error) {
-      lastError = error;
-      const isSchema =
-        NoObjectGeneratedError.isInstance(error) || NoOutputGeneratedError.isInstance(error);
-      if (!isSchema || attempts >= 2) break;
-      prompt = `${userMessage}
+  for (const [index, candidate] of chain.entries()) {
+    if (!candidate.model) continue;
+    // A fallback needs a realistic amount of time left to be worth starting.
+    if (index > 0 && deadline - Date.now() < MIN_FALLBACK_MS) break;
+    tried.push(candidate.label);
+    let prompt = userMessage;
+    let schemaTries = 0;
+    let moveOn = false;
+    while (schemaTries < 2) {
+      schemaTries++;
+      attempts++;
+      try {
+        const result = await generateText({
+          model: candidate.model,
+          instructions: SYSTEM_PROMPT,
+          prompt,
+          output: Output.object({ schema: AiAnalysisSchema }),
+          ...(candidate.temperature !== undefined ? { temperature: candidate.temperature } : {}),
+          maxOutputTokens: MAX_OUTPUT_TOKENS,
+          // Overload errors go straight to the next model instead of waiting on backoff.
+          maxRetries: index < chain.length - 1 ? 0 : 1,
+          timeout: Math.max(1, deadline - Date.now()),
+          ...(candidate.providerOptions ? { providerOptions: candidate.providerOptions } : {}),
+        });
+        return {
+          ok: true,
+          analysis: result.output,
+          attempts,
+          latencyMs: Date.now() - t0,
+          modelLabel: candidate.label,
+          usage: {
+            inputTokens: result.usage?.inputTokens ?? null,
+            outputTokens: result.usage?.outputTokens ?? null,
+          },
+        };
+      } catch (error) {
+        lastError = error;
+        const isSchema =
+          NoObjectGeneratedError.isInstance(error) || NoOutputGeneratedError.isInstance(error);
+        if (isSchema && schemaTries < 2) {
+          prompt = `${userMessage}
 
 Your previous answer could not be used because it did not match the required JSON schema:
 ${describeValidationError(error)}
 Return only one JSON object that matches the schema exactly.`;
+          continue;
+        }
+        moveOn = isUnavailable(error);
+        break;
+      }
     }
+    if (!moveOn) break;
   }
+  const detail = errorDetail(lastError);
   return {
     ok: false,
     attempts,
     latencyMs: Date.now() - t0,
-    error: { ...classifyError(lastError), detail: errorDetail(lastError) },
+    error: {
+      ...classifyError(lastError),
+      detail: tried.length > 1 ? `${detail} [tried: ${tried.join(', ')}]` : detail,
+    },
   };
+}
+
+const MIN_FALLBACK_MS = 12_000;
+
+/** Errors where another model may succeed: overload, rate limit, unknown model, server error. */
+export function isUnavailable(error: unknown): boolean {
+  const inner = RetryError.isInstance(error) ? (error.lastError ?? error) : error;
+  if (!APICallError.isInstance(inner)) return false;
+  const status = inner.statusCode ?? 0;
+  return status === 404 || status === 429 || status >= 500;
 }

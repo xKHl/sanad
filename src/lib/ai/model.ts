@@ -30,6 +30,11 @@ export type ResolvedModel = {
   providerOptions: ProviderOptions | undefined;
   /** Why the configured mode cannot run, if it cannot. */
   configError: string | null;
+  /**
+   * Models tried in order when the primary one is overloaded, rate limited or unavailable
+   * (HTTP 404, 429, 5xx). Same safety pipeline; only the model changes.
+   */
+  fallbacks?: ResolvedModel[];
 };
 
 type Env = Record<string, string | undefined>;
@@ -41,6 +46,11 @@ const DEFAULT_MODELS: Record<ProviderId, string | null> = {
   openai: null,
   gateway: 'google/gemini-3.8-flash',
   ollama: 'gpt-oss:20b',
+};
+
+/** Lighter models of the same provider, tried when the default one is overloaded. */
+const DEFAULT_FALLBACKS: Partial<Record<ProviderId, string[]>> = {
+  google: ['gemini-3.5-flash', 'gemini-2.5-flash', 'gemini-flash-latest'],
 };
 
 const KEY_VARS: Record<Exclude<ProviderId, 'ollama'>, string> = {
@@ -129,6 +139,34 @@ export function resolveModel(
   const modelId = modelOverride ?? DEFAULT_MODELS[provider];
   if (!modelId) return demo(`Set LLM_MODEL for provider "${provider}".`);
 
+  const primary = buildCloud(provider, key, modelId);
+  const fallbacks: ResolvedModel[] = [];
+  const seen = new Set([`${provider}:${modelId}`]);
+  const add = (p: Exclude<ProviderId, 'ollama'>, id: string) => {
+    const k = (env[KEY_VARS[p]] ?? '').trim();
+    if (!k || seen.has(`${p}:${id}`)) return;
+    seen.add(`${p}:${id}`);
+    fallbacks.push(buildCloud(p, k, id));
+  };
+  const listed = (env.LLM_FALLBACK_MODELS ?? '')
+    .split(',')
+    .map((m) => m.trim())
+    .filter(Boolean);
+  for (const id of listed.length > 0 ? listed : (DEFAULT_FALLBACKS[provider] ?? []))
+    add(provider, id);
+  // Another free provider with a key is the last resort (e.g. Groq behind Gemini).
+  for (const p of ['google', 'groq'] as const) {
+    const id = DEFAULT_MODELS[p];
+    if (p !== provider && id) add(p, id);
+  }
+  return { ...primary, fallbacks };
+}
+
+function buildCloud(
+  provider: Exclude<ProviderId, 'ollama'>,
+  key: string,
+  modelId: string,
+): ResolvedModel {
   let model: LanguageModel;
   let temperature: number | undefined = 0;
   let providerOptions: ProviderOptions | undefined;

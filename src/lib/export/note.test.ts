@@ -27,6 +27,7 @@ describe('formatNote', () => {
           analysis: C01_AI,
           attempts: 1,
           latencyMs: 1,
+          modelLabel: 'mock (Mock)',
           usage: { inputTokens: 1, outputTokens: 1 },
         }),
       },

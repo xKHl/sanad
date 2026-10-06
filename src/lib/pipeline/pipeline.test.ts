@@ -36,6 +36,7 @@ function withAi(ai: AiAnalysis, seen?: string[]): AnalyzeDeps {
         analysis: ai,
         attempts: 1,
         latencyMs: 5,
+        modelLabel: 'mock (Mock)',
         usage: { inputTokens: 1, outputTokens: 1 },
       };
     },
