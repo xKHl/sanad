@@ -12,7 +12,8 @@
 | Evaluation script, lab page, report | Done; rules-only report generated |
 | Live model run, recordings, AI metrics | Pending: needs a free key (see `docs/DEPLOY.md`) |
 | Held-out cases | Pending: must come from a different author |
-| Deployment, video, submission | Pending |
+| Deployment | Done: https://sanad-blond.vercel.app (live Gemini with fallback chain) |
+| Video, submission | Pending |
 
 ## Decisions
 
@@ -23,6 +24,8 @@
 - 2026-10-05: no shadcn/ui (registry not reachable from the build environment); small local components with Radix Tooltip instead. Fonts from `@fontsource` packages instead of `next/font/google` for offline builds.
 
 - 2026-10-05: RF-NEWS2-MEDIUM also fires for a single parameter scoring 3 when too few observations exist for a total (e.g. HR 150 alone). RULES_VERSION 1.1.0.
+
+- 2026-10-06: live Gemini returned HTTP 503 (high demand) on gemini-3.8-flash and gemini-3.7-flash. Added a fallback chain within one time budget (gemini-3.7-flash, gemini-3.5-flash-lite, gemini-3.1-flash-lite, gemini-flash-lite-latest, then Groq if a key exists; override with `LLM_FALLBACK_MODELS`). The result shows which model answered. Live check: chest-pain case answered by gemini-3.5-flash-lite in 9.9 s, 6/6 quotes verified.
 
 ## Open questions for the organisers
 
