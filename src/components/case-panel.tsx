@@ -167,7 +167,7 @@ export function CasePanel(props: {
               value=""
               onChange={(e) => e.target.value && props.onLoadSample(e.target.value)}
             >
-              <option value="">Load a sample case</option>
+              <option value="">Analyse a sample case</option>
               {DEV_CASES.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.title} ({c.tags.find((t) => /\d/.test(t)) ?? c.tags[0]})

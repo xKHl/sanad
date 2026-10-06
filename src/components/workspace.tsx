@@ -81,8 +81,9 @@ export function Workspace({ status }: { status: ServerStatus }) {
     };
   }, [active]);
 
-  const analyse = useCallback(async () => {
-    const text = scenario.trim();
+  const analyse = useCallback(async (override?: unknown) => {
+    // A sample case passes its text directly; a button click passes an event, which is ignored.
+    const text = (typeof override === 'string' ? override : scenario).trim();
     if (text.length < 20 || loading) return;
     setLoading(true);
     setElapsed(0);
@@ -123,9 +124,8 @@ export function Workspace({ status }: { status: ServerStatus }) {
     const c = DEV_CASES.find((x) => x.id === id);
     if (!c) return;
     setScenario(c.scenario);
-    setView('edit');
-    setResult(null);
-    setRequestError(null);
+    // Picking a sample runs the analysis straight away.
+    void analyse(c.scenario);
   };
 
   const shownFindings = result?.safety ?? pendingFindings;
