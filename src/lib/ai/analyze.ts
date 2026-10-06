@@ -146,8 +146,9 @@ export async function runAiAnalysis(
           output: Output.object({ schema: AiAnalysisSchema }),
           ...(candidate.temperature !== undefined ? { temperature: candidate.temperature } : {}),
           maxOutputTokens: MAX_OUTPUT_TOKENS,
-          // Overload errors go straight to the next model instead of waiting on backoff.
-          maxRetries: index < chain.length - 1 ? 0 : 1,
+          // The primary (strongest) model gets one retry for transient overload; fallbacks
+          // move straight on to the next model, except the last one.
+          maxRetries: index === 0 || index === chain.length - 1 ? 1 : 0,
           timeout: Math.max(1, deadline - Date.now()),
           ...(candidate.providerOptions ? { providerOptions: candidate.providerOptions } : {}),
         });

@@ -160,6 +160,7 @@ describe('analyzeCase', () => {
           attempts: 1,
           latencyMs: 45000,
         }),
+        findRecording: () => null,
       },
     );
     expect(r.ai).toBeNull();
@@ -167,6 +168,42 @@ describe('analyzeCase', () => {
     expect(r.merged.redFlags.map((f) => f.id)).toEqual(['RF-ACS']);
     expect(r.safety.news2.total).toBe(2);
     expect(r.merged.missingInformation.every((m) => m.source === 'rule')).toBe(true);
+  });
+
+  it('falls back to a recording of the same case when every live model fails', async () => {
+    const failing = async (): Promise<AiRun> => ({
+      ok: false,
+      error: { code: 'provider', message: 'The AI model is busy right now.' },
+      attempts: 3,
+      latencyMs: 9000,
+    });
+    const recording = {
+      ai: C01_AI,
+      model: 'gemini-3.8-flash (Google)',
+      promptVersion: PROMPT_VERSION,
+      recordedAt: '2026-10-06T10:00:00Z',
+    };
+    const r = await analyzeCase(
+      C01_TEXT,
+      {},
+      { resolve: () => cloud, runAi: failing, findRecording: () => recording },
+    );
+    expect(r.aiError).toBeNull();
+    expect(r.aiSource).toBe('recording');
+    expect(r.model).toBe('gemini-3.8-flash (Google), recorded 2026-10-06');
+    expect(r.warnings.join(' ')).toMatch(/live AI model was unavailable/);
+
+    const stale = await analyzeCase(
+      C01_TEXT,
+      {},
+      {
+        resolve: () => cloud,
+        runAi: failing,
+        findRecording: () => ({ ...recording, promptVersion: '0.0.1' }),
+      },
+    );
+    expect(stale.ai).toBeNull();
+    expect(stale.aiError?.code).toBe('provider');
   });
 
   it('redacts identifiers before the AI sees the text', async () => {

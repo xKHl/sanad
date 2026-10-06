@@ -52,11 +52,13 @@ export async function analyzeCase(
   let aiMs: number | null = null;
   let attempts = 0;
   let modelLabel: string | null = resolved.mode === 'demo' ? null : resolved.label;
+  let aiSource: AnalysisResult['aiSource'] = null;
 
   if (resolved.mode === 'demo') {
     const recording = (deps.findRecording ?? findRecording)(analyzedText);
     if (recording) {
       ai = recording.ai;
+      aiSource = 'recording';
       modelLabel = `${recording.model}, recorded ${recording.recordedAt.slice(0, 10)}`;
       if (recording.promptVersion !== PROMPT_VERSION) {
         warnings.push(
@@ -78,9 +80,25 @@ export async function analyzeCase(
     aiMs = run.latencyMs;
     if (run.ok) {
       ai = run.analysis;
+      aiSource = 'live';
       modelLabel = run.modelLabel;
+    } else {
+      // Live models unavailable: fall back to a recorded real run of this exact case, if any.
+      const recording =
+        run.error.code === 'not_configured'
+          ? null
+          : (deps.findRecording ?? findRecording)(analyzedText);
+      if (recording && recording.promptVersion === PROMPT_VERSION) {
+        ai = recording.ai;
+        aiSource = 'recording';
+        modelLabel = `${recording.model}, recorded ${recording.recordedAt.slice(0, 10)}`;
+        warnings.push(
+          `The live AI model was unavailable (${run.error.message}) so a recorded output of a real model run for this sample case is shown. Rule checks are live.`,
+        );
+      } else {
+        aiError = run.error;
+      }
     }
-    else aiError = run.error;
   }
 
   if (ai) ai = postProcess(ai);
@@ -107,6 +125,7 @@ export async function analyzeCase(
     ai,
     aiError,
     aiAttempts: attempts,
+    aiSource,
     merged: {
       safetyStatus: safetyStatus(flags),
       redFlags: flags,

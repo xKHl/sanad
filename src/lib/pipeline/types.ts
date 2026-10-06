@@ -45,6 +45,8 @@ export type AnalysisResult = {
   ai: AiAnalysis | null;
   aiError: AiError | null;
   aiAttempts: number;
+  /** Where the AI section came from: a live model call, or a recorded output of a real model run. */
+  aiSource: 'live' | 'recording' | null;
   merged: {
     safetyStatus: SafetyStatus;
     redFlags: MergedRedFlag[];

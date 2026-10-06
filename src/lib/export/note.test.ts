@@ -55,6 +55,7 @@ describe('formatNote', () => {
           attempts: 1,
           latencyMs: 1,
         }),
+        findRecording: () => null,
       },
     );
     const note = formatNote(r);
