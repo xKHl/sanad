@@ -461,7 +461,7 @@ export function TransparencyView({ r }: { r: AnalysisResult }) {
     ['Versions', `Prompt v${r.promptVersion}, rules v${r.rulesVersion}`],
     [
       'Timing',
-      `Rule checks ${r.timings.safetyMs} ms${r.timings.aiMs !== null ? `, AI ${(r.timings.aiMs / 1000).toFixed(1)} s` : ''}, total ${(r.timings.totalMs / 1000).toFixed(1)} s${r.aiAttempts > 1 ? `, ${r.aiAttempts} AI attempts` : ''}`,
+      `Rule checks ${r.timings.safetyMs} ms${r.timings.aiMs !== null ? `, AI ${(r.timings.aiMs / 1000).toFixed(1)} s` : ''}, total ${(r.timings.totalMs / 1000).toFixed(1)} s${r.aiModelsTried > 1 ? `, ${r.aiModelsTried} models tried` : ''}${r.aiSchemaRetries > 0 ? `, ${r.aiSchemaRetries} schema retry` : ''}`,
     ],
     [
       'Rules',

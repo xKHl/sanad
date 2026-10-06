@@ -45,6 +45,10 @@ export type AnalysisResult = {
   ai: AiAnalysis | null;
   aiError: AiError | null;
   aiAttempts: number;
+  /** Models called for this result (more than 1 after a fallback). */
+  aiModelsTried: number;
+  /** Repeat calls because the output did not match the schema. */
+  aiSchemaRetries: number;
   /** Where the AI section came from: a live model call, or a recorded output of a real model run. */
   aiSource: 'live' | 'recording' | null;
   merged: {

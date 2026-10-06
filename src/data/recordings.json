@@ -1,1 +1,2026 @@
-{}
+{
+  "79516b4c649a3bc8d54444653a350d2c69866eee984d63c1325872cb826dde83": {
+    "caseId": "C01",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "58-year-old male presents with central chest pressure for 2 hours radiating to the left arm, associated with sweating and nausea.",
+        "age": "58",
+        "sex": "male",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Central chest pressure for 2 hours radiating to left arm",
+          "evidence": "central chest pressure for 2 hours radiating to left arm"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Started while climbing stairs",
+            "evidence": "started while climbing stairs"
+          },
+          {
+            "text": "Sweaty and nauseated",
+            "evidence": "sweaty and nauseated"
+          }
+        ],
+        "pastMedicalHistory": [
+          {
+            "text": "Type 2 diabetes mellitus",
+            "evidence": "T2DM"
+          }
+        ],
+        "medications": [
+          {
+            "text": "Metformin",
+            "evidence": "metformin"
+          }
+        ],
+        "allergies": [],
+        "socialHistory": [
+          {
+            "text": "Smoker 30 pack-years",
+            "evidence": "Smoker 30 pack-years"
+          }
+        ],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "BP 162/94, HR 108, RR 20, SpO2 95% on room air, temperature 36.8 C",
+            "evidence": "BP 162/94, HR 108, RR 20, SpO2 95% RA, T 36.8"
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess aspirin allergy status",
+          "whyItMatters": "Required before initiating antiplatelet therapy for potential acute coronary syndrome.",
+          "priority": "high",
+          "category": "medications_allergies",
+          "askPatientArabic": "هل تعاني من أي حساسيات للأدوية، وخاصة الأسبرين؟"
+        },
+        {
+          "question": "Check capillary blood glucose",
+          "whyItMatters": "Evaluates for concurrent glycemic derangement given history of diabetes.",
+          "priority": "high",
+          "category": "investigations",
+          "askPatientArabic": "هل قيست سكر الدم لديك مؤخراً؟"
+        },
+        {
+          "question": "Assess bleeding risk or history of hemorrhagic stroke",
+          "whyItMatters": "Helps determine contraindications for acute coronary interventions.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل لديك أي تاريخ نزيف أو جلطات سابقة؟"
+        },
+        {
+          "question": "Evaluate character of chest pain (sharp, tearing, pleuritic)",
+          "whyItMatters": "Aids in differentiating acute coronary syndrome from aortic dissection or pulmonary embolism.",
+          "priority": "medium",
+          "category": "history",
+          "askPatientArabic": "كيف تشعر بالألم؟ هل هو حاد أم ضاغط؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Acquire an immediate 12-lead ECG",
+          "rationale": "Evaluate for ST-elevation myocardial infarction or ischemic changes.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-ACS"
+        },
+        {
+          "action": "Establish IV access and initiate continuous cardiac monitoring",
+          "rationale": "Prepare for potential arrhythmias and urgent management.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-ACS"
+        },
+        {
+          "action": "Arrange urgent transfer to an emergency department",
+          "rationale": "Patient requires higher-level care and evaluation for acute coronary syndrome.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-ACS"
+        },
+        {
+          "action": "Administer initial treatment per local protocol",
+          "rationale": "Manage suspected acute coronary syndrome safely.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-ACS"
+        },
+        {
+          "action": "Reassess vital signs and clinical status before transport",
+          "rationale": "Monitor for deterioration in heart rate, blood pressure, or oxygen saturation.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-ACS"
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:54:35.954Z"
+  },
+  "49bbbbb7ab41b82260092f603628612f502245ec5fb51d48fd65bc46e47e6d87": {
+    "caseId": "C02",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "71-year-old female with history of atrial fibrillation and hypertension presenting with sudden right arm weakness, slurred speech, and right facial droop of 40 minutes duration.",
+        "age": "71",
+        "sex": "female",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Sudden right arm weakness, slurred speech, and right facial droop",
+          "evidence": "sudden right arm weakness and slurred speech noticed 40 minutes ago, right facial droop"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Symptom onset was 40 minutes ago",
+            "evidence": "noticed 40 minutes ago"
+          }
+        ],
+        "pastMedicalHistory": [
+          {
+            "text": "History of atrial fibrillation, not on anticoagulation",
+            "evidence": "Hx AF, not on anticoagulation"
+          },
+          {
+            "text": "History of hypertension",
+            "evidence": "HTN"
+          }
+        ],
+        "medications": [],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "BP is 188/102 mmHg",
+            "evidence": "BP 188/102"
+          },
+          {
+            "text": "HR is 96 irregular beats per minute",
+            "evidence": "HR 96 irregular"
+          },
+          {
+            "text": "SpO2 is 97%",
+            "evidence": "SpO2 97%"
+          },
+          {
+            "text": "Blood glucose is 7.2 mmol/L",
+            "evidence": "glucose 7.2 mmol/L"
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess exact time last known well and clarify symptom progression.",
+          "whyItMatters": "Determines eligibility for acute reperfusion therapies.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "متى كانت آخر مرة ظهرت فيها بشكل طبيعي تماماً؟"
+        },
+        {
+          "question": "Check full neurological examination including NIHSS score.",
+          "whyItMatters": "Establishes baseline neurological deficit severity.",
+          "priority": "high",
+          "category": "examination",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Inquire about recent trauma, surgery, or bleeding history.",
+          "whyItMatters": "Rules out absolute contraindications for thrombolysis.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل أجريت أي عملية جراحية مؤخراً أو تعرضت لإصابة؟"
+        },
+        {
+          "question": "Review current medications for antiplatelets or anticoagulants.",
+          "whyItMatters": "Informs bleeding risk and acute management.",
+          "priority": "high",
+          "category": "medications_allergies",
+          "askPatientArabic": "هل تتناولين أي أدوية مسيلة للدم؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Activate emergency stroke team and arrange immediate transfer to emergency department.",
+          "rationale": "Patient presents with acute focal neurological deficits within the thrombolysis window.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-STROKE"
+        },
+        {
+          "action": "Evaluate blood pressure carefully; avoid rapid aggressive lowering unless indicated per local protocol.",
+          "rationale": "Severe hypertension in acute ischemic stroke requires careful management.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-HTN-EMERGENCY"
+        },
+        {
+          "action": "Complete full set of vital signs including respiratory rate and temperature.",
+          "rationale": "Ensures complete clinical baseline assessment.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Perform urgent non-contrast CT brain scan.",
+          "rationale": "Excludes intracranial hemorrhage prior to consideration of acute interventions.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-STROKE"
+        },
+        {
+          "action": "Establish continuous cardiac monitoring and serial neurological checks.",
+          "rationale": "Monitors for neurological deterioration and arrhythmia complications.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-STROKE"
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:54:49.685Z"
+  },
+  "2bda4e2583a552c085b64d5dfc3647c88677513f2152e2060f1ce87dabdf4e89": {
+    "caseId": "C03",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "An 82-year-old female presents with 2 days of dysuria, acute confusion, fever, and tachycardia, concerning for urosepsis.",
+        "age": "82",
+        "sex": "female",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Dysuria and frequency for 2 days, with confusion today.",
+          "evidence": "2 days of dysuria and frequency, today more confused"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "2 days of dysuria and frequency.",
+            "evidence": "2 days of dysuria and frequency"
+          },
+          {
+            "text": "Acute confusion and poor oral intake today per son.",
+            "evidence": "today more confused per son and not eating"
+          }
+        ],
+        "pastMedicalHistory": [
+          {
+            "text": "Stage 3 chronic kidney disease.",
+            "evidence": "CKD3"
+          },
+          {
+            "text": "Hypertension.",
+            "evidence": "HTN"
+          }
+        ],
+        "medications": [
+          {
+            "text": "Amlodipine.",
+            "evidence": "amlodipine"
+          }
+        ],
+        "allergies": [],
+        "socialHistory": [
+          {
+            "text": "Lives at home.",
+            "evidence": "from home"
+          }
+        ],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "Fever 38.9 C, HR 118, BP 96/58, RR 24, SpO2 94% on room air.",
+            "evidence": "T 38.9, HR 118, BP 96/58, RR 24, SpO2 94% on room air"
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess for suprapubic or costovertebral angle tenderness.",
+          "whyItMatters": "Helps evaluate for acute pyelonephritis or complicated UTI as the sepsis source.",
+          "priority": "high",
+          "category": "examination",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Check recent baseline renal function and current serum creatinine.",
+          "whyItMatters": "Crucial in CKD3 to assess for acute kidney injury secondary to sepsis or dehydration.",
+          "priority": "high",
+          "category": "investigations",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Inquire about history of drug allergies.",
+          "whyItMatters": "Essential before selecting empiric intravenous antimicrobial therapy.",
+          "priority": "high",
+          "category": "medications_allergies",
+          "askPatientArabic": "هل لديها أي حساسية من أدوية معينة؟"
+        },
+        {
+          "question": "Check capillary blood glucose.",
+          "whyItMatters": "To exclude hypoglycemia or severe hyperglycemia as a cause or contributor to acute confusion.",
+          "priority": "high",
+          "category": "investigations",
+          "askPatientArabic": null
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Arrange immediate emergency transfer/escalation for suspected sepsis.",
+          "rationale": "High NEWS2 score of 11 and potential urosepsis require immediate resuscitation.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-NEWS2-HIGH"
+        },
+        {
+          "action": "Obtain blood cultures and urinalysis with urine culture before starting antimicrobials per local protocol.",
+          "rationale": "To identify the causative organism and guide targeted antibiotic therapy in suspected urosepsis.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-SEPSIS"
+        },
+        {
+          "action": "Evaluate for delirium causes including infection, acute kidney injury, hypoxia, and metabolic disturbance.",
+          "rationale": "Addresses acute onset confusion in an elderly patient with suspected systemic infection.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-DELIRIUM"
+        },
+        {
+          "action": "Administer intravenous fluids and empiric antimicrobials per local sepsis protocol.",
+          "rationale": "Prompt treatment of urosepsis to prevent septic shock and clinical deterioration.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-SEPSIS"
+        },
+        {
+          "action": "Perform continuous monitoring of vital signs, oxygen saturation, and urine output.",
+          "rationale": "To detect early signs of clinical deterioration or fluid overload in the context of CKD.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-NEWS2-HIGH"
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.6-flash (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:55:02.052Z"
+  },
+  "b6e4e890eeb42a5607fd0908efb504667c96f58dd1103a61f7f8e9d7fbeeee86": {
+    "caseId": "C04",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "7-week-old male infant presents with fever, reduced feeding, and decreased wet nappies since this morning.",
+        "age": "7 weeks",
+        "sex": "male",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Fever since this morning",
+          "evidence": "fever 38.4 °C since this morning"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Feeding less than usual",
+            "evidence": "feeding less than usual"
+          },
+          {
+            "text": "Fewer wet nappies",
+            "evidence": "fewer wet nappies"
+          }
+        ],
+        "pastMedicalHistory": [
+          {
+            "text": "Born at term, no past medical history",
+            "evidence": "Born at term, no PMH"
+          }
+        ],
+        "medications": [],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "Temperature 38.4 °C, HR 172 bpm, RR 48 bpm",
+            "evidence": "fever 38.4 °C since this morning, HR 172, RR 48"
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess SpO2, CRT, blood pressure, and overall tone/alertness.",
+          "whyItMatters": "Evaluates for shock, hypoxia, or severe sepsis in a febrile young infant.",
+          "priority": "high",
+          "category": "vital_signs",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Are there any focal signs of infection (fontanelle bulging, chest recessions, rash, joint swelling)?",
+          "whyItMatters": "Helps identify sources of infection such as meningitis, pneumonia, or septic arthritis.",
+          "priority": "high",
+          "category": "examination",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Has there been any vomiting, diarrhea, cough, or unusual drowsiness?",
+          "whyItMatters": "Helps localize the source of infection and gauge severity.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل يتنفس طفلك بصعوبة، أو يعاني من تقيؤ، أو خمول غير طبيعي؟"
+        },
+        {
+          "question": "Is there any family history of recent infectious illnesses or sick contacts?",
+          "whyItMatters": "Identifies potential viral exposure versus risk of serious bacterial infection.",
+          "priority": "medium",
+          "category": "risk_factors",
+          "askPatientArabic": "هل يوجد أي شخص مريض في المنزل أو خالط الطفل مؤخراً؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Arrange immediate paediatric escalation or emergency transfer for urgent evaluation.",
+          "rationale": "Infants under 3 months with fever require urgent workup to exclude serious bacterial infection.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-INFANT-FEVER"
+        },
+        {
+          "action": "Obtain immediate SpO2 and assess capillary refill time and hydration status.",
+          "rationale": "Assesses respiratory distress and haemodynamic stability in a febrile infant.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-INFANT-FEVER"
+        },
+        {
+          "action": "Evaluate for sepsis and perform septic screen per protocol (blood cultures, FBC, CRP, urine culture, lumbar puncture if indicated).",
+          "rationale": "Determines the etiology and guides parenteral antibiotic management.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Monitor vital signs, respiratory effort, and level of consciousness continuously.",
+          "rationale": "Detects rapid clinical deterioration in young infants.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Advise immediate return if breathing becomes laboured, the infant becomes non-responsive, or feeding ceases completely.",
+          "rationale": "Ensures rapid intervention if condition deteriorates before transfer.",
+          "category": "safety_netting",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.6-flash (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:55:11.426Z"
+  },
+  "a9746a57a8f5acc802de5caab62aedb103ddc91d0ea06114ea5dfa21fac273a8": {
+    "caseId": "C05",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "24-year-old female presenting with 3 days of sore throat, runny nose, and mild dry cough with normal vital signs.",
+        "age": "24",
+        "sex": "female",
+        "pregnancyStatus": "not_stated",
+        "chiefComplaint": {
+          "text": "3 days of sore throat, runny nose and mild dry cough",
+          "evidence": "3 days of sore throat, runny nose and mild dry cough"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "No fever, no shortness of breath, eating and drinking normally",
+            "evidence": "No fever, no shortness of breath, eating and drinking normally"
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [],
+        "allergies": [
+          {
+            "text": "No known drug allergies",
+            "evidence": "NKDA"
+          }
+        ],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "Temperature 37.1 C, heart rate 78 bpm, SpO2 99%",
+            "evidence": "T 37.1, HR 78, SpO2 99%"
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess respiratory rate and blood pressure",
+          "whyItMatters": "Complete vital signs are necessary to fully assess clinical stability.",
+          "priority": "high",
+          "category": "vital_signs",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Evaluate for sick contacts or recent travel",
+          "whyItMatters": "Helps determine the likelihood of viral upper respiratory infections.",
+          "priority": "medium",
+          "category": "history",
+          "askPatientArabic": "هل كان أحد من حولك مريضاً مؤخراً؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Complete full vital signs including respiratory rate and blood pressure",
+          "rationale": "To establish a complete baseline for an acute presentation.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Provide safety-netting advice for worsening symptoms",
+          "rationale": "To ensure timely re-evaluation if the condition deteriorates.",
+          "category": "safety_netting",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Consider conservative symptomatic management per local protocol",
+          "rationale": "To alleviate symptoms of uncomplicated viral upper respiratory infection.",
+          "category": "management",
+          "urgency": "routine",
+          "addressesRedFlag": null
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:55:18.950Z"
+  },
+  "317a79bb60494dab1b2d2bb43f8832fdaa2e7514f0548c8b1dd2a80db463430c": {
+    "caseId": "C06",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "45-year-old male presenting with sudden-onset severe occipital headache while lifting weights 3 hours ago.",
+        "age": "45",
+        "sex": "male",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Sudden-onset severe occipital headache described as worst headache of my life.",
+          "evidence": "sudden-onset severe occipital headache while lifting weights 3 hours ago, \"worst headache of my life\""
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Started while lifting weights 3 hours ago.",
+            "evidence": "while lifting weights 3 hours ago"
+          },
+          {
+            "text": "Vomited twice.",
+            "evidence": "vomited twice"
+          },
+          {
+            "text": "Mild neck stiffness.",
+            "evidence": "mild neck stiffness"
+          },
+          {
+            "text": "No head trauma.",
+            "evidence": "No head trauma."
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "BP 158/92, HR 88, T 36.9, GCS 15.",
+            "evidence": "BP 158/92, HR 88, T 36.9, GCS 15."
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess for focal neurological deficits or cranial nerve abnormalities.",
+          "whyItMatters": "Helps evaluate for intracranial pathology or localized neurological compromise.",
+          "priority": "high",
+          "category": "examination",
+          "askPatientArabic": "هل تشعر بأي ضعف في الأطراف أو تنميل أو ازدواج في الرؤية؟"
+        },
+        {
+          "question": "Ask about history of similar headaches or migraine.",
+          "whyItMatters": "Distinguishes novel thunderclap presentation from chronic headache disorders.",
+          "priority": "medium",
+          "category": "history",
+          "askPatientArabic": "هل عانيت من صداع مشابه من قبل؟"
+        },
+        {
+          "question": "Ask about fever, photophobia, or systemic symptoms.",
+          "whyItMatters": "Evaluates for infectious etiologies such as meningitis.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل تعاني من ارتفاع في درجة الحرارة أو حساسية للضوء؟"
+        },
+        {
+          "question": "Obtain full baseline blood investigations including complete blood count and coagulation profile.",
+          "whyItMatters": "Identifies hematological abnormalities prior to further diagnostic procedures.",
+          "priority": "medium",
+          "category": "investigations",
+          "askPatientArabic": null
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Arrange immediate emergency department transfer for urgent non-contrast CT head.",
+          "rationale": "Evaluates for subarachnoid hemorrhage or acute intracranial catastrophe.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-THUNDERCLAP"
+        },
+        {
+          "action": "Complete full set of vital signs including respiratory rate and SpO2.",
+          "rationale": "Establishes full baseline observations per clinical safety protocol.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Assess allergy status and current medications.",
+          "rationale": "Required for safe emergency transfer and potential future interventions.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Perform detailed neurological examination including fundoscopy and meningeal signs.",
+          "rationale": "Assesses for signs of meningism or raised intracranial pressure.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-THUNDERCLAP"
+        },
+        {
+          "action": "Document clinical findings and time of symptom onset clearly.",
+          "rationale": "Ensures accurate handover for emergency transport team.",
+          "category": "documentation",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Prepare for possible lumbar puncture if initial imaging is negative.",
+          "rationale": "Required to exclude subarachnoid hemorrhage when CT head is non-diagnostic.",
+          "category": "investigation",
+          "urgency": "today",
+          "addressesRedFlag": "RF-THUNDERCLAP"
+        }
+      ],
+      "additionalRedFlags": [
+        {
+          "title": "Meningism",
+          "severity": "critical",
+          "evidence": [
+            "mild neck stiffness"
+          ],
+          "recommendedAction": "Evaluate for meningeal irritation or subarachnoid blood during emergency assessment."
+        }
+      ]
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:55:52.508Z"
+  },
+  "3fbe9b6391dbe2938391963aaf6dedf89743388ae30a84d3182943792a25c17a": {
+    "caseId": "C07",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "A 29-year-old pregnant female presents with left-sided lower abdominal pain, light vaginal bleeding, and feeling faint, with tachycardia.",
+        "age": "29",
+        "sex": "female",
+        "pregnancyStatus": "pregnant",
+        "chiefComplaint": {
+          "text": "Lower abdominal pain on the left and light vaginal bleeding",
+          "evidence": "lower abdominal pain on the left since last night and light vaginal bleeding"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Last menstrual period was 7 weeks ago with a positive home pregnancy test",
+            "evidence": "LMP 7 weeks ago, positive home pregnancy test"
+          },
+          {
+            "text": "Pain started since last night",
+            "evidence": "lower abdominal pain on the left since last night"
+          },
+          {
+            "text": "Felt faint once this morning",
+            "evidence": "felt faint once this morning"
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "HR 112, BP 104/66",
+            "evidence": "HR 112, BP 104/66"
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess current regular medications and supplements.",
+          "whyItMatters": "Needed to check for teratogens or concurrent therapies.",
+          "priority": "medium",
+          "category": "medications_allergies",
+          "askPatientArabic": "هل تتناولين أي أدوية حالياً؟"
+        },
+        {
+          "question": "Assess known allergies.",
+          "whyItMatters": "Essential for safe prescribing if interventions are needed.",
+          "priority": "medium",
+          "category": "medications_allergies",
+          "askPatientArabic": "هل تعانين من أي حساسية تجاه الأدوية؟"
+        },
+        {
+          "question": "Check full vital signs including respiratory rate, SpO2, and temperature.",
+          "whyItMatters": "Required to fully assess systemic stability and screen for infection or shock.",
+          "priority": "high",
+          "category": "vital_signs",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Evaluate for shoulder tip pain or radiation.",
+          "whyItMatters": "Can indicate hemoperitoneum from ectopic pregnancy.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل تشعرين بأي ألم في الكتف؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Arrange immediate emergency transfer for urgent obstetric evaluation.",
+          "rationale": "To evaluate for ectopic pregnancy or complications given pain, bleeding, and tachycardia.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-PREGNANCY-PAIN-BLEEDING"
+        },
+        {
+          "action": "Establish IV access and initiate continuous monitoring.",
+          "rationale": "To prepare for potential hemodynamic instability.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-PREGNANCY-PAIN-BLEEDING"
+        },
+        {
+          "action": "Check remaining vital signs including temperature, respiratory rate, and SpO2.",
+          "rationale": "To complete baseline physiological assessment.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-PREGNANCY-PAIN-BLEEDING"
+        },
+        {
+          "action": "Perform urgent point-of-care or formal pelvic ultrasound and quantitative beta-hCG.",
+          "rationale": "To determine intrauterine vs ectopic pregnancy.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-PREGNANCY-PAIN-BLEEDING"
+        },
+        {
+          "action": "Reassess vital signs and clinical status frequently while awaiting transport.",
+          "rationale": "To monitor for worsening shock or deterioration.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-PREGNANCY-PAIN-BLEEDING"
+        }
+      ],
+      "additionalRedFlags": [
+        {
+          "title": "Presyncope in early pregnancy",
+          "severity": "critical",
+          "evidence": [
+            "felt faint once this morning"
+          ],
+          "recommendedAction": "Evaluate urgently for hemorrhagic shock or significant internal bleeding."
+        }
+      ]
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:56:16.417Z"
+  },
+  "e292ef3fff4f967b16988db18445668faf9b9c2705364a55cd8c75d4f8433dc4": {
+    "caseId": "C08",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "38-year-old male presenting with lower back pain for 4 days after moving furniture.",
+        "age": "38",
+        "sex": "male",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Lower back pain for 4 days after moving furniture",
+          "evidence": "lower back pain for 4 days after moving furniture"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Worse on bending",
+            "evidence": "worse on bending"
+          },
+          {
+            "text": "No leg weakness or numbness",
+            "evidence": "no leg weakness or numbness"
+          },
+          {
+            "text": "No bladder or bowel changes",
+            "evidence": "no bladder or bowel changes"
+          },
+          {
+            "text": "No fever",
+            "evidence": "no fever"
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [
+          {
+            "text": "Takes ibuprofen as needed",
+            "evidence": "Takes ibuprofen as needed"
+          }
+        ],
+        "allergies": [
+          {
+            "text": "NKDA",
+            "evidence": "NKDA"
+          }
+        ],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess for radicular symptoms or pain radiation below the knee",
+          "whyItMatters": "Helps evaluate for nerve root compression.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل ينتشر الألم إلى الساقين؟"
+        },
+        {
+          "question": "Evaluate spine range of motion and tenderness",
+          "whyItMatters": "Localizes the mechanical source of back pain.",
+          "priority": "medium",
+          "category": "examination",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Check for history of trauma intensity or pre-existing spinal conditions",
+          "whyItMatters": "Rules out underlying structural pathologies.",
+          "priority": "medium",
+          "category": "risk_factors",
+          "askPatientArabic": "هل تعاني من أي أمراض سابقة في الظهر؟"
+        },
+        {
+          "question": "Inquire about occupational lifting habits or strenuous physical activity",
+          "whyItMatters": "Assesses recurrence risk and work impact.",
+          "priority": "low",
+          "category": "social",
+          "askPatientArabic": "هل تتطلب طبيعة عملك رفع أثقال؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Provide safety-netting advice regarding red flags",
+          "rationale": "Ensure patient knows to seek urgent care for new neurological deficits or sphincter dysfunction.",
+          "category": "safety_netting",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Perform a focused neurological examination of the lower limbs",
+          "rationale": "To exclude acute nerve root compromise.",
+          "category": "assessment",
+          "urgency": "today",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Consider physical therapy referral for mechanical low back pain",
+          "rationale": "To aid recovery and provide core strengthening exercises per local protocol.",
+          "category": "management",
+          "urgency": "routine",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Arrange routine follow-up if symptoms do not improve",
+          "rationale": "To reassess pain control and functional status.",
+          "category": "safety_netting",
+          "urgency": "routine",
+          "addressesRedFlag": null
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:56:27.089Z"
+  },
+  "6f34855f7f38ab89781ccefc54ea2b51d4cf0a2c811d379504eecf5a40e5d92f": {
+    "caseId": "C09",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "41-year-old female presents with one week of low back pain accompanied by recent saddle numbness, urinary difficulty, and bilateral leg tingling.",
+        "age": "41",
+        "sex": "female",
+        "pregnancyStatus": "not_stated",
+        "chiefComplaint": {
+          "text": "1 week of low back pain",
+          "evidence": "1 week of low back pain"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Numbness around the buttocks and inner thighs since yesterday",
+            "evidence": "since yesterday numbness around the buttocks and inner thighs"
+          },
+          {
+            "text": "Difficulty passing urine",
+            "evidence": "difficulty passing urine"
+          },
+          {
+            "text": "New tingling in both legs",
+            "evidence": "new tingling in both legs"
+          },
+          {
+            "text": "No trauma",
+            "evidence": "No trauma"
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess for fecal incontinence or bowel dysfunction",
+          "whyItMatters": "Crucial to evaluate for progressive cauda equina syndrome.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل تعانين من أي سلس فضلات أو عدم توان في التحكم بالأمعاء؟"
+        },
+        {
+          "question": "Assess lower limb motor strength and reflexes",
+          "whyItMatters": "Important to detect neurological deficits associated with spinal nerve compression.",
+          "priority": "high",
+          "category": "examination",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Check post-void residual volume via bladder scan",
+          "whyItMatters": "Helps objectively quantify urinary retention.",
+          "priority": "high",
+          "category": "investigations",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Evaluate for history of malignancy or constitutional symptoms",
+          "whyItMatters": "Assesses for secondary causes of back pain.",
+          "priority": "medium",
+          "category": "history",
+          "askPatientArabic": "هل يعاني أحد من تاريخ مرضي للأورام أو هل لاحظتِ نقصاناً غير مبرر في الوزن؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Arrange immediate emergency department transfer and urgent neurosurgical evaluation",
+          "rationale": "Red flags indicate possible cauda equina syndrome requiring surgical decompression.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-CAUDA-EQUINA"
+        },
+        {
+          "action": "Perform immediate neurological examination including perianal sensation and tone",
+          "rationale": "Confirms presence of saddle anesthesia and sphincter dysfunction.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-CAUDA-EQUINA"
+        },
+        {
+          "action": "Check post-void residual volume or catheterize if indicated",
+          "rationale": "Evaluates urinary retention associated with cauda equina syndrome.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-CAUDA-EQUINA"
+        },
+        {
+          "action": "Document findings clearly in the clinical record",
+          "rationale": "Ensures accurate handover for emergency services.",
+          "category": "documentation",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Provide safety-netting advising immediate return if symptoms worsen",
+          "rationale": "Ensures patient awareness of critical warning signs.",
+          "category": "safety_netting",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:56:39.096Z"
+  },
+  "e1bb9ca64c718602805c0e0dbe8d5b0f0dab5fa41de1b785a177befa30a7a3b6": {
+    "caseId": "C10",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "19-year-old male with type 1 diabetes presents with one day of vomiting, abdominal pain, polydipsia, and tachypnoea following missed insulin doses.",
+        "age": "19",
+        "sex": "male",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "One day of vomiting and abdominal pain",
+          "evidence": "1 day of vomiting and abdominal pain"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Very thirsty and breathing fast",
+            "evidence": "very thirsty, breathing fast."
+          },
+          {
+            "text": "Missed insulin doses this week",
+            "evidence": "Missed insulin doses this week."
+          }
+        ],
+        "pastMedicalHistory": [
+          {
+            "text": "Type 1 diabetes",
+            "evidence": "type 1 diabetes"
+          }
+        ],
+        "medications": [],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "HR 124, RR 28, BP 108/70, T 37.2",
+            "evidence": "HR 124, RR 28, BP 108/70, T 37.2."
+          }
+        ],
+        "investigations": [
+          {
+            "text": "Capillary glucose 26 mmol/L, ketones 4.1 mmol/L",
+            "evidence": "Capillary glucose 26 mmol/L, ketones 4.1 mmol/L."
+          }
+        ]
+      },
+      "missingInformation": [
+        {
+          "question": "Check oxygen saturation (SpO2)",
+          "whyItMatters": "Required to complete clinical observations and assess respiratory compromise.",
+          "priority": "high",
+          "category": "vital_signs",
+          "askPatientArabic": "هل يمكنني قياس نسبة الأكسجين في الدم؟"
+        },
+        {
+          "question": "Determine allergy status",
+          "whyItMatters": "Essential for safe medication administration during emergency management.",
+          "priority": "high",
+          "category": "medications_allergies",
+          "askPatientArabic": "هل تعاني من أي حساسيات تجاه الأدوية؟"
+        },
+        {
+          "question": "Assess level of consciousness or GCS",
+          "whyItMatters": "Important to evaluate for severe metabolic derangement or cerebral oedema risk.",
+          "priority": "high",
+          "category": "examination",
+          "askPatientArabic": "هل تشعر بالنعاس أو عدم التركيز؟"
+        },
+        {
+          "question": "Check venous or arterial blood gas and electrolytes",
+          "whyItMatters": "Necessary to evaluate acidosis severity, potassium levels, and anion gap.",
+          "priority": "high",
+          "category": "investigations",
+          "askPatientArabic": null
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Initiate urgent escalation and transfer to emergency department for management of suspected diabetic ketoacidosis.",
+          "rationale": "Meets criteria for DKA with hyperglycaemia, ketonaemia, and tachycardia.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-DKA"
+        },
+        {
+          "action": "Assess SpO2 immediately and complete full vital signs.",
+          "rationale": "Completes NEWS2 assessment and evaluates respiratory status.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-NEWS2-MEDIUM"
+        },
+        {
+          "action": "Establish IV access and initiate IV fluid resuscitation per local protocol.",
+          "rationale": "Addresses tachycardia and potential dehydration in DKA.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-DKA"
+        },
+        {
+          "action": "Send urgent blood tests including venous blood gas, U&E, and blood ketones.",
+          "rationale": "Monitors electrolyte shifts and severity of metabolic acidosis.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-DKA"
+        },
+        {
+          "action": "Perform continuous monitoring of vital signs and neurological status.",
+          "rationale": "Tracks response to therapy and detects clinical deterioration early.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-NEWS2-MEDIUM"
+        },
+        {
+          "action": "Document clinical findings and time of emergency referral.",
+          "rationale": "Ensures accurate handover to receiving emergency team.",
+          "category": "documentation",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        }
+      ],
+      "additionalRedFlags": [
+        {
+          "title": "Tachycardia and tachypnoea",
+          "severity": "critical",
+          "evidence": [
+            "HR 124",
+            "RR 28"
+          ],
+          "recommendedAction": "Evaluate for systemic compromise, dehydration, or severe metabolic acidosis."
+        }
+      ]
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:56:47.281Z"
+  },
+  "a7515ab9c68ab563de85e3c794730f02a3baa1f24a971f0ce2f802cb0a537719": {
+    "caseId": "C11",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "A 33-year-old female presents with acute lip and tongue swelling, hives, throat tightness, and wheezing 20 minutes after eating at a restaurant.",
+        "age": "33",
+        "sex": "female",
+        "pregnancyStatus": "not_stated",
+        "chiefComplaint": {
+          "text": "Lip and tongue swelling, generalised hives, throat feels tight, wheezing",
+          "evidence": "lip and tongue swelling, generalised hives, throat feels tight, wheezing"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Symptoms started 20 minutes after eating at a restaurant",
+            "evidence": "20 minutes after eating at a restaurant"
+          }
+        ],
+        "pastMedicalHistory": [
+          {
+            "text": "Known peanut allergy",
+            "evidence": "Known peanut allergy"
+          }
+        ],
+        "medications": [
+          {
+            "text": "Has an adrenaline auto-injector but did not use it",
+            "evidence": "has an adrenaline auto-injector but did not use it"
+          }
+        ],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "HR 120, BP 92/60, SpO2 93%",
+            "evidence": "HR 120, BP 92/60, SpO2 93%"
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "What is the respiratory rate?",
+          "whyItMatters": "Essential for complete NEWS2 calculation and respiratory assessment.",
+          "priority": "high",
+          "category": "vital_signs",
+          "askPatientArabic": null
+        },
+        {
+          "question": "What is the patient's temperature?",
+          "whyItMatters": "Needed for complete baseline observations.",
+          "priority": "medium",
+          "category": "vital_signs",
+          "askPatientArabic": null
+        },
+        {
+          "question": "What is the pregnancy status?",
+          "whyItMatters": "Important for medication safety if advanced resuscitation is needed.",
+          "priority": "medium",
+          "category": "history",
+          "askPatientArabic": "هل أنت حامل؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Administer intramuscular adrenaline immediately per local protocol",
+          "rationale": "Addresses anaphylaxis with airway and hemodynamic compromise.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-ANAPHYLAXIS"
+        },
+        {
+          "action": "Administer high-flow oxygen",
+          "rationale": "Addresses SpO2 of 93%.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-ANAPHYLAXIS"
+        },
+        {
+          "action": "Establish IV access and initiate fluid resuscitation",
+          "rationale": "Manages hypotension (BP 92/60) and tachycardia (HR 120).",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-NEWS2-MEDIUM"
+        },
+        {
+          "action": "Complete full set of vital signs including respiratory rate and temperature",
+          "rationale": "Aids accurate NEWS2 and clinical reassessment.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-NEWS2-MEDIUM"
+        },
+        {
+          "action": "Escalate to emergency medical services for immediate transfer to emergency department",
+          "rationale": "Patient requires continuous monitoring and secondary anaphylaxis treatment.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-ANAPHYLAXIS"
+        },
+        {
+          "action": "Reassess vital signs and clinical response after interventions",
+          "rationale": "Monitor for resolution of bronchospasm and hypotension.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:56:58.764Z"
+  },
+  "b5b3416de529e39f76ae74a0fa8bd9e473a13aab51082a84a46e0df29f1a032a": {
+    "caseId": "C12",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "27-year-old male presents for follow-up of low mood for 3 months with suicidal ideation and active planning.",
+        "age": "27",
+        "sex": "male",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Follow-up for low mood for 3 months, poor sleep, and stopped going to work.",
+          "evidence": "low mood for 3 months, poor sleep, stopped going to work."
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Thinking about ending his life and looked up ways to do it.",
+            "evidence": "thinking about ending his life and has looked up ways to do it."
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [],
+        "allergies": [],
+        "socialHistory": [
+          {
+            "text": "Lives alone.",
+            "evidence": "Lives alone."
+          }
+        ],
+        "familyHistory": [],
+        "vitalsAndExamination": [],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess detailed suicide plan, intent, access to means, and previous attempts.",
+          "whyItMatters": "Crucial to stratify immediate risk and determine need for emergency psychiatric evaluation.",
+          "priority": "high",
+          "category": "risk_factors",
+          "askPatientArabic": "هل تفكر في إيذاء نفسك أو هل لديك خطة محددة؟"
+        },
+        {
+          "question": "Assess for psychotic symptoms such as hallucinations or delusions.",
+          "whyItMatters": "Presence of psychosis significantly changes immediate management and safety requirements.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل تسمع أصواتاً أو ترى أشياء لا يراها الآخرون؟"
+        },
+        {
+          "question": "Evaluate substance use history (alcohol and illicit drugs).",
+          "whyItMatters": "Substance use increases impulsivity and exacerbates suicide risk.",
+          "priority": "medium",
+          "category": "social",
+          "askPatientArabic": "هل تشرب الكحول أو تستخدم أي مواد مخدرة؟"
+        },
+        {
+          "question": "Evaluate for a history of past psychiatric diagnoses or mood disorders.",
+          "whyItMatters": "Guides differential diagnosis and long-term psychiatric treatment planning.",
+          "priority": "medium",
+          "category": "history",
+          "askPatientArabic": "هل راجعت طبيباً نفسياً من قبل أو تم تشخيصك بحالة نفسية؟"
+        },
+        {
+          "question": "Determine available social support system beyond living alone.",
+          "whyItMatters": "Informs outpatient safety planning and potential need for supervised admission.",
+          "priority": "medium",
+          "category": "social",
+          "askPatientArabic": "هل هناك أفراد من العائلة أو أصدقاء يمكنك الاعتماد عليهم في هذه الفترة؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Perform immediate risk assessment for suicide intent, plan, and means.",
+          "rationale": "Patient reported thinking about ending life and looking up methods.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-SUICIDE-RISK"
+        },
+        {
+          "action": "Ensure constant supervision and do not leave the patient alone.",
+          "rationale": "High risk of self-harm due to active suicidal ideation and living alone.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-SUICIDE-RISK"
+        },
+        {
+          "action": "Arrange urgent psychiatric evaluation or emergency department transfer.",
+          "rationale": "Active suicidal ideation with planning requires specialist crisis intervention.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-SUICIDE-RISK"
+        },
+        {
+          "action": "Involve family members or trusted contacts in safety planning with patient consent.",
+          "rationale": "Mitigates isolation given that the patient lives alone.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-SUICIDE-RISK"
+        },
+        {
+          "action": "Document risk assessment, safety plan, and escalation details clearly in the clinical record.",
+          "rationale": "Ensures legal and clinical continuity of care for a high-risk patient.",
+          "category": "documentation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-SUICIDE-RISK"
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:57:07.247Z"
+  },
+  "5107b7dcbd0b8e7c655c3cdf986bd42bfc0f3db93d13f210e7e407330549f7c7": {
+    "caseId": "C13",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "62-year-old male presents for routine follow-up with severe hypertension after running out of amlodipine.",
+        "age": "62",
+        "sex": "male",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Routine follow-up, ran out of amlodipine 2 weeks ago",
+          "evidence": "62M routine follow-up, no complaints, ran out of his amlodipine 2 weeks ago."
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "No complaints, ran out of amlodipine 2 weeks ago",
+            "evidence": "no complaints, ran out of his amlodipine 2 weeks ago."
+          },
+          {
+            "text": "No headache, chest pain, breathlessness or visual changes",
+            "evidence": "No headache, chest pain, breathlessness or visual changes."
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [
+          {
+            "text": "Amlodipine, ran out 2 weeks ago",
+            "evidence": "ran out of his amlodipine 2 weeks ago."
+          }
+        ],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "BP 186/112 on repeat, HR 76",
+            "evidence": "BP 186/112 on repeat, HR 76."
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess for end-organ damage symptoms such as neurological deficits, confusion or chest discomfort",
+          "whyItMatters": "Helps differentiate asymptomatic severe hypertension from hypertensive emergency.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل تشعر بأي ألم في الصدر أو ضيق في التنفس أو صداع شديد أو زغللة في العيون؟"
+        },
+        {
+          "question": "Assess medication adherence history and barriers to refill",
+          "whyItMatters": "Guides long-term blood pressure management and prevention of future lapses.",
+          "priority": "medium",
+          "category": "medications_allergies",
+          "askPatientArabic": "لماذا توقفت عن أخذ دواء الضغط وهل تواجه صعوبة في الحصول على الدواء؟"
+        },
+        {
+          "question": "Evaluate cardiovascular examination including fundoscopy and auscultation",
+          "whyItMatters": "Rules out acute hypertensive target organ damage.",
+          "priority": "high",
+          "category": "examination",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Check baseline renal function and electrolytes",
+          "whyItMatters": "Assesses for chronic kidney disease or acute kidney injury secondary to severe hypertension.",
+          "priority": "medium",
+          "category": "investigations",
+          "askPatientArabic": null
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Assess for acute end-organ damage symptoms and perform a focused physical examination",
+          "rationale": "To rule out hypertensive emergency given BP of 186/112.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-HTN-SEVERE"
+        },
+        {
+          "action": "Complete full set of vital signs including respiratory rate, oxygen saturation, and temperature",
+          "rationale": "To ensure comprehensive baseline assessment.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": null
+        },
+        {
+          "action": "Restart amlodipine or adjust therapy per local protocol",
+          "rationale": "To address medication non-adherence and reduce blood pressure safely.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-HTN-SEVERE"
+        },
+        {
+          "action": "Reassess blood pressure after a period of quiet rest",
+          "rationale": "To determine if severe elevation persists.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-HTN-SEVERE"
+        },
+        {
+          "action": "Provide safety-netting advice to seek urgent care if chest pain, shortness of breath, neurological deficits, or visual changes occur",
+          "rationale": "To ensure patient safety following outpatient management.",
+          "category": "safety_netting",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-HTN-SEVERE"
+        },
+        {
+          "action": "Evaluate for baseline blood tests and ECG per local protocol",
+          "rationale": "To screen for target organ damage.",
+          "category": "investigation",
+          "urgency": "today",
+          "addressesRedFlag": "RF-HTN-SEVERE"
+        },
+        {
+          "action": "Arrange early follow-up to monitor blood pressure response",
+          "rationale": "To ensure successful blood pressure control after restarting therapy.",
+          "category": "safety_netting",
+          "urgency": "today",
+          "addressesRedFlag": null
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:57:16.054Z"
+  },
+  "39d82bda53f7cab1e644f389b1ca3f329e7fe7dbbe22b6b30a4f0681499ef90f": {
+    "caseId": "C14",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "67-year-old male presents with progressive difficulty swallowing solids and unintentional weight loss for 2 months.",
+        "age": "67",
+        "sex": "male",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Progressive difficulty swallowing solids for 2 months",
+          "evidence": "2 months of progressive difficulty swallowing solids"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Unintentional weight loss of about 6 kg",
+            "evidence": "unintentional weight loss of about 6 kg"
+          },
+          {
+            "text": "No vomiting blood",
+            "evidence": "No vomiting blood."
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [],
+        "allergies": [],
+        "socialHistory": [
+          {
+            "text": "Ex-smoker",
+            "evidence": "ex-smoker."
+          }
+        ],
+        "familyHistory": [],
+        "vitalsAndExamination": [],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess for odynophagia, liquids dysphagia, or voice changes",
+          "whyItMatters": "Helps determine the level of obstruction and associated laryngeal involvement.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل تعاني من ألم عند البلع أو صعوبة في بلع السوائل؟"
+        },
+        {
+          "question": "Evaluate for gastrointestinal bleeding symptoms like melaena",
+          "whyItMatters": "Evaluates for upper GI bleeding sources.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل لاحظت وجود براز أسود داكن؟"
+        },
+        {
+          "question": "Obtain full set of vital signs including HR, BP, RR, SpO2, and temperature",
+          "whyItMatters": "Establishes baseline hemodynamic stability.",
+          "priority": "high",
+          "category": "vital_signs",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Document current medications and adherence",
+          "whyItMatters": "Ensures safe prescribing and checks for pill-induced esophagitis.",
+          "priority": "medium",
+          "category": "medications_allergies",
+          "askPatientArabic": "ما هي الأدوية التي تأخذها حالياً؟"
+        },
+        {
+          "question": "Document allergy status",
+          "whyItMatters": "Required for safe clinical management.",
+          "priority": "medium",
+          "category": "medications_allergies",
+          "askPatientArabic": "هل لديك أي حساسيات معروفة للأدوية؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Assess full vital signs immediately",
+          "rationale": "Establishes baseline physiological status for this patient presenting with weight loss and dysphagia.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-CANCER-FEATURES"
+        },
+        {
+          "action": "Arrange urgent gastroenterology referral for endoscopy",
+          "rationale": "Evaluates for structural lesions and malignancy given progressive dysphagia and weight loss.",
+          "category": "escalation",
+          "urgency": "today",
+          "addressesRedFlag": "RF-CANCER-FEATURES"
+        },
+        {
+          "action": "Order baseline blood tests including full blood count and renal function",
+          "rationale": "Assesses for anemia and nutritional depletion.",
+          "category": "investigation",
+          "urgency": "today",
+          "addressesRedFlag": "RF-CANCER-FEATURES"
+        },
+        {
+          "action": "Provide safety-netting advice regarding worsening symptoms",
+          "rationale": "Instructs patient to seek immediate care if total dysphagia or acute bleeding occurs.",
+          "category": "safety_netting",
+          "urgency": "today",
+          "addressesRedFlag": "RF-CANCER-FEATURES"
+        },
+        {
+          "action": "Document smoking cessation counseling and history",
+          "rationale": "Addresses a significant risk factor for upper gastrointestinal malignancies.",
+          "category": "documentation",
+          "urgency": "routine",
+          "addressesRedFlag": null
+        }
+      ],
+      "additionalRedFlags": []
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:57:23.390Z"
+  },
+  "aca29201bd35b04083a4360b9cedb9d80ca9fd2c4f1987b74b56d917639a7c44": {
+    "caseId": "C15",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "4-year-old girl presenting with a fever of 39.6 C since this afternoon, drowsiness, irritability, and new non-blanching purple leg spots.",
+        "age": "4",
+        "sex": "female",
+        "pregnancyStatus": "not_applicable",
+        "chiefComplaint": {
+          "text": "Fever and new purple spots on her legs.",
+          "evidence": "fever 39.6 °C since this afternoon, now drowsy and irritable, new purple spots on her legs"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Fever since this afternoon.",
+            "evidence": "fever 39.6 °C since this afternoon"
+          },
+          {
+            "text": "Now drowsy and irritable.",
+            "evidence": "now drowsy and irritable"
+          },
+          {
+            "text": "New purple spots on legs that do not fade with a glass.",
+            "evidence": "new purple spots on her legs that do not fade when pressed with a glass"
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "HR 160.",
+            "evidence": "HR 160"
+          },
+          {
+            "text": "Capillary refill 4 seconds.",
+            "evidence": "capillary refill 4 seconds"
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess respiratory rate and oxygen saturation.",
+          "whyItMatters": "Crucial for evaluating sepsis and systemic compromise.",
+          "priority": "high",
+          "category": "vital_signs",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Measure blood pressure.",
+          "whyItMatters": "Essential for detecting hypotensive shock in a tachycardic child.",
+          "priority": "high",
+          "category": "vital_signs",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Check capillary blood glucose.",
+          "whyItMatters": "Rules out hypoglycemia in an acutely unwell, drowsy child.",
+          "priority": "high",
+          "category": "investigations",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Determine current medications and allergies.",
+          "whyItMatters": "Informs safe emergency drug administration.",
+          "priority": "high",
+          "category": "medications_allergies",
+          "askPatientArabic": null
+        },
+        {
+          "question": "Inquire about neck stiffness, photophobia, or vomiting.",
+          "whyItMatters": "Helps evaluate central nervous system involvement.",
+          "priority": "medium",
+          "category": "history",
+          "askPatientArabic": "هل تعاني من تصلب في الرقبة أو انزعاج من الضوء؟"
+        },
+        {
+          "question": "Ask about vaccination history, particularly meningococcal and Hib.",
+          "whyItMatters": "Assesses immunological protection against invasive bacterial illness.",
+          "priority": "medium",
+          "category": "risk_factors",
+          "askPatientArabic": "هل حصلت الطفلة على التطعيمات اللازمة في وقتها؟"
+        },
+        {
+          "question": "Evaluate urine output and fluid intake today.",
+          "whyItMatters": "Gauges hydration status and end-organ perfusion.",
+          "priority": "medium",
+          "category": "history",
+          "askPatientArabic": "كم مرة بللت الحفاضة أو ذهبت للحمام اليوم؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Activate emergency response team and prepare for immediate resuscitation.",
+          "rationale": "Addresses critical risk of invasive meningococcal disease and septic shock.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-MENINGITIS"
+        },
+        {
+          "action": "Administer parenteral antibiotics per local protocol immediately.",
+          "rationale": "Early treatment improves outcomes in suspected meningococcal sepsis.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-MENINGITIS"
+        },
+        {
+          "action": "Obtain full vital signs including respiratory rate, SpO2, and BP.",
+          "rationale": "Required to complete paediatric early-warning scoring and assess stability.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-MENINGITIS"
+        },
+        {
+          "action": "Establish intravenous or intraosseous access and take blood tests including cultures and glucose.",
+          "rationale": "Permits fluid resuscitation, antibiotic delivery, and identification of etiology.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-MENINGITIS"
+        },
+        {
+          "action": "Arrange emergency transfer to a paediatric intensive care setting.",
+          "rationale": "Ensures continuous monitoring and advanced organ support for severe sepsis.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-MENINGITIS"
+        },
+        {
+          "action": "Document all clinical findings, vital signs, and time-critical interventions precisely.",
+          "rationale": "Maintains an accurate record for the receiving tertiary team.",
+          "category": "documentation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-MENINGITIS"
+        }
+      ],
+      "additionalRedFlags": [
+        {
+          "title": "Delayed capillary refill",
+          "severity": "critical",
+          "evidence": [
+            "capillary refill 4 seconds"
+          ],
+          "recommendedAction": "Evaluate for poor peripheral perfusion and shock."
+        },
+        {
+          "title": "Altered mental status",
+          "severity": "critical",
+          "evidence": [
+            "now drowsy and irritable"
+          ],
+          "recommendedAction": "Assess for acute encephalopathy or severe systemic illness."
+        },
+        {
+          "title": "Tachycardia",
+          "severity": "critical",
+          "evidence": [
+            "HR 160"
+          ],
+          "recommendedAction": "Evaluate for systemic inflammatory response and hemodynamic instability."
+        }
+      ]
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:57:33.596Z"
+  },
+  "99c082045853433cc132f4a4505b996bf205b8d94db9258c96c9f5ccc881aabd": {
+    "caseId": "C16",
+    "ai": {
+      "inputQuality": {
+        "isClinicalScenario": true,
+        "note": null
+      },
+      "caseSummary": {
+        "oneLiner": "36-year-old female presents 10 days post-knee surgery with sudden shortness of breath, sharp pleuritic chest pain, and a swollen right calf.",
+        "age": "36",
+        "sex": "female",
+        "pregnancyStatus": "not_stated",
+        "chiefComplaint": {
+          "text": "Sudden shortness of breath and sharp chest pain",
+          "evidence": "sudden shortness of breath this morning and sharp chest pain"
+        },
+        "historyOfPresentIllness": [
+          {
+            "text": "Chest pain worse on deep breathing",
+            "evidence": "sharp chest pain worse on deep breathing"
+          },
+          {
+            "text": "Right calf swollen",
+            "evidence": "right calf swollen"
+          },
+          {
+            "text": "Onset 10 days after knee surgery",
+            "evidence": "10 days after knee surgery"
+          }
+        ],
+        "pastMedicalHistory": [],
+        "medications": [
+          {
+            "text": "Takes the combined pill",
+            "evidence": "Takes the combined pill."
+          }
+        ],
+        "allergies": [],
+        "socialHistory": [],
+        "familyHistory": [],
+        "vitalsAndExamination": [
+          {
+            "text": "HR 116",
+            "evidence": "HR 116"
+          },
+          {
+            "text": "RR 24",
+            "evidence": "RR 24"
+          },
+          {
+            "text": "SpO2 91% on room air",
+            "evidence": "SpO2 91% on room air"
+          },
+          {
+            "text": "BP 118/76",
+            "evidence": "BP 118/76"
+          },
+          {
+            "text": "T 37.4",
+            "evidence": "T 37.4"
+          }
+        ],
+        "investigations": []
+      },
+      "missingInformation": [
+        {
+          "question": "Assess allergy status",
+          "whyItMatters": "Required for safe medication administration.",
+          "priority": "high",
+          "category": "medications_allergies",
+          "askPatientArabic": "هل تعانين من أي حساسية تجاه الأدوية؟"
+        },
+        {
+          "question": "Assess pregnancy status",
+          "whyItMatters": "Important for imaging and treatment choices.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل يوجد احتمال وجود حمل؟"
+        },
+        {
+          "question": "Evaluate for hemoptysis or syncope",
+          "whyItMatters": "Assesses severity of possible pulmonary embolism.",
+          "priority": "high",
+          "category": "history",
+          "askPatientArabic": "هل عانيت من إغماء أو سعف مصحوب بدم؟"
+        }
+      ],
+      "nextSteps": [
+        {
+          "action": "Initiate high-flow oxygen therapy per local protocol",
+          "rationale": "Addresses hypoxia and NEWS2 high status.",
+          "category": "management",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-NEWS2-HIGH"
+        },
+        {
+          "action": "Escalate immediately to the emergency response team",
+          "rationale": "Patient has high NEWS2 score and low oxygen saturation.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-NEWS2-HIGH"
+        },
+        {
+          "action": "Arrange emergency transfer to the hospital",
+          "rationale": "Evaluate for pulmonary embolism and deep vein thrombosis.",
+          "category": "escalation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-PE"
+        },
+        {
+          "action": "Perform urgent ECG and bedside blood gas analysis",
+          "rationale": "Evaluate for right heart strain and gas exchange abnormalities.",
+          "category": "investigation",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-PE"
+        },
+        {
+          "action": "Continuously monitor vital signs including SpO2 and HR",
+          "rationale": "Detect clinical deterioration promptly.",
+          "category": "assessment",
+          "urgency": "immediate",
+          "addressesRedFlag": "RF-HYPOXIA"
+        },
+        {
+          "action": "Document all findings and handover details clearly",
+          "rationale": "Ensures safe transfer of care.",
+          "category": "documentation",
+          "urgency": "today",
+          "addressesRedFlag": null
+        }
+      ],
+      "additionalRedFlags": [
+        {
+          "title": "Unilateral leg swelling",
+          "severity": "critical",
+          "evidence": [
+            "right calf swollen"
+          ],
+          "recommendedAction": "Evaluate for deep vein thrombosis."
+        }
+      ]
+    },
+    "model": "gemini-3.5-flash-lite (Google)",
+    "promptVersion": "1.2.0",
+    "recordedAt": "2026-10-06T18:57:41.309Z"
+  }
+}

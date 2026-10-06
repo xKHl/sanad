@@ -20,6 +20,7 @@ export type CaseRun = {
   ai: null | {
     ok: boolean;
     attempts: number;
+    schemaRetries: number;
     errorCode: string | null;
     groundingVerified: number;
     groundingTotal: number;
@@ -54,6 +55,7 @@ export function runFromResult(set: EvalSet, c: SyntheticCase, r: AnalysisResult)
     ai: {
       ok: ai !== null,
       attempts: r.aiAttempts,
+      schemaRetries: r.aiSchemaRetries,
       errorCode: r.aiError?.code ?? null,
       groundingVerified: r.grounding?.verified ?? 0,
       groundingTotal: r.grounding?.total ?? 0,
@@ -140,7 +142,7 @@ export function summarize(runs: CaseRun[]): SetSummary {
     const p95 = percentile(lat, 95);
     ai = {
       attempted: a.length,
-      schemaFirst: ratio(a.filter((x) => x.ok && x.attempts === 1).length, a.length),
+      schemaFirst: ratio(a.filter((x) => x.ok && x.schemaRetries === 0).length, a.length),
       schemaFinal: ratio(okRuns.length, a.length),
       grounding: ratio(gv, gt),
       coherence: ratio(addressed, flags),
@@ -218,7 +220,7 @@ export function renderReport(meta: ReportMeta, runs: CaseRun[], existing: string
 
   L.push('## Summary', '');
   L.push(
-    'The development set was used to build the rules, so its rule metrics are expected to be high and are not a measure of generalisation. The held-out set was written after the rules were frozen, by a different author, and is never used for tuning.',
+    'The development set was used to build the rules, so its rule metrics are expected to be high and are not a measure of generalisation. The held-out sets were written by independent authors against frozen rules; their first, clean results and any fixes made afterwards are listed in the error-analysis section below, so the held-out column here reflects the current rules after those fixes.',
     '',
   );
   L.push('| Metric | Development | Held-out |', '|---|---|---|');
@@ -261,7 +263,7 @@ export function renderReport(meta: ReportMeta, runs: CaseRun[], existing: string
       `| ${r.set} | ${r.id} ${r.title} | ${r.expectedFlags.join(', ') || 'none'} | ${r.firedFlags.join(', ') || 'none'} | ${n2(r.expectedNews2)} | ${n2(r.news2)} | ${
         ai
           ? ai.ok
-            ? `ok${ai.attempts > 1 ? ` (${ai.attempts} attempts)` : ''}`
+            ? `ok${ai.schemaRetries > 0 ? ` (${ai.schemaRetries} schema retry)` : ''}`
             : (ai.errorCode ?? 'failed')
           : 'not run'
       } | ${ai ? `${ai.groundingVerified}/${ai.groundingTotal}` : 'n/a'} | ${ai?.aiMs != null ? `${(ai.aiMs / 1000).toFixed(1)} s` : 'n/a'} |`,

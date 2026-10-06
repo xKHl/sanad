@@ -44,9 +44,20 @@ export type AiRun =
       latencyMs: number;
       /** Label of the model that answered (differs from the primary after a fallback). */
       modelLabel: string;
+      /** Models called, including the one that answered. */
+      modelsTried: number;
+      /** Repeat calls made because the output did not match the schema. */
+      schemaRetries: number;
       usage: { inputTokens: number | null; outputTokens: number | null };
     }
-  | { ok: false; error: AiError; attempts: number; latencyMs: number };
+  | {
+      ok: false;
+      error: AiError;
+      attempts: number;
+      latencyMs: number;
+      modelsTried?: number;
+      schemaRetries?: number;
+    };
 
 export const AI_TIMEOUT_MS = 55_000;
 const MAX_OUTPUT_TOKENS = 6_000;
@@ -124,6 +135,7 @@ export async function runAiAnalysis(
   const deadline = t0 + budgetMs;
   const chain = [resolved, ...(resolved.fallbacks ?? [])];
   let attempts = 0;
+  let schemaRetries = 0;
   let lastError: unknown = null;
   const tried: string[] = [];
 
@@ -158,6 +170,8 @@ export async function runAiAnalysis(
           attempts,
           latencyMs: Date.now() - t0,
           modelLabel: candidate.label,
+          modelsTried: tried.length,
+          schemaRetries,
           usage: {
             inputTokens: result.usage?.inputTokens ?? null,
             outputTokens: result.usage?.outputTokens ?? null,
@@ -168,6 +182,7 @@ export async function runAiAnalysis(
         const isSchema =
           NoObjectGeneratedError.isInstance(error) || NoOutputGeneratedError.isInstance(error);
         if (isSchema && schemaTries < 2) {
+          schemaRetries++;
           prompt = `${userMessage}
 
 Your previous answer could not be used because it did not match the required JSON schema:
@@ -186,6 +201,8 @@ Return only one JSON object that matches the schema exactly.`;
     ok: false,
     attempts,
     latencyMs: Date.now() - t0,
+    modelsTried: tried.length,
+    schemaRetries,
     error: {
       ...classifyError(lastError),
       detail: tried.length > 1 ? `${detail} [tried: ${tried.join(', ')}]` : detail,

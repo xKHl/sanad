@@ -44,7 +44,10 @@ export async function POST(request: Request) {
     {
       result,
       hash: scenarioHash(result.analyzedText),
-      recording: result.ai ? makeRecording(c.id, result.ai, label, PROMPT_VERSION) : null,
+      recording:
+        result.ai && result.aiSource === 'live'
+          ? makeRecording(c.id, result.ai, label, PROMPT_VERSION)
+          : null,
     },
     { headers: { 'Cache-Control': 'no-store' } },
   );

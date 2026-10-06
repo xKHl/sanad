@@ -28,6 +28,8 @@ describe('formatNote', () => {
           attempts: 1,
           latencyMs: 1,
           modelLabel: 'mock (Mock)',
+          modelsTried: 1,
+          schemaRetries: 0,
           usage: { inputTokens: 1, outputTokens: 1 },
         }),
       },

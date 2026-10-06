@@ -51,6 +51,8 @@ export async function analyzeCase(
   let aiError: AiError | null = null;
   let aiMs: number | null = null;
   let attempts = 0;
+  let modelsTried = 0;
+  let schemaRetries = 0;
   let modelLabel: string | null = resolved.mode === 'demo' ? null : resolved.label;
   let aiSource: AnalysisResult['aiSource'] = null;
 
@@ -77,6 +79,8 @@ export async function analyzeCase(
   } else {
     const run = await (deps.runAi ?? runAiAnalysis)(analyzedText, safety, resolved);
     attempts = run.attempts;
+    modelsTried = run.modelsTried ?? (run.attempts > 0 ? 1 : 0);
+    schemaRetries = run.schemaRetries ?? 0;
     aiMs = run.latencyMs;
     if (run.ok) {
       ai = run.analysis;
@@ -125,6 +129,8 @@ export async function analyzeCase(
     ai,
     aiError,
     aiAttempts: attempts,
+    aiModelsTried: modelsTried,
+    aiSchemaRetries: schemaRetries,
     aiSource,
     merged: {
       safetyStatus: safetyStatus(flags),
