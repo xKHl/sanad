@@ -188,3 +188,11 @@ describe('chest pain shorthand (rules v1.2.0)', () => {
     expect(statusOf('cp 2s, CPR trained', 'chest_pain')).toHaveLength(0);
   });
 });
+
+describe('reduced fetal movements phrasing (rules v1.3.0)', () => {
+  it.each([
+    'says the baby has been moving much less than usual since yesterday',
+    'fewer kicks today',
+    'has not felt the baby move since the morning',
+  ])('%s', (text) => check(text, [{ concept: 'reduced_fetal_movements', negated: false }]));
+});

@@ -233,7 +233,9 @@ export const LEXICON = {
   shoulder_tip_pain: ['shoulder[- ]tip pain'],
   reduced_fetal_movements: [
     '(?:reduced|decreased) (?:fetal|foetal) movements?',
-    'baby (?:is )?moving less',
+    'baby (?:is |has been )?moving (?:much |a lot )?less',
+    '(?:fewer|less) (?:fetal |foetal |baby )?(?:movements?|kicks)',
+    'not felt (?:the )?baby move',
     'no (?:fetal|foetal) movements?',
     { cs: 'RFM' },
   ],

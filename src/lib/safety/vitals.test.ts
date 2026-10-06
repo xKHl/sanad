@@ -107,6 +107,11 @@ describe('vital signs', () => {
     expect(parseVitals(text)[key]?.value).toBe(value);
   });
 
+  it('reads "Resp 24" as respiratory rate (rules v1.3.0)', () => {
+    expect(parseVitals('BP 94/60. Resp 24. O2 sat 96% on air.').rr?.value).toBe(24);
+    expect(parseVitals('resp. 18').rr?.value).toBe(18);
+  });
+
   it('reads a capital P as pulse only beside other vital signs (rules v1.2.0)', () => {
     expect(parseVitals('o/e sats 90% on air, P 112, RR 24, BP 118/76.').hr?.value).toBe(112);
     expect(parseVitals('BP 164/96, P: 84, T 37.0').hr?.value).toBe(84);

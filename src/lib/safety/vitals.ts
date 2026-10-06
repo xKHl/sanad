@@ -114,7 +114,7 @@ export function parseVitals(text: string): Vitals {
   // Respiratory rate
   for (const m of text.matchAll(
     new RegExp(
-      String.raw`\b(?:RR|resp(?:iratory)?\.?\s*rate|respirations?|resps)${LABEL_SEP}(\d{1,2})(?!\d)`,
+      String.raw`\b(?:RR|resp(?:iratory)?\.?\s*rate|respirations?|resps?\.?)${LABEL_SEP}(\d{1,2})(?!\d)`,
       'gid',
     ),
   )) {
