@@ -150,5 +150,5 @@ All 56 cases (16 development and 40 held-out) were sent to the deployed app (`/a
 - **AI-added red flags (16):** all carry verified quotes. Most restate abnormal vital signs (tachycardia, hypotension, tachypnoea) or a feature next to a rule flag (unilateral leg swelling with RF-PE, meningism with RF-THUNDERCLAP); none contradicts a rule. When an AI flag repeats a rule flag it is dropped (C07: "presyncope in early pregnancy" under RF-PREGNANCY-PAIN-BLEEDING).
 - **Latency:** median 6.4 s on the held-out set. The slowest cases (C06 32 s, C07 23 s) are the ones where several overloaded models were tried before one answered.
 
-The 16 development-case outputs from this run are stored in `src/data/recordings.json`. They are what the "Use recorded AI outputs" switch shows, and what the app falls back to automatically if every live model fails on a sample case.
+The 16 development-case outputs from this run are stored in `src/data/recordings.json`. They are what the "Use saved AI results" switch shows, and what the app falls back to automatically if every live model fails on a sample case.
 <!-- manual:end -->

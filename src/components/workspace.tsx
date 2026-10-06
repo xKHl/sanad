@@ -360,9 +360,8 @@ export function Workspace({ status }: { status: ServerStatus }) {
         <footer className="border-rule bg-paper-2/60 border-t">
           <div className="mx-auto flex max-w-[1440px] flex-col gap-3 px-4 py-5 text-[13px] sm:px-6 md:flex-row md:items-start md:justify-between md:gap-10">
             <p className="text-ink-3 max-w-[80ch]">
-              Prototype built for a technical selection challenge. Rule thresholds are informed by
-              published guidance (NICE, RCP, BTS, Resuscitation Council UK, ADA, JBDS) and are not
-              clinically validated.
+              Safety thresholds follow published guidance (NICE, RCP, BTS, Resuscitation Council UK,
+              ADA, JBDS) and are not clinically validated.
             </p>
             <p className="text-ink-2 shrink-0 md:text-right">
               Designed and built by{' '}
@@ -549,7 +548,7 @@ function StatusPill({ status, result }: { status: ServerStatus; result: Analysis
           <span className="text-ink font-semibold">{model}</span>
         </span>
       ) : (
-        <span>Recorded AI outputs. Rule checks run live.</span>
+        <span>Saved AI results. Safety rules run live.</span>
       )}
     </p>
   );

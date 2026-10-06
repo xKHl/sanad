@@ -261,7 +261,7 @@ export function CasePanel(props: {
               type="button"
               onClick={props.onAnalyse}
               disabled={tooShort || props.loading}
-              className="bg-ink hover:bg-pen-strong inline-flex items-center gap-2 rounded-xl px-5 py-3 text-[15.5px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-40"
+              className="bg-pen hover:bg-pen-strong inline-flex items-center gap-2 rounded-xl px-5 py-3 text-[15.5px] font-bold text-white shadow-[0_8px_20px_-10px_rgb(43_115_100/0.7)] disabled:cursor-not-allowed disabled:opacity-55 disabled:shadow-none"
             >
               {props.loading ? (
                 <LoaderCircle
@@ -271,7 +271,15 @@ export function CasePanel(props: {
               ) : null}
               {props.loading ? 'Analysing…' : 'Analyse case'}
             </button>
-            <span className="text-ink-3 hidden text-[13px] sm:inline">Ctrl + Enter</span>
+            <span className="text-ink-3 text-[13px]">
+              {tooShort && length > 0 ? (
+                `${20 - length} more characters to analyse`
+              ) : tooShort ? (
+                'Write a case or pick a sample'
+              ) : (
+                <span className="hidden sm:inline">Ctrl + Enter</span>
+              )}
+            </span>
             <button
               type="button"
               onClick={props.onClear}
@@ -296,11 +304,11 @@ export function CasePanel(props: {
               onChange={(e) => props.onUseRecordedChange(e.target.checked)}
             />
             <span>
-              Use recorded AI outputs instead of a live model
+              Use saved AI results instead of the live model
               <span className="text-ink-3 block text-[13px]">
                 {props.recordedLocked
-                  ? 'No live model is configured on this server. Rule checks always run live.'
-                  : 'Available for the sample cases. Rule checks always run live.'}
+                  ? 'No live model is set up on this server. Safety rules still run live.'
+                  : 'Sample cases only: shows a real AI result saved earlier, instantly. Safety rules still run live.'}
               </span>
             </span>
           </label>

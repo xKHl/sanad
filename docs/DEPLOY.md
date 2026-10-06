@@ -33,7 +33,7 @@ Create a repository (for example `sanad`) and add the project files (all files e
 3. Replace `src/data/recordings.json` and `docs/EVALUATION.md` in the repository with the downloaded files (GitHub website: open the file, **Edit** or **Upload files**). Vercel redeploys automatically.
 4. Set `SANAD_LAB` to `false` in Vercel and redeploy.
 
-The recordings let reviewers try every sample case even if the free quota runs out ("Use recorded AI outputs" switch).
+The recordings let reviewers try every sample case even if the free quota runs out ("Use saved AI results" switch).
 
 ## 5. Held-out cases (recommended)
 

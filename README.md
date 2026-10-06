@@ -114,7 +114,7 @@ npm run dev                  # http://localhost:3000
 |---|---|---|
 | Cloud | A provider key in `.env.local` (`LLM_PROVIDER` google, groq, anthropic, openai or gateway; optional `LLM_MODEL`) | Live AI |
 | Local | `SANAD_MODE=local`, `LLM_MODEL=<an installed Ollama model>`, optional `OLLAMA_BASE_URL` | Data never leaves the machine |
-| Demo | No key, or the "Use recorded AI outputs" switch | Zero-setup demo; rule checks stay live |
+| Demo | No key, or the "Use saved AI results" switch | Zero-setup demo; rule checks stay live |
 
 Other commands:
 
