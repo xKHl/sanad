@@ -163,7 +163,9 @@ export function Workspace({ status }: { status: ServerStatus }) {
               ) : (
                 <>
                   {status.mode === 'local' ? 'Local model' : 'Live model'}:{' '}
-                  <span className="text-ink font-semibold">{status.model}</span>
+                  <span className="text-ink font-semibold">
+                    {result?.aiSource === 'live' && result.model ? result.model : status.model}
+                  </span>
                 </>
               )}
             </p>
@@ -299,12 +301,16 @@ export function Workspace({ status }: { status: ServerStatus }) {
                       </section>
                     ) : null}
 
-                    <section aria-labelledby="missing-heading">
-                      <SectionHeading id="missing-heading" aside="What to ask, examine or check">
-                        Missing information
-                      </SectionHeading>
-                      <MissingInfoView items={result.merged.missingInformation} />
-                    </section>
+                    {result.ai &&
+                    !result.ai.inputQuality.isClinicalScenario &&
+                    result.merged.redFlags.length === 0 ? null : (
+                      <section aria-labelledby="missing-heading">
+                        <SectionHeading id="missing-heading" aside="What to ask, examine or check">
+                          Missing information
+                        </SectionHeading>
+                        <MissingInfoView items={result.merged.missingInformation} />
+                      </section>
+                    )}
 
                     {result.ai && result.ai.inputQuality.isClinicalScenario ? (
                       <section aria-labelledby="steps-heading">
