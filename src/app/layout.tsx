@@ -9,6 +9,8 @@ import '@fontsource/ibm-plex-sans-arabic/600.css';
 import './globals.css';
 
 export const metadata: Metadata = {
+  authors: [{ name: 'Khalid Alotaibi', url: 'https://alotaibi.dev' }],
+  creator: 'Khalid Alotaibi',
   title: 'Sanad: clinical decision support',
   description:
     'Decision-support prototype for a fictional outpatient clinic: case summary, missing information, next-step checklist and red-flag warnings, with every suggestion traced back to the case.',

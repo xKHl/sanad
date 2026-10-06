@@ -147,6 +147,16 @@ No terminal? Deploy with `SANAD_LAB=true` and a `SANAD_LAB_KEY`, open `/lab`, ru
 
 Next.js 16, React 19, TypeScript (strict), Tailwind CSS 4, Vercel AI SDK 7, Zod 4, Vitest, Radix Tooltip, Atkinson Hyperlegible Next (chosen for legibility) and IBM Plex Sans Arabic.
 
+## Author
+
+Designed and built by **Khalid Alotaibi**. More work at [alotaibi.dev](https://alotaibi.dev).
+
+## License
+
+Copyright © 2026 Khalid Alotaibi.
+
+Licensed under the [GNU Affero General Public License v3.0](LICENSE). You may use, study and modify Sanad, but if you distribute it or run a modified version as a network service, you must release your source code under the same licence and keep this copyright notice.
+
 ## Disclaimer
 
 Prototype for a technical selection challenge. Fictional data only. Not a medical device and not for clinical use. Clinical deployment would require clinical validation and regulatory review (for example by the Saudi Food and Drug Authority) and compliance with the Personal Data Protection Law.

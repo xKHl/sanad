@@ -358,11 +358,38 @@ export function Workspace({ status }: { status: ServerStatus }) {
         </main>
 
         <footer className="border-rule bg-paper-2/60 border-t">
-          <p className="text-ink-3 mx-auto max-w-[1440px] px-4 py-4 text-[13px] sm:px-6">
-            Sanad is a prototype built for a technical selection challenge. Rule thresholds are
-            informed by published guidance (NICE, RCP, BTS, Resuscitation Council UK, ADA, JBDS) and
-            are not clinically validated.
-          </p>
+          <div className="mx-auto flex max-w-[1440px] flex-col gap-3 px-4 py-5 text-[13px] sm:px-6 md:flex-row md:items-start md:justify-between md:gap-10">
+            <p className="text-ink-3 max-w-[80ch]">
+              Prototype built for a technical selection challenge. Rule thresholds are informed by
+              published guidance (NICE, RCP, BTS, Resuscitation Council UK, ADA, JBDS) and are not
+              clinically validated.
+            </p>
+            <p className="text-ink-2 shrink-0 md:text-right">
+              Designed and built by{' '}
+              <a
+                href="https://alotaibi.dev"
+                className="text-ink hover:text-pen decoration-rule-strong font-semibold underline underline-offset-4"
+              >
+                Khalid Alotaibi
+              </a>
+              <span className="text-ink-3 block">
+                © 2026.{' '}
+                <a
+                  href="https://github.com/xKHl/sanad"
+                  className="hover:text-pen decoration-rule-strong underline underline-offset-4"
+                >
+                  Source code
+                </a>{' '}
+                and more work at{' '}
+                <a
+                  href="https://alotaibi.dev"
+                  className="hover:text-pen decoration-rule-strong underline underline-offset-4"
+                >
+                  alotaibi.dev
+                </a>
+              </span>
+            </p>
+          </div>
         </footer>
       </div>
     </TipProvider>
@@ -602,7 +629,11 @@ function ResultOverview({ r, checked }: { r: AnalysisResult; checked: number }) 
       className="border-rule bg-rule grid grid-cols-2 gap-px overflow-hidden rounded-2xl border sm:flex"
     >
       {items.map((item) => (
-        <a key={item.label} href={item.href} className="bg-sheet hover:bg-paper flex-1 px-4 py-2.5 [&:last-child:nth-child(odd)]:col-span-2">
+        <a
+          key={item.label}
+          href={item.href}
+          className="bg-sheet hover:bg-paper flex-1 px-4 py-2.5 [&:last-child:nth-child(odd)]:col-span-2"
+        >
           <span className="text-ink block text-[15.5px] font-bold whitespace-nowrap">
             {item.value}
           </span>
