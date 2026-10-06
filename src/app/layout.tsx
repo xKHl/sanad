@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import '@fontsource/atkinson-hyperlegible-next/400.css';
 import '@fontsource/atkinson-hyperlegible-next/600.css';
 import '@fontsource/atkinson-hyperlegible-next/700.css';
+import '@fontsource/instrument-serif/400.css';
 import '@fontsource/ibm-plex-sans-arabic/400.css';
 import '@fontsource/ibm-plex-sans-arabic/600.css';
 import './globals.css';
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#15233f',
+  themeColor: '#f4f2ec',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

@@ -70,7 +70,7 @@ export function SectionHeading({
 }) {
   return (
     <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-      <h2 id={id} className="text-ink text-[18px] leading-tight font-bold">
+      <h2 id={id} className="font-display text-ink text-[28px] leading-none tracking-[-0.01em]">
         {children}
       </h2>
       {aside ? <div className="text-ink-3 text-[13.5px]">{aside}</div> : null}

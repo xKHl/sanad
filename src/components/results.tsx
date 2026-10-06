@@ -43,7 +43,7 @@ export function SafetyBanner({ status, flags }: { status: SafetyStatus; flags: M
   const urgent = flags.length - critical;
   if (status === 'critical') {
     return (
-      <div className="bg-critical flex items-start gap-3 rounded-lg px-4 py-3 text-white">
+      <div className="bg-critical flex items-start gap-3 rounded-xl px-4 py-3 text-white">
         <OctagonAlert aria-hidden className="mt-0.5 size-5 shrink-0" strokeWidth={2.25} />
         <p>
           <span className="font-bold">
@@ -57,7 +57,7 @@ export function SafetyBanner({ status, flags }: { status: SafetyStatus; flags: M
   }
   if (status === 'urgent') {
     return (
-      <div className="border-urgent-line bg-urgent-wash text-urgent flex items-start gap-3 rounded-lg border px-4 py-3">
+      <div className="border-urgent-line bg-urgent-wash text-urgent flex items-start gap-3 rounded-xl border px-4 py-3">
         <TriangleAlert aria-hidden className="mt-0.5 size-5 shrink-0" strokeWidth={2.25} />
         <p>
           <span className="font-bold">
@@ -69,7 +69,7 @@ export function SafetyBanner({ status, flags }: { status: SafetyStatus; flags: M
     );
   }
   return (
-    <div className="border-ok/30 bg-ok-wash text-ok flex items-start gap-3 rounded-lg border px-4 py-3">
+    <div className="border-ok/30 bg-ok-wash text-ok flex items-start gap-3 rounded-xl border px-4 py-3">
       <ShieldCheck aria-hidden className="mt-0.5 size-5 shrink-0" />
       <p>
         <span className="font-bold">No red flags from rule checks or AI.</span> Absence of flags
@@ -128,7 +128,7 @@ export function RedFlagList({
             key={f.id}
             id={`flag-${f.id}`}
             className={cx(
-              'bg-sheet scroll-mt-24 rounded-lg border-l-4 px-4 py-3',
+              'bg-sheet scroll-mt-24 rounded-xl border-l-4 px-4 py-3',
               f.source === 'rule'
                 ? 'border-rule border-y border-r'
                 : 'border-pen/60 border-y border-r border-dashed',
@@ -482,7 +482,7 @@ export function TransparencyView({ r }: { r: AnalysisResult }) {
     ['Request', r.requestId],
   ];
   return (
-    <details className="group border-rule bg-sheet rounded-lg border">
+    <details className="group border-rule bg-sheet rounded-xl border">
       <summary className="text-ink cursor-pointer list-none px-4 py-3 font-semibold marker:hidden">
         <span className="inline-flex items-center gap-2">
           <Info aria-hidden className="text-ink-3 size-4" />

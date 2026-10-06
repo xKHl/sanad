@@ -151,16 +151,19 @@ export function CasePanel(props: {
   const urgent = (preview?.ruleFlags.length ?? 0) - critical;
 
   return (
-    <section aria-labelledby="case-heading" className="flex flex-col gap-4">
+    <section
+      aria-labelledby="case-heading"
+      className="border-rule bg-sheet flex flex-col gap-4 rounded-3xl border px-5 py-5 shadow-[0_24px_60px_-30px_rgb(19_32_28/0.25)] sm:px-6 sm:py-6"
+    >
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h2 id="case-heading" className="text-[18px] font-bold">
+        <h2 id="case-heading" className="font-display text-ink text-[30px] leading-none">
           Case
         </h2>
         {props.view === 'edit' ? (
           <label className="text-ink-2 flex items-center gap-2 text-[14px]">
             <span className="sr-only sm:not-sr-only">Sample</span>
             <select
-              className="border-rule-strong bg-sheet text-ink max-w-[16rem] rounded-md border px-2 py-1.5 text-[14px]"
+              className="border-rule-strong bg-sheet text-ink max-w-[16rem] rounded-lg border px-2.5 py-1.5 text-[14px]"
               value=""
               onChange={(e) => e.target.value && props.onLoadSample(e.target.value)}
             >
@@ -203,11 +206,11 @@ export function CasePanel(props: {
               }}
               rows={9}
               placeholder="e.g. 58M, central chest pressure for 2 hours radiating to left arm, sweaty. T2DM on metformin. BP 162/94, HR 108, RR 20, SpO2 95% RA, T 36.8."
-              className="border-rule-strong bg-sheet text-ink placeholder:text-ink-3 focus:border-pen focus-visible:outline-pen block min-h-48 w-full resize-y rounded-lg border px-3.5 py-3 text-[16px] leading-relaxed focus:outline-none focus-visible:outline-2"
+              className="border-rule-strong bg-paper/40 text-ink placeholder:text-ink-3 focus:border-pen focus-visible:outline-pen block min-h-48 w-full resize-y rounded-xl border px-3.5 py-3 text-[16px] leading-relaxed focus:outline-none focus-visible:outline-2"
             />
             <div className="text-ink-3 mt-1.5 flex justify-between text-[13px]">
               <span>Fictional, de-identified cases only. English shorthand works.</span>
-              <span aria-live="polite">
+              <span aria-live="polite" className="whitespace-nowrap">
                 {length} / {SCENARIO_MAX}
               </span>
             </div>
@@ -258,7 +261,7 @@ export function CasePanel(props: {
               type="button"
               onClick={props.onAnalyse}
               disabled={tooShort || props.loading}
-              className="bg-pen hover:bg-pen-strong inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-[15.5px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-45"
+              className="bg-ink hover:bg-pen-strong inline-flex items-center gap-2 rounded-xl px-5 py-3 text-[15.5px] font-bold text-white disabled:cursor-not-allowed disabled:opacity-40"
             >
               {props.loading ? (
                 <LoaderCircle
@@ -304,7 +307,7 @@ export function CasePanel(props: {
         </>
       ) : (
         <div className="space-y-4">
-          <div className="border-rule bg-sheet rounded-lg border px-4 py-3.5">
+          <div className="border-rule bg-paper/40 rounded-xl border px-4 py-3.5">
             {props.analyzedText ? (
               <AnnotatedText text={props.analyzedText} marks={props.marks} active={props.active} />
             ) : null}

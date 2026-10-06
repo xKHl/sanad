@@ -2,41 +2,50 @@
 
 /*
  * Sanad design tokens.
- * Cool chart-paper background, navy "ink" text and a ballpoint-blue "pen" for actions and
- * evidence. Severity colours follow clinical alert conventions; the NEWS2 fills follow the
- * red/orange/yellow bands of the RCP observation chart.
+ * Warm clinic-paper background, green-black ink and a deep teal accent for actions and
+ * evidence; a serif display face for headings and a high-legibility sans for clinical text.
+ * Severity colours follow clinical alert conventions and the NEWS2 fills follow the
+ * red/orange/yellow bands of the RCP observation chart; neither follows the brand palette.
  */
 :root {
-  --paper: #f3f5f8;
-  --sheet: #ffffff;
-  --ink: #15233f;
-  --ink-2: #44506a;
-  --ink-3: #5f6a80;
-  --rule: #d6dce5;
-  --rule-strong: #b7c0cd;
+  --paper: #f4f2ec;
+  --paper-2: #ebe7dd;
+  --sheet: #fbfaf7;
+  --ink: #13201c;
+  --ink-2: #44514c;
+  --ink-3: #626e69;
+  --rule: #e1ddd3;
+  --rule-strong: #c9c4b8;
 
-  --pen: #2340a8;
-  --pen-strong: #1a3187;
-  --pen-wash: #e2e9ff;
+  --pen: #2b7364;
+  --pen-strong: #1e5a4d;
+  --pen-wash: #dfede7;
 
   --critical: #b42318;
-  --critical-wash: #fdecea;
-  --critical-line: #f2b8b2;
+  --critical-wash: #fcece9;
+  --critical-line: #f0b8b0;
   --urgent: #9a4a00;
-  --urgent-wash: #fff1e1;
-  --urgent-line: #f3c995;
-  --ok: #146c43;
-  --ok-wash: #e7f4ec;
+  --urgent-wash: #fdf0e0;
+  --urgent-line: #efc791;
+  --ok: #1f7a4d;
+  --ok-wash: #e4f2ea;
+
+  --band: #13201c;
+  --band-ink: #c3d1cb;
+  --pen-light: #8fd0bc;
+  --live: #4ade80;
+  --idle: #fbbf24;
 
   --news-3: #f28b82;
   --news-2: #f8b26a;
   --news-1: #fbe38a;
-  --news-0: #ffffff;
+  --news-0: #fbfaf7;
 }
 
 @theme inline {
   --color-paper: var(--paper);
   --color-sheet: var(--sheet);
+  --color-paper-2: var(--paper-2);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-ink-3: var(--ink-3);
@@ -53,20 +62,37 @@
   --color-urgent-line: var(--urgent-line);
   --color-ok: var(--ok);
   --color-ok-wash: var(--ok-wash);
+  --color-band: var(--band);
+  --color-band-ink: var(--band-ink);
+  --color-pen-light: var(--pen-light);
+  --color-live: var(--live);
+  --color-idle: var(--idle);
   --color-news-3: var(--news-3);
   --color-news-2: var(--news-2);
   --color-news-1: var(--news-1);
   --color-news-0: var(--news-0);
   --font-sans: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
   --font-arabic: 'IBM Plex Sans Arabic', 'Atkinson Hyperlegible Next', sans-serif;
 }
 
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 1.5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
-  background: var(--paper);
+  background:
+    radial-gradient(60rem 30rem at 100% 0%, rgb(43 115 100 / 0.09), transparent 70%),
+    radial-gradient(40rem 30rem at 0% 100%, rgb(232 160 110 / 0.08), transparent 70%),
+    var(--paper);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: 15.5px;
