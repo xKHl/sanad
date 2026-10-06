@@ -210,6 +210,8 @@ describe('resolveModel', () => {
     const r = resolveModel({ GOOGLE_GENERATIVE_AI_API_KEY: 'k', GROQ_API_KEY: 'g' });
     expect(r.fallbacks?.map((f) => f.label)).toEqual([
       'gemini-3.7-flash (Google)',
+      'gemini-3.6-flash (Google)',
+      'gemini-3.5-flash (Google)',
       'gemini-3.5-flash-lite (Google)',
       'gemini-3.1-flash-lite (Google)',
       'gemini-flash-lite-latest (Google)',
