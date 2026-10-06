@@ -1,6 +1,6 @@
 # Sanad progress log
 
-## Status (5 October 2026)
+## Status (6 October 2026)
 
 | Area | Status |
 |------|--------|
@@ -10,8 +10,8 @@
 | API (`/api/analyze`, `/api/status`, `/api/lab`) | Done, rate limiting, metadata-only logging |
 | Interface (workspace, NEWS2 chart, annotated case, evidence highlighting, export) | Done, screenshots reviewed at 1440, 1024, 768, 390 px |
 | Evaluation script, lab page, report | Done; rules-only report generated |
-| Live model run, recordings, AI metrics | Pending: needs a free key (see `docs/DEPLOY.md`) |
-| Held-out cases | Pending: must come from a different author |
+| Live model run, recordings, AI metrics | Done 2026-10-06: 56 cases live, 16 recordings, report in `docs/EVALUATION.md` |
+| Held-out cases | Done: 2 sets of 20 by independent authors (criteria only); clean results 85% and 88%, fixes in rules v1.2.0 and v1.3.0 |
 | Deployment | Done: https://sanad-blond.vercel.app (live Gemini with fallback chain) |
 | Video, submission | Pending |
 
