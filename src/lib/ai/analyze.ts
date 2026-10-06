@@ -14,7 +14,27 @@ import { AiAnalysisSchema, type AiAnalysis } from './schema';
 export type AiErrorCode =
   'timeout' | 'schema' | 'provider' | 'not_configured' | 'demo_unavailable' | 'rate_limited';
 
-export type AiError = { code: AiErrorCode; message: string };
+export type AiError = { code: AiErrorCode; message: string; detail?: string };
+
+/** Short technical detail for diagnosis: error name, HTTP status and a redacted message. */
+export function errorDetail(error: unknown): string {
+  const inner = RetryError.isInstance(error) ? (error.lastError ?? error) : error;
+  const e = inner as {
+    name?: string;
+    message?: string;
+    statusCode?: number;
+    responseBody?: string;
+  };
+  const status = typeof e?.statusCode === 'number' ? ` HTTP ${e.statusCode}` : '';
+  const raw = `${e?.message ?? String(inner)} ${typeof e?.responseBody === 'string' ? e.responseBody : ''}`;
+  const redacted = raw
+    .replace(/(key=|Bearer\s+)[^\s&"]+/gi, '$1[redacted]')
+    .replace(/\b(AIza|AQ\.)[A-Za-z0-9._-]{10,}/g, '[redacted]')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 300);
+  return `${e?.name ?? 'Error'}${status}: ${redacted}`;
+}
 
 export type AiRun =
   | {
@@ -26,7 +46,7 @@ export type AiRun =
     }
   | { ok: false; error: AiError; attempts: number; latencyMs: number };
 
-export const AI_TIMEOUT_MS = 45_000;
+export const AI_TIMEOUT_MS = 55_000;
 const MAX_OUTPUT_TOKENS = 6_000;
 
 function describeValidationError(error: unknown): string {
@@ -40,11 +60,7 @@ function describeValidationError(error: unknown): string {
 export function classifyError(error: unknown): AiError {
   const inner = RetryError.isInstance(error) ? (error.lastError ?? error) : error;
   const name = (inner as { name?: string })?.name ?? '';
-  if (
-    name === 'AbortError' ||
-    name === 'TimeoutError' ||
-    /timed? ?out|aborted/i.test(String((inner as Error)?.message))
-  ) {
+  if (name === 'AbortError' || name === 'TimeoutError') {
     return { code: 'timeout', message: 'The AI model did not respond in time.' };
   }
   if (APICallError.isInstance(inner)) {
@@ -138,5 +154,10 @@ ${describeValidationError(error)}
 Return only one JSON object that matches the schema exactly.`;
     }
   }
-  return { ok: false, attempts, latencyMs: Date.now() - t0, error: classifyError(lastError) };
+  return {
+    ok: false,
+    attempts,
+    latencyMs: Date.now() - t0,
+    error: { ...classifyError(lastError), detail: errorDetail(lastError) },
+  };
 }

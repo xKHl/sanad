@@ -602,6 +602,11 @@ export function AiNotice({ r }: { r: AnalysisResult }) {
         <p>
           <span className="font-semibold">AI section unavailable.</span> {r.aiError.message} The
           rule-based safety checks above are complete.
+          {r.aiError.detail ? (
+            <span className="mt-1 block text-[12.5px] opacity-80">
+              Technical detail: {r.aiError.detail}
+            </span>
+          ) : null}
         </p>
       </Notice>
     );

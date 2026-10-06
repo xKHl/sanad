@@ -82,7 +82,7 @@ describe('GET /api/status', () => {
     vi.resetModules();
     vi.stubEnv('GOOGLE_GENERATIVE_AI_API_KEY', 'super-secret-key');
     const { GET } = await import('../status/route');
-    const body = await GET().json();
+    const body = await (await GET(new Request('http://localhost/api/status'))).json();
     expect(body).toMatchObject({
       mode: 'cloud',
       model: 'gemini-3.8-flash (Google)',
