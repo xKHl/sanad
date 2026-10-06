@@ -205,7 +205,7 @@ Quotes are normalised (NFKC, lower case, straight quotes, plain dashes, collapse
 | `LLM_PROVIDER` | `google` (default), `groq`, `anthropic`, `openai`, `gateway` |
 | `LLM_MODEL` | override; defaults `gemini-3.8-flash`, `openai/gpt-oss-120b`, `claude-sonnet-5-5`, `google/gemini-3.8-flash` (gateway); required for openai |
 | `GOOGLE_GENERATIVE_AI_API_KEY`, `GROQ_API_KEY`, … | provider keys, server only |
-| `LLM_FALLBACK_MODELS` | comma-separated models of the same provider tried when the primary is overloaded (HTTP 404, 429, 5xx); default for Google: `gemini-3.7-flash`, `gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`, `gemini-flash-lite-latest`. A second free provider with a key (Groq) is tried last. All attempts share one 55 s budget. |
+| `LLM_FALLBACK_MODELS` | comma-separated models of the same provider tried when the primary is overloaded (HTTP 404, 429, 5xx); default for Google: `gemini-3.7-flash`, `gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`, `gemini-flash-lite-latest`. A second free provider with a key (Groq) is tried last. All attempts share one 55 s budget, and a model other than the last may take at most 22 s before the next one is tried. |
 | `OLLAMA_BASE_URL` | local OpenAI-compatible endpoint (default `http://localhost:11434/v1`) |
 | `RATE_LIMIT_PER_MINUTE` | per-IP limit for `/api/analyze` (default 8, off in development) |
 | `SANAD_LAB`, `SANAD_LAB_KEY` | enable the browser lab |

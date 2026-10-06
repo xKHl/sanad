@@ -116,7 +116,7 @@ export async function runAiAnalysis(
   analyzedText: string,
   findings: SafetyFindings,
   resolved: ResolvedModel,
-  opts: { timeoutMs?: number } = {},
+  opts: { timeoutMs?: number; perModelTimeoutMs?: number } = {},
 ): Promise<AiRun> {
   const t0 = Date.now();
   if (!resolved.model) {
@@ -142,7 +142,7 @@ export async function runAiAnalysis(
   for (const [index, candidate] of chain.entries()) {
     if (!candidate.model) continue;
     // A fallback needs a realistic amount of time left to be worth starting.
-    if (index > 0 && deadline - Date.now() < MIN_FALLBACK_MS) break;
+    if (index > 0 && deadline - Date.now() < Math.min(MIN_FALLBACK_MS, budgetMs / 4)) break;
     tried.push(candidate.label);
     let prompt = userMessage;
     let schemaTries = 0;
@@ -161,7 +161,13 @@ export async function runAiAnalysis(
           // The primary (strongest) model gets one retry for transient overload; fallbacks
           // move straight on to the next model, except the last one.
           maxRetries: index === 0 || index === chain.length - 1 ? 1 : 0,
-          timeout: Math.max(1, deadline - Date.now()),
+          // A slow model may not hold the whole budget while faster fallbacks are waiting.
+          timeout: Math.max(
+            1,
+            index < chain.length - 1
+              ? Math.min(opts.perModelTimeoutMs ?? PER_MODEL_TIMEOUT_MS, deadline - Date.now())
+              : deadline - Date.now(),
+          ),
           ...(candidate.providerOptions ? { providerOptions: candidate.providerOptions } : {}),
         });
         return {
@@ -190,7 +196,7 @@ ${describeValidationError(error)}
 Return only one JSON object that matches the schema exactly.`;
           continue;
         }
-        moveOn = isUnavailable(error);
+        moveOn = isUnavailable(error) || isTimeout(error);
         break;
       }
     }
@@ -211,6 +217,13 @@ Return only one JSON object that matches the schema exactly.`;
 }
 
 const MIN_FALLBACK_MS = 12_000;
+const PER_MODEL_TIMEOUT_MS = 22_000;
+
+function isTimeout(error: unknown): boolean {
+  const inner = RetryError.isInstance(error) ? (error.lastError ?? error) : error;
+  const name = (inner as { name?: string })?.name ?? '';
+  return name === 'AbortError' || name === 'TimeoutError';
+}
 
 /** Errors where another model may succeed: overload, rate limit, unknown model, server error. */
 export function isUnavailable(error: unknown): boolean {

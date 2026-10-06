@@ -182,6 +182,26 @@ describe('model fallback', () => {
     }
   });
 
+  it('moves on when a model is too slow', async () => {
+    const slow = new MockLanguageModelV4({
+      doGenerate: (options) =>
+        new Promise((_, reject) => {
+          options.abortSignal?.addEventListener('abort', () =>
+            reject(options.abortSignal?.reason ?? new DOMException('aborted', 'AbortError')),
+          );
+        }),
+    });
+    const { model } = mockModel([JSON.stringify(C01_AI)]);
+    const run = await runAiAnalysis(
+      C01_TEXT,
+      findings,
+      { ...resolvedWith(slow), fallbacks: [{ ...resolvedWith(model), label: 'backup (Mock)' }] },
+      { timeoutMs: 2_000, perModelTimeoutMs: 50 },
+    );
+    expect(run.ok).toBe(true);
+    if (run.ok) expect(run.modelLabel).toBe('backup (Mock)');
+  });
+
   it('does not fall back on a credentials error', async () => {
     const { model, calls } = mockModel([JSON.stringify(C01_AI)]);
     const run = await runAiAnalysis(C01_TEXT, findings, {
