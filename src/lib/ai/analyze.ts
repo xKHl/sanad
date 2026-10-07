@@ -217,7 +217,7 @@ Return only one JSON object that matches the schema exactly.`;
 }
 
 const MIN_FALLBACK_MS = 12_000;
-const PER_MODEL_TIMEOUT_MS = 22_000;
+const PER_MODEL_TIMEOUT_MS = 15_000;
 
 function isTimeout(error: unknown): boolean {
   const inner = RetryError.isInstance(error) ? (error.lastError ?? error) : error;

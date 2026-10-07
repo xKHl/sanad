@@ -159,13 +159,14 @@ export function resolveModel(
     .split(',')
     .map((m) => m.trim())
     .filter(Boolean);
-  for (const id of listed.length > 0 ? listed : (DEFAULT_FALLBACKS[provider] ?? []))
-    add(provider, id);
-  // Another free provider with a key is the last resort (e.g. Groq behind Gemini).
+  // Another free provider with a key comes first: an overload at one provider usually hits
+  // all of its models at once (seen with Gemini), so switching provider is the fastest recovery.
   for (const p of ['google', 'groq'] as const) {
     const id = DEFAULT_MODELS[p];
     if (p !== provider && id) add(p, id);
   }
+  for (const id of listed.length > 0 ? listed : (DEFAULT_FALLBACKS[provider] ?? []))
+    add(provider, id);
   return { ...primary, fallbacks };
 }
 
