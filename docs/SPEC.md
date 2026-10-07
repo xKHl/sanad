@@ -189,6 +189,10 @@ Validate, redact, rule layer, AI (or recording), post-process limits, grounding,
 
 Rule flags always kept, first within each severity. AI flags kept only with at least one verified quote and when their title does not match a fired rule's keywords; ids `AI-1…`. Safety status: critical if any critical flag, urgent if any flag, otherwise none. Missing information: rule items first, AI items that duplicate a rule item's topic (allergies, medications, pregnancy, observations, glucose, age/sex) dropped, sorted by priority. Next steps sorted immediate, today, routine.
 
+### 7.2.1 Dose guard
+
+After parsing, a deterministic pass (`src/lib/pipeline/doses.ts`) removes any medication dose (number with mg, mcg, g, mL, units, L/min and per-kg or per-time forms) and dosing frequency (BD, TDS, QDS, PRN, q4h…) from next steps, missing-information items and AI flag actions, adds "per local protocol" where needed, and shows a warning. The case summary is left as written because it reports the clinician's own text. Added after an open-weight fallback model wrote "aspirin 300 mg" despite the prompt.
+
 ### 7.3 Grounding
 
 Quotes are normalised (NFKC, lower case, straight quotes, plain dashes, collapsed whitespace, trimmed punctuation) and must be at least 3 characters and found in the analysed text. Matches map back to exact spans for highlighting.

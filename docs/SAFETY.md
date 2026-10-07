@@ -8,7 +8,7 @@ A prototype that helps a clinician in an outpatient clinic organise a short, de-
 
 - Diagnosis, triage decisions or treatment decisions without a clinician.
 - Real patient data. The prototype is for fictional cases only.
-- Medication dosing. The model is instructed never to give doses, routes or frequencies.
+- Medication dosing. The model is instructed never to give doses, routes or frequencies, and a deterministic dose guard removes any that still appear in its suggestions.
 - Children's vital-sign interpretation beyond the explicit paediatric red-flag rules. NEWS2 is shown as not applicable under 16 and in pregnancy.
 
 ## Inputs and outputs

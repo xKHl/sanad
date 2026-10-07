@@ -9,6 +9,7 @@ import { runSafetyChecks } from '@/lib/safety';
 import type { SafetyFindings } from '@/lib/safety/types';
 import { groundAnalysis } from './grounding';
 import { completeness, mergeMissingInfo, mergeRedFlags, postProcess, safetyStatus } from './merge';
+import { removeDoses } from './doses';
 import type { AnalysisResult } from './types';
 
 export const SCENARIO_MIN = 20;
@@ -105,7 +106,15 @@ export async function analyzeCase(
     }
   }
 
-  if (ai) ai = postProcess(ai);
+  if (ai) {
+    ai = postProcess(ai);
+    const guarded = removeDoses(ai);
+    ai = guarded.ai;
+    if (guarded.removed > 0)
+      warnings.push(
+        `A medication dose or frequency suggested by the AI was removed (${guarded.removed} place${guarded.removed > 1 ? 's' : ''}). Sanad never gives doses; follow local protocol.`,
+      );
+  }
   const grounding = ai ? groundAnalysis(ai, analyzedText) : null;
   const unverified = grounding ? grounding.total - grounding.verified : 0;
   if (unverified > 0)

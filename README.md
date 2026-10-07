@@ -53,7 +53,7 @@ flowchart LR
 
 1. **Safety never depends on the AI.** Rules and NEWS2 run on every request (also live in the browser while typing) and render first. The model cannot remove or downgrade a rule flag.
 2. **Grounded output.** Every summary fact and AI red flag carries a verbatim quote that code checks against the text. Unverified facts are marked; AI flags without a verified quote are dropped.
-3. **Decision-support language.** "Consider…", "Evaluate for…". No diagnoses as fact, no medication doses.
+3. **Decision-support language.** "Consider…", "Evaluate for…". No diagnoses as fact, no medication doses: a deterministic guard removes any dose a model still writes.
 4. **Privacy by design.** Identifiers are removed before any model call; nothing is stored; the server logs metadata only, never case text.
 5. **Transparent.** Each result shows the model, prompt and rules versions, the rules that fired with their guidance basis, timings, quote checks and redactions.
 6. **Graceful degradation.** If the AI fails, the full rule-based findings still return with a clear message.
